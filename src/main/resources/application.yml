@@ -1,0 +1,19 @@
+const:
+  default-page-size: 20
+  auth-code-length: 6
+file:
+  directory: /home/download
+  mybatis:
+    mapper-locations: mappers/**/*.xml
+
+  spring:
+    application:
+      name: JobDone
+    datasource:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      url: jdbc:log4jdbc:mariadb://192.168.0.144/db_even_second_4
+      username: even_second_4
+      password: guppy
+    servlet:
+      multipart:
+        max-file-size: 15MB
