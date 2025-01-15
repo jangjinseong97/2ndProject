@@ -4,7 +4,7 @@ const:
 file:
   directory: /home/download
   mybatis:
-    mapper-locations: mappers/**/*.xml
+    mapper-locations: mapper/**/*.xml
 
   spring:
     application:
