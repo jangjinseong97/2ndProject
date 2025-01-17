@@ -1,0 +1,21 @@
+package com.green.jobdone.user.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class UserInfoPatchReq {
+    @Schema(title = "유저 ID",example = "2",requiredMode = Schema.RequiredMode.REQUIRED)
+    private long userId;
+    @Schema(description = "유저 휴대폰번호", example = "01012345678")
+    private String phone;
+    @Schema(title = "닉네임",example = "홍길동")
+    private String nickName;
+    @JsonIgnore
+    private String pic;
+
+
+}
