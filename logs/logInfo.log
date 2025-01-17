@@ -1,0 +1,612 @@
+[2025-01-17 17:36:20 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:36:20 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 12244 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:36:20 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:36:20 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:36:20 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:36:20 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:36:21 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:36:21 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:36:21 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:36:21 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:36:21 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:36:21 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 810 ms
+[2025-01-17 17:36:21 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:36:21 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:36:21 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:36:21 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:36:47 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:36:47 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11560 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:36:47 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:36:47 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:36:47 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:36:48 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:36:48 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:36:48 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:36:48 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:36:48 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:36:48 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:36:48 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 806 ms
+[2025-01-17 17:36:48 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:36:48 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:36:48 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:36:48 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:41:49 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:41:49 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11956 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:41:49 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:41:49 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:41:49 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:41:50 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:41:50 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:41:50 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:41:50 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:41:50 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:41:50 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:41:50 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 797 ms
+[2025-01-17 17:41:50 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:41:50 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:41:50 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:41:50 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:43:54 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:43:54 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 248 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:43:54 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:43:54 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:43:54 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:43:54 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:43:55 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:43:55 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:43:55 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:43:55 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:43:55 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:43:55 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 797 ms
+[2025-01-17 17:43:55 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:43:55 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:43:55 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:43:55 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:44:45 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:44:45 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 10796 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:44:45 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:44:45 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:44:45 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:44:46 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:44:46 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:44:46 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:44:46 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:44:46 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:44:46 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:44:46 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 787 ms
+[2025-01-17 17:44:46 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:44:46 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:44:46 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:44:46 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:46:24 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:46:24 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11476 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:46:24 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:46:24 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:46:24 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:46:25 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:46:25 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:46:25 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:46:25 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:46:25 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:46:25 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:46:25 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 792 ms
+[2025-01-17 17:46:25 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:46:25 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:46:25 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:46:25 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:47:01 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:47:01 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 172 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:47:01 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:47:01 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:47:01 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:47:02 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:47:02 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:47:02 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:47:02 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:47:02 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:47:02 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:47:02 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 782 ms
+[2025-01-17 17:47:02 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:47:02 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:47:02 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:47:02 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:48:27 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:48:27 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11412 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:48:27 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:48:27 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:48:27 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:48:28 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:48:28 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:48:28 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:48:28 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:48:28 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:48:28 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:48:28 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 793 ms
+[2025-01-17 17:48:28 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:48:28 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:48:28 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:48:28 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:48:47 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:48:48 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 2292 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:48:48 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:48:48 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:48:48 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:48:48 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:48:48 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:48:48 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:48:48 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:48:48 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:48:48 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:48:48 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 780 ms
+[2025-01-17 17:48:49 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:48:49 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:48:49 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:48:49 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:51:16 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:51:16 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 7312 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:51:16 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:51:16 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:51:16 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:51:17 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:51:17 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:51:17 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:51:17 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:51:17 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:51:17 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:51:17 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 803 ms
+[2025-01-17 17:51:17 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:51:17 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:51:17 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:51:17 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:54:30 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:54:30 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 8168 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:54:30 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:54:30 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:54:30 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:54:30 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:54:30 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:54:30 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:54:30 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:54:30 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:54:31 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:54:31 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 784 ms
+[2025-01-17 17:54:31 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:54:31 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:54:31 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:54:31 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:54:34 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-17 17:54:34 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 5088 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:54:34 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:54:34 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:54:34 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:54:35 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:54:35 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:54:35 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:54:35 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:54:35 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:54:35 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:54:35 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 788 ms
+[2025-01-17 17:54:35 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:54:35 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:54:35 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:54:35 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:55:17 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 10712 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:55:17 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:55:17 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:55:17 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:55:18 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:55:18 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:55:18 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:55:18 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:55:18 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:55:19 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:55:19 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 1048 ms
+[2025-01-17 17:55:19 INFO restartedMain] [org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean] Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+[2025-01-17 17:55:19 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:55:19 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:55:19 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:55:19 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:56:02 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 2264 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:56:02 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:56:02 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:56:02 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:56:03 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:56:03 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:56:03 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:56:03 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:56:03 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:56:03 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:56:03 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 769 ms
+[2025-01-17 17:56:03 INFO restartedMain] [org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean] Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+[2025-01-17 17:56:03 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:56:03 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:56:03 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:56:03 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:56:43 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 7900 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:56:43 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:56:43 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:56:43 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:56:44 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:56:44 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:56:44 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:56:44 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:56:44 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:56:44 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:56:44 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 770 ms
+[2025-01-17 17:56:44 INFO restartedMain] [org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean] Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+[2025-01-17 17:56:44 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:56:44 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:56:44 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:56:44 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:58:43 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 7044 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:58:43 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:58:43 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:58:43 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:58:43 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:58:44 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:58:44 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:58:44 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:58:44 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:58:44 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:58:44 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 769 ms
+[2025-01-17 17:58:44 INFO restartedMain] [org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean] Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+[2025-01-17 17:58:44 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:58:44 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:58:44 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:58:44 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+[2025-01-17 17:58:55 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11648 (D:\Students\jang jin seong\2ndProject\build\classes\java\main started by Administrator in D:\Students\jang jin seong\2ndProject)
+[2025-01-17 17:58:55 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-17 17:58:55 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-17 17:58:55 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-17 17:58:56 WARN restartedMain] [org.mybatis.spring.mapper.ClassPathMapperScanner] No MyBatis mapper was found in '[com.green.jobdone]' package. Please check your configuration.
+[2025-01-17 17:58:56 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-17 17:58:56 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-17 17:58:56 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-17 17:58:56 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-17 17:58:56 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-17 17:58:56 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 777 ms
+[2025-01-17 17:58:56 INFO restartedMain] [org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean] Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+[2025-01-17 17:58:56 WARN restartedMain] [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine a suitable driver class
+[2025-01-17 17:58:56 INFO restartedMain] [org.apache.catalina.core.StandardService] Stopping service [Tomcat]
+[2025-01-17 17:58:56 INFO restartedMain] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2025-01-17 17:58:56 ERRORrestartedMain] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
