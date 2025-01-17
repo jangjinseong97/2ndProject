@@ -1,9 +1,10 @@
 package com.green.jobdone.category;
 
-import com.green.jobdone.category.model.PostCategory;
+import com.green.jobdone.category.model.CategoryPostReq;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CategoryMapper {
-    int insCategory(PostCategory p);
+    int insCategory(CategoryPostReq p);
+    int existCategory(String serviceTypeName);
 }

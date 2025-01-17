@@ -9,9 +9,9 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class PostCategory {
+public class CategoryPostReq {
     @JsonIgnore
-    private long categoryId;
+    private long serviceTypeId;
     @Schema(title = "카테고리 이름", example = "청소", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String categoryName;
+    private String serviceTypeName;
 }
