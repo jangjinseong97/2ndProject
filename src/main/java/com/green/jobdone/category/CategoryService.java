@@ -13,7 +13,7 @@ public class CategoryService {
 
     public int postCategory(CategoryPostReq p) {
 
-        int exists = categoryMapper.insCategory(p.getServiceTypeName());
+        int exists = categoryMapper.existCategory(p.getServiceTypeName());
         if (exists > 0) {
             throw new IllegalArgumentException("이미 존재하는 카테고리입니다.");
         }
