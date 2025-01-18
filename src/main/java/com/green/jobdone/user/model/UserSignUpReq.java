@@ -27,4 +27,5 @@ public class UserSignUpReq {
     private String nickName;
     @Schema(description = "유저 휴대폰번호", example = "01012345678")
     private String phone;
+
 }
