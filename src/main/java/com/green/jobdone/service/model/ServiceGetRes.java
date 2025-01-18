@@ -10,21 +10,21 @@ import java.util.List;
 @Setter
 @ToString
 public class ServiceGetRes {
+    private long serviceId;
     private String userName;
     private String businessName;
     private String productName;
+    private String userPhone;
+    private String address;
+    private int price;
+    private int completed;
+    private String comment;
+    private String addComment;
     private String startTime;
     private String endTime;
     private String mStartTime;
     private String mEndTime;
     private int allow;
-    private String userPhone;
-    private int price;
-    private int completed;
-    private long serviceId;
-    private String address;
-    private String comment;
-    private String addComment;
     private List<String> businessPhone;
     private List<ServiceOptionDto> options;
 }
