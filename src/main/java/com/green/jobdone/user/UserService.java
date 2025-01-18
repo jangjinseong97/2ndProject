@@ -1,7 +1,18 @@
 package com.green.jobdone.user;
 
+import com.green.jobdone.common.CookieUtils;
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.exception.CustomException;
+import com.green.jobdone.common.exception.UserErrorCode;
+import com.green.jobdone.config.jwt.JwtConst;
+import com.green.jobdone.config.jwt.JwtUser;
+import com.green.jobdone.config.jwt.TokenProvider;
+import com.green.jobdone.config.security.AuthenticationFacade;
+import com.green.jobdone.user.model.UserSignInReq;
+import com.green.jobdone.user.model.UserSignInRes;
+import com.green.jobdone.user.model.UserSignInResDto;
 import com.green.jobdone.user.model.UserSignUpReq;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -10,25 +21,102 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
     private final UserMapper userMapper;
 
+    private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
+    private final CookieUtils cookieUtils;
+    private final AuthenticationFacade authenticationFacade;
+    private final JwtConst jwtConst;
 
 
     public int postUserSignUp(UserSignUpReq p, MultipartFile pic){
         String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
 
 
+        String hashedPassword = passwordEncoder.encode(p.getUpw());
+        log.info("hashedPassword: {}", hashedPassword);
+        p.setUpw(hashedPassword);
+        p.setPic(savedPicName);
 
-        return  0;
+        int result=mapper.postUserSignUp(p);
 
+        if(pic == null) {
+            return result;
+        }
 
+        // 저장 위치 만든다.
+        // middlePath = user/${userId}
+        // filePath = user/${userId}/${savedPicName}
+        long userId = p.getUserId(); //userId를 insert 후에 얻을 수 있다.
+        String middlePath = String.format("user/%d", userId);
+        myFileUtils.makeFolders(middlePath);
+        log.info("middlePath: {}", middlePath);
+        String filePath = String.format("%s/%s", middlePath, savedPicName);
+        try {
+            myFileUtils.transferTo(pic, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
 
     }
+
+    public UserSignInRes postUserSignIn(UserSignInReq p, HttpServletResponse response) {
+        UserSignInResDto res = mapper.postUserSignIn(p.getEmail()); // email 에 해당하는 유저 res 가져오기
+        if(res==null||!passwordEncoder.matches(p.getUpw(), res.getUpw())) {
+            throw new CustomException(UserErrorCode.INCORRECT_ID_PW); // 우리가 만든 에러를 던져줌
+        }
+
+        // 예외처리를 하기 전에는 밑에 보이는 것처럼 처리했어야했다.
+//        if( res == null ) { //아이디 없음
+//            res = new UserSignInRes();
+//            res.setMessage("아이디를 확인해 주세요.");
+//            return res;
+//        } else if(!passwordEncoder.matches(p.getUpw(), res.getUpw())) { //비밀번호가 다를시
+//        //} else if( !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { //비밀번호가 다를시
+//            res = new UserSignInRes();
+//            res.setMessage("비밀번호를 확인해 주세요.");
+//            return res;
+//        }
+
+        /*
+        JWT 토큰 생성 2개? AccessToken(20분), RefreshToken(15일)
+         */
+        JwtUser jwtUser = new JwtUser(res.getUserId(),res.getRoles());
+
+
+        String accessToken = tokenProvider.generateToken(jwtUser, jwtConst.getAccessTokenExpiry());
+        String refreshToken = tokenProvider.generateToken(jwtUser,jwtConst.getRefreshTokenExpiry());
+
+        //refreshToken은 쿠키에 담는다.
+
+        cookieUtils.setCookie(response, "refreshToken", refreshToken, jwtConst.getRefreshTokenCookieExpiry());
+
+        return UserSignInRes
+                .builder()
+                .email(res.getEmail())
+                .type(res.getType())
+                .userId(res.getUserId())
+                .pic(res.getPic())
+                .accessToken(accessToken)
+                .nickName(res.getNickName())
+                .build();
+    }
+
+
+
+
 
 
 
