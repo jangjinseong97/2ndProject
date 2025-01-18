@@ -6,4 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DetailTypeGetRes {
+    private long detailTypeId;
+    private String name;
 }

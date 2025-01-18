@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DetailTypeGetReq {
-    @Schema(title = "카페 아이디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long detailTypeId;
+    @Schema(title = "상세 타입 아이디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private long serviceTypeId;
 }

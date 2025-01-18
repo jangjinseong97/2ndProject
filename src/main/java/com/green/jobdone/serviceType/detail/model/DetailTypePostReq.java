@@ -9,6 +9,6 @@ import lombok.Setter;
 public class DetailTypePostReq {
     @Schema(title = "카테고리 아이디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long serviceTypeId;
-    @Schema(title = "디테일 카테고리 이름", example = "모텔 청소", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "디테일 카테고리 이름", example = "벌레 퇴치", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 }
