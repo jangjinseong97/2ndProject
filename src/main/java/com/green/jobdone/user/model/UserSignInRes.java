@@ -13,6 +13,7 @@ public class UserSignInRes {
     private long userId;
     private String nickName;
     private String email;
+    @JsonIgnore
     private String type;
     private String pic;
     private String accessToken;

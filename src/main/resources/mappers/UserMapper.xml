@@ -13,6 +13,21 @@
     </insert>
 
 
+    <resultMap id="userSignInResDtoMap" type="com.green.jobdone.user.model.UserSignInResDto">
+        <result property="userId" column="userId" />
+        <result property="nickName" column="nickName" />
+        <result property="email" column="email" />
+        <result property="pic" column="pic" />
+        <result property="roles" column="type"
+                typeHandler="com.green.jobdone.config.handler.UserRoleTypeHandler" />
+    </resultMap>
+
+    <select id="getUserByEmailAndPassword" resultMap="userSignInResDtoMap">
+        SELECT u.user_id, u.nick_name, u.email, u.type, u.pic
+        FROM user u
+        WHERE u.email = #{email} AND u.upw = #{upw}
+    </select>
+
 
 
     <resultMap id="selUserWithRolesResultMap" type="com.green.jobdone.user.model.UserSignInResDto">
@@ -21,7 +36,8 @@
         <result property="upw" column="upw"/>
         <result property="nickName" column="nickName"/>
         <result property="pic" column="pic"/>
-        <result property="roles" column="type"/>
+        <result property="roles" column="type"
+                typeHandler="com.green.jobdone.config.handler.UserRoleTypeHandler" />
     </resultMap>
 
 

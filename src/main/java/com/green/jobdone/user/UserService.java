@@ -2,8 +2,6 @@ package com.green.jobdone.user;
 
 import com.green.jobdone.common.CookieUtils;
 import com.green.jobdone.common.MyFileUtils;
-import com.green.jobdone.common.exception.CustomException;
-import com.green.jobdone.common.exception.UserErrorCode;
 import com.green.jobdone.config.jwt.JwtConst;
 import com.green.jobdone.config.jwt.JwtUser;
 import com.green.jobdone.config.jwt.TokenProvider;
@@ -29,7 +27,6 @@ import java.util.ArrayList;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
-    private final UserMapper userMapper;
 
     private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
@@ -75,7 +72,7 @@ public class UserService {
     public UserSignInRes postUserSignIn(UserSignInReq p, HttpServletResponse response) {
         UserSignInResDto res = mapper.postUserSignIn(p.getEmail()); // email 에 해당하는 유저 res 가져오기
         if(res==null||!passwordEncoder.matches(p.getUpw(), res.getUpw())) {
-            throw new CustomException(UserErrorCode.INCORRECT_ID_PW); // 우리가 만든 에러를 던져줌
+           return null;
         }
 
         // 예외처리를 하기 전에는 밑에 보이는 것처럼 처리했어야했다.
@@ -98,6 +95,9 @@ public class UserService {
 
         String accessToken = tokenProvider.generateToken(jwtUser, jwtConst.getAccessTokenExpiry());
         String refreshToken = tokenProvider.generateToken(jwtUser,jwtConst.getRefreshTokenExpiry());
+
+        log.info("accessToken: {}", accessToken);
+        log.info("refreshToken: {}", refreshToken);
 
         //refreshToken은 쿠키에 담는다.
 
