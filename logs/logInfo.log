@@ -8867,3 +8867,298 @@ This generated password is for development use only. Your security configuration
 [2025-01-19 23:22:34 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
 [2025-01-19 23:22:34 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Shutdown initiated...
 [2025-01-19 23:22:34 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Shutdown completed.
+[2025-01-20 09:33:23 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 09:33:23 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 9396 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 09:33:23 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 09:33:23 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 09:33:23 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 09:33:24 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 09:33:24 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:33:24 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-20 09:33:24 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-20 09:33:24 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-20 09:33:24 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 1069 ms
+[2025-01-20 09:33:25 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 09:33:25 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 09:33:25 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@a4e195d
+[2025-01-20 09:33:25 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 09:33:25 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: 8578afe0-c50b-4140-b5d6-92a359cf52b8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 09:33:25 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 09:33:25 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 09:33:25 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 09:33:25 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Starting ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:33:25 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 09:33:25 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 2.33 seconds (process running for 2.816)
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Initializing Servlet 'dispatcherServlet'
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Completed initialization in 0 ms
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 09:33:51 INFO http-nio-8080-exec-10] [org.springdoc.api.AbstractOpenApiResource] Init duration for springdoc-openapi is: 152 ms
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 09:34:27 DEBUGhttp-nio-8080-exec-6] [jdbc.sqltiming]  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT userId,nickName,email,type,pic,upw
+        FROM user
+        WHERE email='1234park@naver.com'
+ {executed in 1 msec}
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [jdbc.resultsettable] 
+|-------|---------|-------------------|-----|-----------------------------------------|-------------------------------------------------------------|
+|userid |nickname |email              |type |pic                                      |upw                                                          |
+|-------|---------|-------------------|-----|-----------------------------------------|-------------------------------------------------------------|
+|2      |홍길동      |1234park@naver.com |100  |5498f21f-3934-4e16-a680-f376f4cc9ab2.jpg |$2a$10$QZlBQgIeqszPTpcHT4gWWe1es7kDS9io2x/KyizHY4q/RkuX3Pxo2 |
+|-------|---------|-------------------|-----|-----------------------------------------|-------------------------------------------------------------|
+
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [com.green.jobdone.user.UserService] accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpc3MiOiJncmVlbkBncmVlbi5rciIsImlhdCI6MTczNzMzMzI2NywiZXhwIjoxNzM3MzMzODY3LCJzaWduZWRVc2VyIjoie1wic2lnbmVkVXNlcklkXCI6MixcInJvbGVzXCI6W1wiUk9MRV9VU0VSXCJdfSJ9.azDhumFBphw7ssc1bIpf36zrXQaxsP2b0d9PXX7rMBrJlxSKDIDQx49XxbYNfw1E
+[2025-01-20 09:34:27 INFO http-nio-8080-exec-6] [com.green.jobdone.user.UserService] refreshToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpc3MiOiJncmVlbkBncmVlbi5rciIsImlhdCI6MTczNzMzMzI2NywiZXhwIjoxNzM4NjI5MjY3LCJzaWduZWRVc2VyIjoie1wic2lnbmVkVXNlcklkXCI6MixcInJvbGVzXCI6W1wiUk9MRV9VU0VSXCJdfSJ9.cMMyCvs2wzEzi9E-dL49Yf8TUCPrKWzQHWY-uupRV8SC3WPxyb6im3krEwLO2bvb
+[2025-01-20 09:35:31 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 09:35:31 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 09:35:31 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 09:35:31 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
+[2025-01-20 09:35:51 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 09:35:51 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 5736 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 09:35:51 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 09:35:51 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 09:35:51 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 09:35:51 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 09:35:51 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:35:51 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-20 09:35:51 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-20 09:35:52 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-20 09:35:52 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 842 ms
+[2025-01-20 09:35:52 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 09:35:52 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 09:35:52 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@b6e6468
+[2025-01-20 09:35:52 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 09:35:52 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: 9ebb4699-2944-447a-9e55-5dcbb805b90f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 09:35:52 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 09:35:52 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 09:35:52 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 09:35:52 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Starting ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:35:52 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 09:35:52 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 1.886 seconds (process running for 2.238)
+[2025-01-20 09:35:59 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 09:35:59 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 09:35:59 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 09:35:59 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
+[2025-01-20 09:40:30 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 09:40:30 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 3120 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 09:40:30 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 09:40:30 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 09:40:30 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 09:40:30 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 09:40:31 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:40:31 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-20 09:40:31 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-20 09:40:31 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-20 09:40:31 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 871 ms
+[2025-01-20 09:40:31 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 09:40:31 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 09:40:31 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@6fb2a1f3
+[2025-01-20 09:40:31 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 09:40:31 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: b107bde7-cef6-4841-987a-d9ae5af18a95
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 09:40:31 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 09:40:31 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 09:40:31 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 09:40:31 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Starting ProtocolHandler ["http-nio-8080"]
+[2025-01-20 09:40:31 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 09:40:31 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 1.901 seconds (process running for 2.266)
+[2025-01-20 09:41:11 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 09:41:11 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 09:41:11 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 09:41:11 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
+[2025-01-20 10:21:35 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 10:21:35 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 5600 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 10:21:35 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 10:21:35 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 10:21:35 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 10:21:36 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 10:21:36 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-20 10:21:36 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-20 10:21:36 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-20 10:21:36 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-20 10:21:36 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 871 ms
+[2025-01-20 10:21:36 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 10:21:36 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 10:21:36 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@ff6e1d6
+[2025-01-20 10:21:36 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 10:21:36 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: 6209ff2f-6016-4828-9738-36c64cef6726
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 10:21:36 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 10:21:37 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 10:21:37 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 10:21:37 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Starting ProtocolHandler ["http-nio-8080"]
+[2025-01-20 10:21:37 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 10:21:37 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 1.93 seconds (process running for 2.271)
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Initializing Servlet 'dispatcherServlet'
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Completed initialization in 1 ms
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:21:40 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:21:41 INFO http-nio-8080-exec-3] [org.springdoc.api.AbstractOpenApiResource] Init duration for springdoc-openapi is: 147 ms
+[2025-01-20 10:22:20 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:22:20 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:22:20 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:22:23 DEBUGhttp-nio-8080-exec-7] [jdbc.sqltiming]  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. INSERT INTO user_auth
+        SET email = '4604park@naver.com'
+        , authCode = 'J3Rf7xEh'
+        , expiredTime = 2025-01-20T10:52:23.868059800
+ {executed in 6 msec}
+[2025-01-20 10:23:09 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 10:23:09 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 10:23:09 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 10:23:09 DEBUGhttp-nio-8080-exec-5] [jdbc.sqltiming]  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. SELECT authCode, expiredTime, email
+        FROM user_auth
+        WHERE email = '4604park@naver.com'
+        ORDER BY createdAt DESC
+        LIMIT 1
+ {executed in 1 msec}
+[2025-01-20 10:23:09 INFO http-nio-8080-exec-5] [jdbc.resultsettable] 
+|---------|----------------------|-------------------|
+|authcode |expiredtime           |email              |
+|---------|----------------------|-------------------|
+|J3Rf7xEh |2025-01-20 10:52:23.0 |4604park@naver.com |
+|---------|----------------------|-------------------|
+
+[2025-01-20 10:23:09 DEBUGhttp-nio-8080-exec-5] [jdbc.sqltiming]  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+1. UPDATE user_auth
+        SET authCheck = 1
+        WHERE email = '4604park@naver.com' AND authCode = 'J3Rf7xEh'
+ {executed in 6 msec}
+[2025-01-20 10:28:47 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 10:28:47 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 10:28:47 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 10:28:47 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
+[2025-01-20 13:06:57 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 13:06:57 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 9920 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 13:06:57 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 13:06:57 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 13:06:57 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 13:06:58 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 13:06:58 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 994 ms
+[2025-01-20 13:06:58 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 13:06:58 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 13:06:58 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1dd86704
+[2025-01-20 13:06:58 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 13:06:58 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: 04719c23-0509-437b-bd18-11a570141f98
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 13:06:58 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 13:06:58 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 13:06:58 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 13:06:58 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 13:06:58 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 2.118 seconds (process running for 2.549)
+[2025-01-20 13:06:58 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 13:06:58 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 13:06:58 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 13:06:58 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
+[2025-01-20 13:07:01 INFO background-preinit] [org.hibernate.validator.internal.util.Version] HV000001: Hibernate Validator 8.0.2.Final
+[2025-01-20 13:07:01 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Starting JobDoneApplication using Java 17.0.12 with PID 11848 (D:\pjh\2ndProject1\build\classes\java\main started by Administrator in D:\pjh\2ndProject1)
+[2025-01-20 13:07:01 INFO restartedMain] [com.green.jobdone.JobDoneApplication] No active profile set, falling back to 1 default profile: "default"
+[2025-01-20 13:07:01 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-01-20 13:07:01 INFO restartedMain] [org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-01-20 13:07:02 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat initialized with port 8080 (http)
+[2025-01-20 13:07:02 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Initializing ProtocolHandler ["http-nio-8080"]
+[2025-01-20 13:07:02 INFO restartedMain] [org.apache.catalina.core.StandardService] Starting service [Tomcat]
+[2025-01-20 13:07:02 INFO restartedMain] [org.apache.catalina.core.StandardEngine] Starting Servlet engine: [Apache Tomcat/10.1.34]
+[2025-01-20 13:07:02 INFO restartedMain] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring embedded WebApplicationContext
+[2025-01-20 13:07:02 INFO restartedMain] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] Root WebApplicationContext: initialization completed in 871 ms
+[2025-01-20 13:07:02 INFO restartedMain] [com.green.jobdone.common.MyFileUtils] MyFileUtils - 생성자: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+[2025-01-20 13:07:02 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[2025-01-20 13:07:03 INFO restartedMain] [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7ffa4790
+[2025-01-20 13:07:03 INFO restartedMain] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[2025-01-20 13:07:03 WARN restartedMain] [org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration] 
+
+Using generated security password: 6ca468cb-0ca9-4d6b-8cad-1e2d6a834726
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+[2025-01-20 13:07:03 INFO restartedMain] [org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer] Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+[2025-01-20 13:07:03 WARN restartedMain] [org.springframework.web.servlet.resource.ResourceHandlerUtils] Appended trailing slash to static resource location: classpath:/static/**/
+[2025-01-20 13:07:03 INFO restartedMain] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] LiveReload server is running on port 35729
+[2025-01-20 13:07:03 INFO restartedMain] [org.apache.coyote.http11.Http11NioProtocol] Starting ProtocolHandler ["http-nio-8080"]
+[2025-01-20 13:07:03 INFO restartedMain] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+[2025-01-20 13:07:03 INFO restartedMain] [com.green.jobdone.JobDoneApplication] Started JobDoneApplication in 1.914 seconds (process running for 2.263)
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Initializing Servlet 'dispatcherServlet'
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [org.springframework.web.servlet.DispatcherServlet] Completed initialization in 1 ms
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-1] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-2] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-8] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-8] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-8] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-6] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-5] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-3] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-7] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-4] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-9] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-9] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-9] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] ip Address: 0:0:0:0:0:0:0:1
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] authorizationHeader: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-10] [com.green.jobdone.config.jwt.TokenAuthenticationFilter] token: null
+[2025-01-20 13:07:08 INFO http-nio-8080-exec-9] [org.springdoc.api.AbstractOpenApiResource] Init duration for springdoc-openapi is: 149 ms
+[2025-01-20 13:16:31 INFO SpringApplicationShutdownHook] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Commencing graceful shutdown. Waiting for active requests to complete
+[2025-01-20 13:16:31 INFO tomcat-shutdown] [org.springframework.boot.web.embedded.tomcat.GracefulShutdown] Graceful shutdown complete
+[2025-01-20 13:16:31 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown initiated...
+[2025-01-20 13:16:31 INFO SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Shutdown completed.
