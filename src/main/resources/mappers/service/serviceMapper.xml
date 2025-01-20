@@ -32,7 +32,7 @@
         <result property="address" column="address"/>
         <result property="comment" column="comment"/>
         <result property="addComment" column="addComment"/>
-        <collection property="businessPhones" ofType="java.lang.String" column="businessPhone" />
+        <collection property="businessPhones" javaType="java.lang.String" column="businessPhone" />
         <collection property="options" resultMap="serviceOption"/>
     </resultMap>
 
