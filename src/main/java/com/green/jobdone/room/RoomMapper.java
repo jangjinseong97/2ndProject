@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface RoomMapper {
     int insRoom(RoomPostReq p);
     int insChat(ChatPostReq p);
-    int insChat(ChatPicPostReq p);
+    int insChatPic(ChatPicPostReq p);
 }
