@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.jobdone.business.BusinessMapper">
+    <insert id="insBusiness"  useGeneratedKeys="true" keyProperty="businessId">
+        INSERT INTO business
+        SET userId = #{userId},
+            paper = #{paper},
+            businessNum = #{businessNum},
+            businessName = #{businessName},
+            address = #{address},
+            serviceTypeId = #{serviceTypeId},
+            busiCreatedAt = #{busiCreatedAt},
+            tel = #{tel}
 
+    </insert>
+    <update id="udtBusiness">
+        UPDATE business
+        <set>
+            <if test=" logo != null and logo != ''">
+                logo = #{logo}
+            </if>
+            <if test=" title != null and title != ''">
+                ,title = #{title}
+            </if>
+            <if test=" title != null and title != ''">
+                ,contents = #{contents}
+            </if>
+            <if test="closeTime != null and closeTime != ''">
+                ,closeTime = #{closeTime}
+            </if>
+            <if test="openTime != null and openTime != ''">
+            ,openTime = #{openTime}
+            </if>
+
+
+        </set>
+        WHERE businessId = #{businessId} and userId = #{userId}
+    </update>
+
+    <insert id="insBusinessPics" useGeneratedKeys="true" keyProperty="businessPicId">
+        INSERT INTO businessPic
+        SET businessId = {businessId},
+            pic = #{pic}
+    </insert>
 </mapper>
