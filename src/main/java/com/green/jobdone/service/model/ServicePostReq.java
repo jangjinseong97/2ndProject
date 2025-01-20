@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+//이거 어디감
 public class ServicePostReq {
     private long userId;
     private long productId;
