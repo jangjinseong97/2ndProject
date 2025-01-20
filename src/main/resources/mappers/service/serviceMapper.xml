@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.jobdone.service.ServiceMapper">
+    <insert id="insService" keyProperty="serviceId" useGeneratedKeys="true">
+        insert into service
+        (userId , productId, price, lat, lng, address, comment, phone)
+        values
+        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone})
+    </insert>
+
+    <insert id="insServiceDetail">
+        insert into service_detail
+        (serviceId, startTime, allow)
+        values
+        (#{serviceId}, #{startTime}, #{allow})
+    </insert>
+
+    <resultMap id="serviceFlow" type="com.green.jobdone.service.model.ServiceGetRes">
+        <id property="serviceId" column="serviceId"/>
+        <result property="userName" column="userName"/>
+        <result property="businessName" column="businessName"/>
+        <result property="productName" column="productName"/>
+        <result property="startTime" column="startTime"/>
+        <result property="mStartTime" column="mStartTime"/>
+        <result property="mEndTime" column="mEndTime"/>
+        <result property="endTime" column="endTime"/>
+        <result property="allow" column="allow"/>
+        <result property="userPhone" column="userPhone"/>
+        <result property="price" column="price"/>
+        <result property="completed" column="completed"/>
+        <result property="address" column="address"/>
+        <result property="comment" column="comment"/>
+        <result property="addComment" column="addComment"/>
+        <collection property="businessPhones" ofType="java.lang.String" column="businessPhone" />
+        <collection property="options" resultMap="serviceOption"/>
+    </resultMap>
+
+    <resultMap id="serviceOption" type="com.green.jobdone.service.model.ServiceOptionDto">
+        <id property="productOptionId" column="productOptionId"/>
+        <result property="optionName" column="optionName"/>
+        <collection property="optionDetails" resultMap="serviceOptionDetail"/>
+    </resultMap>
+
+    <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.OptionDetailDto">
+        <id property="optionDetailId" column="optionDetailId"/>
+        <result property="detailName" column="detailName"/>
+        <result property="detailPrice" column="detailPrice"/>
+        <result property="contents" column="contents"/>
+    </resultMap>
+
+    <select id="GetServiceFlow" resultMap="serviceFlow">
+        select b.nickName as userName, a.phone as userPhone, d.name as businessName, e.name as productName,
+        a.price, a.completed, a.serviceId, a.address, a.comment, a.addComment,
+        g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, group_concat(distinct j.phone) as businessPhone,
+        g.productOptionId, i.optionDetailId, k.startTime, k.endTime, k.mStartTime, k.mEndTime, k.allow
+        from service a
+        join user b on a.userId = b.userId
+        join product c on a.productId = c.productId
+        join business d on c.businessId = d.businessId
+        join detail_type e on c.detailType = e.detailType
+        join service_option f on a.serviceId = f.serviceId
+        join product_option g on f.productOptionId = g.productOptionId
+        join service_option_detail h on g.productOptionId = h.productOptionId
+        join option_detail i on h.optionDetailId = i.optionDetailId
+        join business_phone j on d.businessId = j.businessId
+        join service_detail k on a.serviceId = k.serviceId
+        where
+        <if test="userId != null">
+            b.userId = #{userId}
+        </if>
+        <if test="businessId != null">
+            d.businessId = #{businessId}
+        </if>
+        order by a.serviceId desc
+
+    </select>
+</mapper>

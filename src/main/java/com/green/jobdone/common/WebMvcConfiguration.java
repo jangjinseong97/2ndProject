@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerTypePredicate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -36,7 +37,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource resource = location.createRelative(resourcePath);
 
-                        if(resource.exists() && resource.isReadable()) {
+                        if (resource.exists() && resource.isReadable()) {
                             return resource;
                         }
 
@@ -46,12 +47,22 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     }
 
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8080") // Swagger UI가 동작하는 주소
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+
+
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         // RestController의 모든 URL에 "/api" prefix를 설정
         configurer.addPathPrefix("api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
-
 
 
 }
