@@ -30,7 +30,7 @@ public class ServiceController {
                 .resultMessage(res == 0 ? "예약 실패" : "예약 성공")
                 .build();
     }
-
+    @GetMapping
     public ResultResponse<List<ServiceGetRes>> getService(@ParameterObject @ModelAttribute ServiceGetReq p){
         List<ServiceGetRes> res = serviceService.getService(p);
         return ResultResponse.<List<ServiceGetRes>>builder()
