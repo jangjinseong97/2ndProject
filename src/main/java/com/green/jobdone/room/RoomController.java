@@ -21,8 +21,8 @@ public class RoomController {
 
     @Operation(summary = "채팅방 조회")
     @GetMapping
-    public ResultResponse<List<RoomGetRes>> getRooms(@ParameterObject @ModelAttribute RoomGetReq req) {
-        List<RoomGetRes> res = roomService.selRoom(req);
+    public ResultResponse<List<RoomGetRes>> getRooms(@ParameterObject @ModelAttribute RoomGetReq p) {
+        List<RoomGetRes> res = roomService.selRoom(p);
         return ResultResponse.<List<RoomGetRes>>builder()
                 .resultData(res)
                 .resultMessage("조회 완료")
@@ -30,8 +30,8 @@ public class RoomController {
     }
     @Operation(summary = "채팅방 생성")
     @PostMapping
-    public ResultResponse<Integer> insRoom(@RequestBody RoomPostReq req) {
-        int res = roomService.insRoom(req);
+    public ResultResponse<Integer> insRoom(@RequestBody RoomPostReq p) {
+        int res = roomService.insRoom(p);
         return ResultResponse.<Integer>builder()
                 .resultData(res)
                 .resultMessage("생성 완료")
