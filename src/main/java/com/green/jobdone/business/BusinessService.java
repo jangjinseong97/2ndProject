@@ -92,6 +92,10 @@ public class BusinessService {
                 e.printStackTrace();
             }
         }
+        BusinessPicDto businessPicDto = new BusinessPicDto();
+        businessPicDto.setBusinessId(businessId);
+        businessPicDto.setPics(businessPicList);
+        int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
         return BusinessPicPostRes.builder()
                 .businessId(businessId)
