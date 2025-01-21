@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.jobdone.review.ReviewMapper">
+    <insert id="insReview" useGeneratedKeys="true" keyProperty="reviewId">
+        INSERT INTO review
+        SET serviceId = #{serviceId}
+        , contents = #{contents}
+        , score = #{score}
+    </insert>
+
+    <select id="selReview">
+        SELECT A.contents, A.created_at, A.score
+        FROM review A
+        JOIN service B
+        ON A.service_id = B.service_id
+        JOIN product C
+        ON C.product_id = B.product_id
+        JOIN business D
+        ON D.business_id = C.business_id
+        JOIN comment E
+        ON E.review_id = A.review_id
+        WHERE D.business_id = #{businessId}
+        ORDER BY A.created_at DESC
+    </select>
+
+    <insert id="insComment" useGeneratedKeys="true" keyProperty="commentId">
+        INSERT INTO comment
+        SET review_id = #{reviewId}
+        , user_id = #{userId}
+        , contents = #{contents}
+    </insert>
+</mapper>

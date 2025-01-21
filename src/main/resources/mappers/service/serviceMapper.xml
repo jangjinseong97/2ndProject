@@ -4,9 +4,9 @@
 <mapper namespace="com.green.jobdone.service.ServiceMapper">
     <insert id="insService" keyProperty="serviceId" useGeneratedKeys="true">
         insert into service
-        (userId , productId, price, lat, lng, address, comment, phone)
+        (userId , productId, price, lat, lng, address, comment, phone, name)
         values
-        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone})
+        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name})
     </insert>
 
     <insert id="insServiceDetail">
@@ -52,11 +52,11 @@
     </resultMap>
 
     <select id="GetServiceFlow" resultMap="serviceFlow">
-        select b.name as userName, a.phone as userPhone, d.businessName as businessName, e.name as productName,
+        select a.name as userName, a.phone as userPhone, d.businessName as businessName, e.name as productName,
         a.price, a.completed, a.serviceId, a.address, a.comment, a.addComment,
         g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, group_concat(distinct j.phone) as businessPhone,
         g.productOptionId, i.optionDetailId, k.startTime, k.endTime, k.mStartTime, k.mEndTime,
-        d.businessNum, a.createdAt, l.serviceTypeName
+        d.businessNum, a.createdAt, l.serviceTypeName, b.name as reservedName
         from service a
         join user b on a.userId = b.userId
         join product c on a.productId = c.productId
