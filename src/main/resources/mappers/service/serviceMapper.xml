@@ -50,10 +50,11 @@
     </resultMap>
 
     <select id="GetServiceFlow" resultMap="serviceFlow">
-        select b.nickName as userName, a.phone as userPhone, d.name as businessName, e.name as productName,
+        select b.name as userName, a.phone as userPhone, d.name as businessName, e.name as productName,
         a.price, a.completed, a.serviceId, a.address, a.comment, a.addComment,
         g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, group_concat(distinct j.phone) as businessPhone,
-        g.productOptionId, i.optionDetailId, k.startTime, k.endTime, k.mStartTime, k.mEndTime, k.allow
+        g.productOptionId, i.optionDetailId, k.startTime, k.endTime, k.mStartTime, k.mEndTime, k.allow,
+        d.businessNum, a.createdAt, l.serviceTypeName
         from service a
         join user b on a.userId = b.userId
         join product c on a.productId = c.productId
@@ -65,6 +66,7 @@
         join option_detail i on h.optionDetailId = i.optionDetailId
         join business_phone j on d.businessId = j.businessId
         join service_detail k on a.serviceId = k.serviceId
+        join service_type l on e.serviceTypeId = l.serviceTypeId
         where
         <if test="userId != null">
             b.userId = #{userId}
