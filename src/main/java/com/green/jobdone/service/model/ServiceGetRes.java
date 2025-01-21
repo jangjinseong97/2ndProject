@@ -24,12 +24,11 @@ public class ServiceGetRes {
     private String endTime;
     private String mStartTime;
     private String mEndTime;
-    private int allow;
 
     private String businessNum;
     private String createdAt;
     private String serviceTypeName;
 
-    private List<String> businessPhone;
+    private List<ServicePhone> phone;
     private List<ServiceOptionDto> options;
 }
