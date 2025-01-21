@@ -47,6 +47,12 @@
         </foreach>
     </insert>
 
+    <insert id="insBusinessPhone">
+        insert into businessPhone
+        set businessId = #{businessId},
+            phone = #{phone}
+    </insert>
+
 
 
 

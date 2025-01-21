@@ -7,9 +7,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class BusinessTelPostReq {
-    private long businessTelId;
+public class BusinessPhonePostReq {
     private long businessId;
-    private String tel;
+    private String phone;
 
 }
