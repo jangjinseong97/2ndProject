@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Tag(name = "서비스")
 public class ServiceController {
-    private ServiceService serviceService;
+    private final ServiceService serviceService;
     @Operation(summary = "예약하기")
     @PostMapping
     public ResultResponse<Integer> postService(@RequestBody ServicePostReq p ){

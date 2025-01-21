@@ -17,7 +17,6 @@ public class ServicePostReq {
     private String comment;
     private String phone;
     private String startTime;
-    private Integer allow;
     @JsonIgnore
     private long serviceId;
 }
