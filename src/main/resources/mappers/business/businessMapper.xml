@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.jobdone.business.BusinessMapper">
-    <insert id="insBusiness"  useGeneratedKeys="true" keyProperty="businessId">
+    <insert id="insBusiness" useGeneratedKeys="true" keyProperty="businessId">
         INSERT INTO business
         SET userId = #{userId},
-            paper = #{paper},
-            businessNum = #{businessNum},
-            businessName = #{businessName},
-            address = #{address},
-            serviceTypeId = #{serviceTypeId},
-            busiCreatedAt = #{busiCreatedAt},
-            tel = #{tel}
+        paper = #{paper},
+        businessNum = #{businessNum},
+        businessName = #{businessName},
+        address = #{address},
+        serviceTypeId = #{serviceTypeId},
+        busiCreatedAt = #{busiCreatedAt},
+        tel = #{tel}
 
     </insert>
     <update id="udtBusiness">
@@ -29,7 +29,7 @@
                 ,closeTime = #{closeTime}
             </if>
             <if test="openTime != null and openTime != ''">
-            ,openTime = #{openTime}
+                ,openTime = #{openTime}
             </if>
 
 
@@ -37,9 +37,14 @@
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
 
-    <insert id="insBusinessPics" useGeneratedKeys="true" keyProperty="businessPicId">
-        INSERT INTO businessPic
-        SET businessId = {businessId},
-            pic = #{pic}
+
+
+    <insert id="insBusinessPics">
+        insert into business_pic
+        (business_id, pic)
+        values
+        <foreach collection="pics" item="pic" open="(" close=")" separator="),(">
+            #{businessId}, #{pic}
+        </foreach>
     </insert>
 </mapper>
