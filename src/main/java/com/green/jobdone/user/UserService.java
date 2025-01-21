@@ -6,10 +6,7 @@ import com.green.jobdone.config.jwt.JwtConst;
 import com.green.jobdone.config.jwt.JwtUser;
 import com.green.jobdone.config.jwt.TokenProvider;
 import com.green.jobdone.config.security.AuthenticationFacade;
-import com.green.jobdone.user.model.UserSignInReq;
-import com.green.jobdone.user.model.UserSignInRes;
-import com.green.jobdone.user.model.UserSignInResDto;
-import com.green.jobdone.user.model.UserSignUpReq;
+import com.green.jobdone.user.model.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -114,9 +111,24 @@ public class UserService {
                 .build();
     }
 
+    public int postUserEmailCheck(String email){
+        UserSignUpEmailCheckRes res=mapper.postUserEmailCheck(email);
+
+        if(res==null){
+            return 1;
+        }
+
+        return 0;
+
+    }
 
 
+    public UserInfoGetRes getUserInfo(long userId){
 
+
+        return mapper.getUserInfo(userId);
+
+    }
 
 
 
