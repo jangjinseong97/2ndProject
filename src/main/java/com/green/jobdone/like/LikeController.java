@@ -1,14 +1,16 @@
 package com.green.jobdone.like;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.like.model.LikeReq;
+import com.green.jobdone.like.model.LikeGetRes;
+import com.green.jobdone.like.model.LikePostReq;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("like")
@@ -20,12 +22,31 @@ public class LikeController {
 
 
     @PostMapping
-    public ResultResponse<Integer> postLikeInfo(@RequestBody LikeReq p){
+    @Operation(summary = "찜 등록")
+    public ResultResponse<Integer> postLikeInfo(@RequestBody LikePostReq p){
 
         int result=service.postLikeInfo(p);
 
         return ResultResponse.<Integer>builder()
                 .resultMessage(result==1?"찜 등록되었습니다":"찜 등록 해제되었습니다")
+                .resultData(result)
+                .build();
+
+    }
+
+
+    @GetMapping
+    @Operation(summary = "찜 등록 업체 확인")
+    public ResultResponse<List<LikeGetRes>> getLikeInfo(@RequestParam long userId){
+
+        List<LikeGetRes> result=service.getLikeInfo(userId);
+
+        if(result.isEmpty()){
+            result=null;
+        }
+
+        return ResultResponse.<List<LikeGetRes>>builder()
+                .resultMessage(result==null?"찜한 업체 목록이 없습니다":"찜한 업체 목록 출력 완료")
                 .resultData(result)
                 .build();
 

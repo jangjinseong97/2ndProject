@@ -23,7 +23,7 @@ public class UserSignUpReq {
     @Size(min=4, max=50, message = "비밀번호는 4~50자 사이만 가능합니다.")
     @Schema(description = "유저 비밀번호", example = "1111", requiredMode = Schema.RequiredMode.REQUIRED)
     private String upw;
-    @Schema(description = "이름", example = "홍길동")
+    @Schema(description = "유저 닉네임", example = "홍길동")
     private String name;
     @Schema(description = "유저 휴대폰번호", example = "01012345678")
     private String phone;

@@ -3,7 +3,7 @@ const:
   auth-code-length: 6
 
 file:
-  directory: C:\Users\pjh\IdeaProjects\2ndProject\jobdone
+  directory: D:\pjh\2ndProject1\jobdone
 
 
 mybatis:
@@ -37,6 +37,7 @@ spring:
   servlet:
     multipart:
       max-file-size: 15MB
+
 
 springdoc:
   swagger-ui:

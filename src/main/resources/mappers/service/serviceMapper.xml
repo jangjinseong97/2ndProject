@@ -25,6 +25,7 @@
         <result property="mStartTime" column="mStartTime"/>
         <result property="mEndTime" column="mEndTime"/>
         <result property="endTime" column="endTime"/>
+        <result property="allow" column="allow"/>
         <result property="userPhone" column="userPhone"/>
         <result property="price" column="price"/>
         <result property="completed" column="completed"/>
@@ -81,5 +82,6 @@
         </if>
         group by a.serviceId
         order by a.serviceId desc
+
     </select>
 </mapper>
