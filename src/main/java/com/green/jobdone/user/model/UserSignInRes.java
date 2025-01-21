@@ -11,7 +11,7 @@ import lombok.Setter;
 @Schema(title="로그인 응답")
 public class UserSignInRes {
     private long userId;
-    private String nickName;
+    private String name;
     private String email;
     @JsonIgnore
     private String type;

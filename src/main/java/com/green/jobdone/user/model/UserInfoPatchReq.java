@@ -13,7 +13,7 @@ public class UserInfoPatchReq {
     @Schema(description = "유저 휴대폰번호", example = "01012345678")
     private String phone;
     @Schema(title = "닉네임",example = "홍길동")
-    private String nickName;
+    private String name;
     @JsonIgnore
     private String pic;
 

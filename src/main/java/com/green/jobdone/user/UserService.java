@@ -110,7 +110,7 @@ public class UserService {
                 .userId(res.getUserId())
                 .pic(res.getPic())
                 .accessToken(accessToken)
-                .nickName(res.getNickName())
+                .name(res.getName())
                 .build();
     }
 

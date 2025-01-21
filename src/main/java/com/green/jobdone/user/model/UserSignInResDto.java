@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class UserSignInResDto {
     private long userId;
-    private String nickName;
+    private String name;
     private String email;
     private String type;
     private String pic;

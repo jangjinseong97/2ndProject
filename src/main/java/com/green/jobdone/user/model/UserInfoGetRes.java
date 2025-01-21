@@ -11,7 +11,7 @@ import lombok.Setter;
 public class UserInfoGetRes {
     private String pic;
     private long userId;
-    private String nickName;
+    private String name;
     private String phone;
 
 
