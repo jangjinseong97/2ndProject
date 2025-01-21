@@ -70,13 +70,18 @@
         join service_detail k on a.serviceId = k.serviceId
         join service_type l on e.serviceTypeId = l.serviceTypeId
         where
-        <if test="userId != null">
+        <if test="userId != null and businessId==null">
             b.userId = #{userId}
         </if>
-        <if test="businessId != null">
+        <if test="businessId != null and userId == null">
             d.businessId = #{businessId}
         </if>
+        <if test="userId != null and businessId != null">
+            b.userId = #{userId}
+            and d.businessId = #{businessId}
+        </if>
         order by a.serviceId desc
+
 
     </select>
 </mapper>
