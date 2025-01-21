@@ -8,8 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 @RequestMapping("user")
@@ -19,16 +22,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
     private final UserService service;
 
-    @PostMapping("sign-up")
-    @Operation(summary = "회원가입")
-    public ResultResponse<Integer> postUserSignUp(@Valid @RequestPart UserSignUpReq p, @RequestPart(required = false) MultipartFile pic) {
-        int result = service.postUserSignUp(p, pic);
 
-        return ResultResponse.<Integer>builder()
-                .resultMessage("회원가입완료")
+
+    @PostMapping(value = "sign-up")
+        @Operation(summary = "회원가입")
+        public ResultResponse<Integer> postUserSignUp(@Valid @RequestPart UserSignUpReq p,  @RequestPart(required = false) MultipartFile pic) {
+            int result = service.postUserSignUp(p, pic);
+
+            return ResultResponse.<Integer>builder()
+                    .resultMessage("회원가입완료")
                 .resultData(result)
                 .build();
     }
+
 
     @PostMapping("sign-in")
     @Operation(summary = "로그인")
