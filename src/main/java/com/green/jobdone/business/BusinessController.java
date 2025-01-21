@@ -1,14 +1,13 @@
 package com.green.jobdone.business;
 
-import com.green.jobdone.business.model.post.BusinessPhonePostReq;
-import com.green.jobdone.business.model.post.BusinessPicPostRes;
-import com.green.jobdone.business.model.post.BusinessPostSignUpReq;
-import com.green.jobdone.business.model.udt.BusinessDetailPutReq;
+import com.green.jobdone.business.phone.BusinessPhonePostReq;
+import com.green.jobdone.business.pic.BusinessPicPostRes;
+import com.green.jobdone.business.model.BusinessPostSignUpReq;
+import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Insert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,9 +1,9 @@
 package com.green.jobdone.business;
 
-import com.green.jobdone.business.model.post.BusinessPhonePostReq;
-import com.green.jobdone.business.model.udt.BusinessDetailPutReq;
-import com.green.jobdone.business.model.post.BusinessPicDto;
-import com.green.jobdone.business.model.post.BusinessPostSignUpReq;
+import com.green.jobdone.business.phone.BusinessPhonePostReq;
+import com.green.jobdone.business.model.BusinessDetailPutReq;
+import com.green.jobdone.business.pic.BusinessPicDto;
+import com.green.jobdone.business.model.BusinessPostSignUpReq;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
