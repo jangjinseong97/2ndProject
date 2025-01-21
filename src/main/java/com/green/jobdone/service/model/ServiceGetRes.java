@@ -11,10 +11,11 @@ import java.util.List;
 @ToString
 public class ServiceGetRes {
     private long serviceId;
-    private String userName;
+    private String reservedName;
     private String businessName;
     private String productName;
     private String userPhone;
+    private String userName;
     private String address;
     private int price;
     private int completed;
