@@ -26,6 +26,13 @@ public class BusinessService {
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
     public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p){
+
+        //사업자 등록번호 중복체크
+        int exists = businessMapper.existBusinessNum(p.getBusinessNum());
+        if(exists > 0){
+            throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
+        }
+
         // 페이퍼는 사업자등록증 사진
         String fileName = paper != null? myFileUtils.makeRandomFileName(paper) : null;
         if (fileName == null) {
@@ -43,7 +50,6 @@ public class BusinessService {
             log.error(e.getMessage());
         }
         return businessMapper.insBusiness(p);
-
     }
 
     //사업상세정보 기입
