@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.jobdone.like.LikeMapper">
+    <delete id="deleteLikeInfo">
+        DELETE
+        FROM `like`
+        WHERE userId=#{userId}
+        AND businessId=#{businessId}
+    </delete>
+
+    <insert id="postLikeInfo">
+        INSERT INTO `like`
+        SET  userId=#{userId}
+            ,businessId=#{businessId}
+    </insert>
+
+
+
+    <select id="getLikeInfo">
+        SELECT b.businessId
+                , bp.pic AS pic
+                , b.title
+                , b.businessName
+                , min(p.price) AS price
+                , AVG(r.score) AS score
+                , COUNT(r.reviewId) AS reviewNumbers
+        FROM
+        `like` l
+        JOIN
+        business b ON l.businessId = b.businessId
+        LEFT JOIN
+        business_pic bp ON b.businessId = bp.businessId
+        LEFT JOIN
+        product p ON b.businessId = p.businessId
+        JOIN
+        service s ON p.productId = s.productId  -- productId와 service 테이블을 연결
+        LEFT JOIN
+        review r ON s.serviceId = r.serviceId  -- serviceId와 review 테이블을 연결
+        WHERE
+        l.userId = #{userId} -- 여기에 클라이언트로부터 받은 userId를 바인딩
+        GROUP BY
+        b.businessId, b.title, b.businessName;
+
+    </select>
+
+</mapper>

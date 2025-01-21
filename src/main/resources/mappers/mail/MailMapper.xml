@@ -28,7 +28,9 @@
     <update id="updAuthCheck">
         UPDATE user_auth
         SET authCheck = #{authCheck}
-        WHERE email = #{email} AND authCode = #{authCode}
+        WHERE email = #{email}
+        AND authCode = #{authCode}
+        AND expiredTime>=NOW()
     </update>
 
     <delete id="delAuthInfo">

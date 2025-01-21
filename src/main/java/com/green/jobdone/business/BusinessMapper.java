@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BusinessMapper {
     int insBusiness(BusinessPostSignUpReq p);
+    int existBusinessNum(String businessNum);
     int udtBusiness(BusinessDetailPutReq p);
 
     //businessPhone

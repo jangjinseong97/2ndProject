@@ -6,28 +6,23 @@ import com.green.jobdone.config.jwt.JwtConst;
 import com.green.jobdone.config.jwt.JwtUser;
 import com.green.jobdone.config.jwt.TokenProvider;
 import com.green.jobdone.config.security.AuthenticationFacade;
-import com.green.jobdone.user.model.UserSignInReq;
-import com.green.jobdone.user.model.UserSignInRes;
-import com.green.jobdone.user.model.UserSignInResDto;
-import com.green.jobdone.user.model.UserSignUpReq;
+import com.green.jobdone.mail.MailMapper;
+import com.green.jobdone.user.model.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
 
+    private final MailMapper mailMapper;
     private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
     private final PasswordEncoder passwordEncoder;
@@ -49,6 +44,7 @@ public class UserService {
         int result=mapper.postUserSignUp(p);
 
         if(pic == null) {
+            mailMapper.delAuthInfo(p.getEmail());
             return result;
         }
 
@@ -65,6 +61,9 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        mailMapper.delAuthInfo(p.getEmail());
+
         return result;
 
     }
@@ -114,9 +113,24 @@ public class UserService {
                 .build();
     }
 
+    public int postUserEmailCheck(String email){
+        UserSignUpEmailCheckRes res=mapper.postUserEmailCheck(email);
+
+        if(res==null){
+            return 1;
+        }
+
+        return 0;
+
+    }
 
 
+    public UserInfoGetRes getUserInfo(long userId){
 
+
+        return mapper.getUserInfo(userId);
+
+    }
 
 
 

@@ -25,6 +25,7 @@
         <result property="mStartTime" column="mStartTime"/>
         <result property="mEndTime" column="mEndTime"/>
         <result property="endTime" column="endTime"/>
+        <result property="allow" column="allow"/>
         <result property="userPhone" column="userPhone"/>
         <result property="price" column="price"/>
         <result property="completed" column="completed"/>
@@ -58,17 +59,17 @@
         g.productOptionId, i.optionDetailId, k.startTime, k.endTime, k.mStartTime, k.mEndTime,
         d.businessNum, a.createdAt, l.serviceTypeName, b.name as reservedName
         from service a
-        join user b on a.userId = b.userId
-        join product c on a.productId = c.productId
-        join business d on c.businessId = d.businessId
-        join detail_type e on c.detailTypeId = e.detailTypeId
-        join service_option f on a.serviceId = f.serviceId
-        join product_option g on f.productOptionId = g.productOptionId
-        join service_option_detail h on f.serviceOptionId = h.serviceOptionId
-        join option_detail i on h.optionDetailId = i.optionDetailId
-        join business_phone j on d.businessId = j.businessId
-        join service_detail k on a.serviceId = k.serviceId
-        join service_type l on e.serviceTypeId = l.serviceTypeId
+        left join user b on a.userId = b.userId
+        left join product c on a.productId = c.productId
+        left join business d on c.businessId = d.businessId
+        left join detail_type e on c.detailTypeId = e.detailTypeId
+        left join service_option f on a.serviceId = f.serviceId
+        left join product_option g on f.productOptionId = g.productOptionId
+        left join service_option_detail h on f.serviceOptionId = h.serviceOptionId
+        left join option_detail i on h.optionDetailId = i.optionDetailId
+        left join business_phone j on d.businessId = j.businessId
+        left join service_detail k on a.serviceId = k.serviceId
+        left join service_type l on e.serviceTypeId = l.serviceTypeId
         where
         <if test="userId != null and businessId==null">
             b.userId = #{userId}
@@ -76,12 +77,11 @@
         <if test="businessId != null and userId == null">
             d.businessId = #{businessId}
         </if>
-        <if test="userId != null and businessId != null">
-            b.userId = #{userId}
-            and d.businessId = #{businessId}
+        <if test="serviceId!=null">
+            a.serviceId = #{serviceId}
         </if>
+        group by a.serviceId
         order by a.serviceId desc
-
 
     </select>
 </mapper>
