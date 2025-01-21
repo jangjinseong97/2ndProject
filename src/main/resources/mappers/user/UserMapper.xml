@@ -49,5 +49,18 @@
     </select>
 
 
+    <select id="postUserEmailCheck">
+        SELECT email
+        FROM user
+        WHERE email=#{email}
+    </select>
+
+    <select id="getUserInfo">
+        SELECT pic,nickName,phone
+        FROM user
+        WHERE userId=#{userId}
+    </select>
+
+
 
 </mapper>
