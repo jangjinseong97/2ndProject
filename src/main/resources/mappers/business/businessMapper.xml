@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.jobdone.business.BusinessMapper">
+
     <insert id="insBusiness" useGeneratedKeys="true" keyProperty="businessId">
         INSERT INTO business
         SET userId = #{userId},
@@ -11,8 +12,8 @@
         serviceTypeId = #{serviceTypeId},
         busiCreatedAt = #{busiCreatedAt},
         tel = #{tel}
-
     </insert>
+
     <update id="udtBusiness">
         UPDATE business
         <set>
@@ -31,8 +32,6 @@
             <if test="openTime != null and openTime != ''">
                 ,openTime = #{openTime}
             </if>
-
-
         </set>
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
@@ -47,4 +46,11 @@
             #{businessId}, #{pic}
         </foreach>
     </insert>
+
+
+
+
+
+
+
 </mapper>
