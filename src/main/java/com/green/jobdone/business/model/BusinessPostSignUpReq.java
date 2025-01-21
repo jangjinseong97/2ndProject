@@ -13,12 +13,12 @@ public class BusinessPostSignUpReq {
 
     @JsonIgnore
     private long businessId;
+    @JsonIgnore
+    private String paper;
+
 
     @Schema(title = "유저 아이디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long userId;
-    @Schema(title = "사업자 등록증", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String paper;
-
     @Schema(title = "사업자번호", example = "12245678910", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessNum;
     @Schema(title = "업체 이름", example = "싹 박멸해", requiredMode = Schema.RequiredMode.REQUIRED)
