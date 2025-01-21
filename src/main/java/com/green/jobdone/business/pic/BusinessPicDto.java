@@ -1,4 +1,4 @@
-package com.green.jobdone.business.model.post;
+package com.green.jobdone.business.pic;
 
 import lombok.Getter;
 import lombok.Setter;

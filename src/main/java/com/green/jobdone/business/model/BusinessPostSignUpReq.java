@@ -1,4 +1,4 @@
-package com.green.jobdone.business.model.post;
+package com.green.jobdone.business.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
