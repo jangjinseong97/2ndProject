@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.green.jobdone.user.UserMapper">
     <insert id="postUserSignUp" keyProperty="userId" useGeneratedKeys="true">
         INSERT INTO user
@@ -10,6 +11,8 @@
         ,phone=#{phone}
         ,pic=#{pic}
     </insert>
+
+
     <resultMap id="userSignInResDtoMap" type="com.green.jobdone.user.model.UserSignInResDto">
         <result property="userId" column="userId" />
         <result property="name" column="name" />
@@ -18,11 +21,15 @@
         <result property="roles" column="type"
                 typeHandler="com.green.jobdone.config.handler.UserRoleTypeHandler" />
     </resultMap>
+
     <select id="getUserByEmailAndPassword" resultMap="userSignInResDtoMap">
         SELECT u.user_id, u.name, u.email, u.type, u.pic
         FROM user u
         WHERE u.email = #{email} AND u.upw = #{upw}
     </select>
+
+
+
     <resultMap id="selUserWithRolesResultMap" type="com.green.jobdone.user.model.UserSignInResDto">
         <id property="userId" column="userId"/>
         <result property="email" column="email"/>
@@ -32,9 +39,28 @@
         <result property="roles" column="type"
                 typeHandler="com.green.jobdone.config.handler.UserRoleTypeHandler" />
     </resultMap>
+
+
+
     <select id="postUserSignIn" resultMap="selUserWithRolesResultMap">
         SELECT userId,name,email,type,pic,upw
         FROM user
         WHERE email=#{email}
     </select>
+
+
+    <select id="postUserEmailCheck">
+        SELECT email
+        FROM user
+        WHERE email=#{email}
+    </select>
+
+    <select id="getUserInfo">
+        SELECT pic,nickName,phone
+        FROM user
+        WHERE userId=#{userId}
+    </select>
+
+
+
 </mapper>
