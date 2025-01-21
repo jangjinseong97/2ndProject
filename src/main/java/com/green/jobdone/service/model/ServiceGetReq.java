@@ -13,10 +13,13 @@ public class ServiceGetReq extends Paging {
     private Long userId;
     @Schema(name = "business_id")
     private Long businessId;
+    @Schema(name = "service_id", description = "서비스pk 값으로 견적서 or 예약현황 조회")
+    private Long serviceId;
     public ServiceGetReq(Integer page, Integer size,
-                         @BindParam("user_id")Long userId, @BindParam("business_id")Long businessId)  {
+                         @BindParam("user_id")Long userId, @BindParam("business_id")Long businessId, @BindParam("service_id") Long serviceId)  {
         super(page, size);
         this.userId = userId;
         this.businessId = businessId;
+        this.serviceId = serviceId;
     }
 }
