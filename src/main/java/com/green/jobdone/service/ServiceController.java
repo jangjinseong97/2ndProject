@@ -1,9 +1,7 @@
 package com.green.jobdone.service;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.service.model.ServiceGetReq;
-import com.green.jobdone.service.model.ServiceGetRes;
-import com.green.jobdone.service.model.ServicePostReq;
+import com.green.jobdone.service.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +37,15 @@ public class ServiceController {
         return ResultResponse.<List<ServiceGetRes>>builder()
                 .resultMessage("조회 완료")
                 .resultData(res)
+                .build();
+    }
+    @Operation(summary = "견적서, 상세보기")
+    @GetMapping("{serviceId}")
+    public ResultResponse<ServiceGetOneRes> getOneService(@ParameterObject @ModelAttribute ServiceGetOneReq p){
+        ServiceGetOneRes res = serviceService.getOneService(p);
+        return ResultResponse.<ServiceGetOneRes>builder()
+                .resultData(res)
+                .resultMessage("조회 완료")
                 .build();
     }
 

@@ -1,8 +1,6 @@
 package com.green.jobdone.service;
 
-import com.green.jobdone.service.model.ServiceGetReq;
-import com.green.jobdone.service.model.ServiceGetRes;
-import com.green.jobdone.service.model.ServicePostReq;
+import com.green.jobdone.service.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +35,14 @@ public class ServiceService {
             return new ArrayList<>();
         }
         List<ServiceGetRes> res = serviceMapper.GetServiceFlow(p);
+        return res;
+    }
+
+    public ServiceGetOneRes getOneService(ServiceGetOneReq p){
+        if(p.getServiceId()==0){
+            return null;
+        }
+        ServiceGetOneRes res = serviceMapper.GetServiceOne(p);
         return res;
     }
 }
