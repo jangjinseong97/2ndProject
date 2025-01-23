@@ -9,4 +9,10 @@ public interface UserMapper {
     UserSignInResDto postUserSignIn(String email);
     UserSignUpEmailCheckRes postUserEmailCheck(String email);
     UserInfoGetRes getUserInfo(long userId);
+    int updateUserInfo(UserInfoPatchReq p);
+    String selectInfoPwUser(long userId);
+    int deleteUser(UserInfoDelReq p);
+    int updatePassword(UserPwPatchReq p);
+    int updatePasswordThEmail(UserPwPatchReq p);
+
 }
