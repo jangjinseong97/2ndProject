@@ -1,8 +1,8 @@
 package com.green.jobdone.common;
 
 public class PicUrlMaker {
-    public static String makePicUrl(long cafeId, String picName) {
-        return String.format("/pic/cafe/%d/%s", cafeId, picName);
+    public static String makePicUrl(long businessId, String picName) {
+        return String.format("/pic/cafe/%d/%s", businessId, picName);
     }
 
     public static String makePicUrl(long cafeId, long menuId, String picName) {

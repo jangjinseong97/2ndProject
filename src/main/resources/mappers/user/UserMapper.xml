@@ -88,5 +88,11 @@
         WHERE email=#{email}
     </update>
 
+    <select id="postUserEmailCheck">
+        SELECT email
+        FROM user
+        WHERE email=#{email}
+    </select>
+
 
 </mapper>
