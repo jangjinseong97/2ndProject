@@ -9,6 +9,6 @@ public interface MailMapper {
     void insAuthInfo (MailCheckDto dto);
     MailCheckDto selAuthInfo (String email);
     int updAuthCheck(MemberEmailVerifyReq p);
-    int selAuthCheck(String email);
+    Integer selAuthCheck(String email);
     void delAuthInfo(String email);
 }

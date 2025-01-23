@@ -24,7 +24,7 @@
                 , b.title
                 , b.businessName
                 , min(p.price) AS price
-                , AVG(r.score) AS score
+                , ROUND(AVG(r.score),2) AS score
                 , COUNT(r.reviewId) AS reviewNumbers
         FROM
         `like` l
@@ -35,11 +35,11 @@
         LEFT JOIN
         product p ON b.businessId = p.businessId
         JOIN
-        service s ON p.productId = s.productId  -- productId와 service 테이블을 연결
+        service s ON p.productId = s.productId  <!-- productId와 service 테이블을 연결 -->
         LEFT JOIN
-        review r ON s.serviceId = r.serviceId  -- serviceId와 review 테이블을 연결
+        review r ON s.serviceId = r.serviceId  <!-- serviceId와 review 테이블을 연결 -->
         WHERE
-        l.userId = #{userId} -- 여기에 클라이언트로부터 받은 userId를 바인딩
+        l.userId = #{userId} <!-- 여기에 클라이언트로부터 받은 userId를 바인딩 -->
         GROUP BY
         b.businessId, b.title, b.businessName;
 

@@ -1,9 +1,12 @@
 package com.green.jobdone.user;
 
+import com.green.jobdone.common.CookieUtils;
 import com.green.jobdone.common.model.ResultResponse;
 import com.green.jobdone.user.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class UserController {
 
 
 
+
     @PostMapping(value = "sign-up")
         @Operation(summary = "회원가입")
         public ResultResponse<Integer> postUserSignUp(@Valid @RequestPart UserSignUpReq p,  @RequestPart(required = false) MultipartFile pic) {
@@ -41,7 +45,7 @@ public class UserController {
     public ResultResponse<UserSignInRes> postUserSignIn(@RequestBody UserSignInReq p, HttpServletResponse response) {
         UserSignInRes res = service.postUserSignIn(p, response);
         return ResultResponse.<UserSignInRes>builder()
-                .resultMessage("로그인 성공")
+                .resultMessage(res.getMessage())
                 .resultData(res)
                 .build();
     }
@@ -60,7 +64,7 @@ public class UserController {
     }
 
 
-    @GetMapping("info")
+    @GetMapping
     @Operation(summary = "회원정보 조회")
     public ResultResponse<UserInfoGetRes> getUserInfo(@RequestParam long userId){
         UserInfoGetRes res= service.getUserInfo(userId);
@@ -70,5 +74,71 @@ public class UserController {
                 .resultData(res)
                 .build();
     }
+
+    @PostMapping("access-token")
+    @Operation(summary = "accessToken 재발행")
+    public ResultResponse<String> postUserAccessToken(HttpServletRequest req) {
+
+
+       String accessToken=service.postUserAccessToken(req);
+
+
+        return ResultResponse.<String>builder()
+                .resultMessage(accessToken==null?"유효하지 않은 refreshToken 입니다":"토큰 갱신 성공")
+                .resultData(accessToken)
+                .build();
+    }
+
+   @PatchMapping
+   @Operation(summary = "회원정보 수정")
+   public ResultResponse<Integer> updateUserInfo(@RequestPart UserInfoPatchReq p, @RequestPart(required = false) MultipartFile pic) {
+
+
+        int result=service.updateUserInfo(p,pic);
+
+
+
+       return ResultResponse.<Integer>builder()
+               .resultMessage(result==0?"회원정보 수정사항 없음":"회원정보 수정 완료")
+               .resultData(result)
+               .build();
+   }
+
+   @DeleteMapping
+   @Operation(summary = "회원정보 삭제")
+    public ResultResponse<Integer> deleteUser(@RequestBody UserInfoDelReq p) {
+
+        int result=service.deleteUser(p);
+        log.info("p:{}",p);
+
+
+       return ResultResponse.<Integer>builder()
+               .resultMessage(result==0?"비밀번호가 일치하지 않습니다":"회원정보 삭제 완료")
+               .resultData(result)
+               .build();
+
+
+   }
+
+
+   @PatchMapping("password")
+   @Operation(summary = "비밀번호 변경")
+   public ResultResponse<Integer> updatePassword(@RequestBody UserPwPatchReq p) {
+
+       UserPwPatchRes result=service.updatePassword(p);
+       log.info("p:{}",p);
+
+
+       return ResultResponse.<Integer>builder()
+               .resultMessage(result.getMessage())
+               .resultData(result.getResult())
+               .build();
+
+
+   }
+
+
+
+
 }
 

@@ -8,6 +8,8 @@ import com.green.jobdone.config.jwt.TokenProvider;
 import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.mail.MailMapper;
 import com.green.jobdone.user.model.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class UserService {
     private final JwtConst jwtConst;
 
 
-    public int postUserSignUp(UserSignUpReq p, MultipartFile pic){
+    public int postUserSignUp(UserSignUpReq p, MultipartFile pic) {
         String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
 
 
@@ -41,9 +43,9 @@ public class UserService {
         p.setUpw(hashedPassword);
         p.setPic(savedPicName);
 
-        int result=mapper.postUserSignUp(p);
+        int result = mapper.postUserSignUp(p);
 
-        if(pic == null) {
+        if (pic == null) {
             mailMapper.delAuthInfo(p.getEmail());
             return result;
         }
@@ -70,30 +72,31 @@ public class UserService {
 
     public UserSignInRes postUserSignIn(UserSignInReq p, HttpServletResponse response) {
         UserSignInResDto res = mapper.postUserSignIn(p.getEmail()); // email 에 해당하는 유저 res 가져오기
-        if(res==null||!passwordEncoder.matches(p.getUpw(), res.getUpw())) {
-           return null;
-        }
-
-        // 예외처리를 하기 전에는 밑에 보이는 것처럼 처리했어야했다.
-//        if( res == null ) { //아이디 없음
-//            res = new UserSignInRes();
-//            res.setMessage("아이디를 확인해 주세요.");
-//            return res;
-//        } else if(!passwordEncoder.matches(p.getUpw(), res.getUpw())) { //비밀번호가 다를시
-//        //} else if( !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { //비밀번호가 다를시
-//            res = new UserSignInRes();
-//            res.setMessage("비밀번호를 확인해 주세요.");
-//            return res;
+//        if(res==null||!passwordEncoder.matches(p.getUpw(), res.getUpw())) {
+//           return null;
 //        }
+
+        //예외처리를 하기 전에는 밑에 보이는 것처럼 처리했어야했다.
+        if (res == null) { //아이디 없음
+            return UserSignInRes.builder()
+                    .message("이메일을 확인해주세요")
+                    .build();
+
+        } else if (!passwordEncoder.matches(p.getUpw(), res.getUpw())) { //비밀번호가 다를시
+            //} else if( !BCrypt.checkpw(p.getUpw(), res.getUpw()) ) { //비밀번호가 다를시
+            return UserSignInRes.builder()
+                    .message("비밀번호를 확인해주세요")
+                    .build();
+        }
 
         /*
         JWT 토큰 생성 2개? AccessToken(20분), RefreshToken(15일)
          */
-        JwtUser jwtUser = new JwtUser(res.getUserId(),res.getRoles());
+        JwtUser jwtUser = new JwtUser(res.getUserId(), res.getRoles());
 
 
-        String accessToken = tokenProvider.generateToken(jwtUser, jwtConst.getAccessTokenExpiry());
-        String refreshToken = tokenProvider.generateToken(jwtUser,jwtConst.getRefreshTokenExpiry());
+        String accessToken = tokenProvider.generateAccessToken(jwtUser);
+        String refreshToken = tokenProvider.generateRefreshToken(jwtUser);
 
         log.info("accessToken: {}", accessToken);
         log.info("refreshToken: {}", refreshToken);
@@ -110,13 +113,14 @@ public class UserService {
                 .pic(res.getPic())
                 .accessToken(accessToken)
                 .name(res.getName())
+                .message("로그인 성공")
                 .build();
     }
 
-    public int postUserEmailCheck(String email){
-        UserSignUpEmailCheckRes res=mapper.postUserEmailCheck(email);
+    public int postUserEmailCheck(String email) {
+        UserSignUpEmailCheckRes res = mapper.postUserEmailCheck(email);
 
-        if(res==null){
+        if (res == null) {
             return 1;
         }
 
@@ -125,20 +129,138 @@ public class UserService {
     }
 
 
-    public UserInfoGetRes getUserInfo(long userId){
+    public UserInfoGetRes getUserInfo(long userId) {
 
 
         return mapper.getUserInfo(userId);
 
     }
 
+    public String postUserAccessToken(HttpServletRequest req) {
+
+        Cookie cookie = cookieUtils.getCookie(req, "refreshToken");
+
+        if (cookie != null) {
+            String refreshToken = cookie.getValue();
+            if (refreshToken != null) {
+
+                JwtUser jwtUser = tokenProvider.getJwtUserFromToken(refreshToken);
+
+                String accessToken = tokenProvider.generateAccessToken(jwtUser);
+
+                return accessToken;
+            }
+        }
+
+        return null;
+    }
+
+    public int updateUserInfo(UserInfoPatchReq p, MultipartFile pic) {
+
+        if (pic == null) {
+            int result = mapper.updateUserInfo(p);
+            return result;
+        }
+
+        String savedPicName = myFileUtils.makeRandomFileName(pic);
+
+        p.setPic(savedPicName);
+
+        int result = mapper.updateUserInfo(p);
+
+        String middlePath = String.format("user/%d", p.getUserId());
 
 
+        myFileUtils.deleteFile(middlePath);
 
 
+        String filePath = String.format("%s/%s", middlePath, savedPicName);
+
+        try {
+            myFileUtils.transferTo(pic, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
+        return result;
+    }
 
 
+    public int deleteUser(UserInfoDelReq p) {
+
+        String pw = mapper.selectInfoPwUser(p.getUserId());
+
+        if (pw == null || !passwordEncoder.matches(p.getUpw(), pw)) {
+            return 0;
+        }
+
+        int result = mapper.deleteUser(p);
+
+
+        String deletePath = String.format("%s/user/%d", myFileUtils.getUploadPath(), p.getUserId());
+        myFileUtils.deleteFolder(deletePath, true);
+
+
+        return result;
+
+    }
+
+    public UserPwPatchRes updatePassword(UserPwPatchReq p) {
+
+        // 1. 사용자가 현재 비밀번호를 알고 있는 경우
+        if (p.getCurrentPassword() != null) {
+            String pw = mapper.selectInfoPwUser(p.getUserId());
+
+            // 비밀번호 일치 여부 체크
+            if (pw == null || !passwordEncoder.matches(p.getCurrentPassword(), pw)) {
+                return UserPwPatchRes.builder()
+                        .message("비밀번호가 일치하지 않습니다.")
+                        .result(0)
+                        .build();
+            }
+
+            // 비밀번호 해싱
+            String hashedPw = passwordEncoder.encode(p.getNewPassword());
+            p.setNewPassword(hashedPw);
+
+            // 비밀번호 변경
+            int result = mapper.updatePassword(p);
+
+            return UserPwPatchRes.builder()
+                    .message("비밀번호 변경 완료")
+                    .result(result)
+                    .build();
+        }
+
+        // 2. 사용자가 현재 비밀번호를 모를 경우, 이메일 인증을 통한 비밀번호 변경
+        Integer authCheck = mailMapper.selAuthCheck(p.getEmail());
+
+        // 인증된 이메일인지 체크
+        if (authCheck != null && authCheck == 1) {
+            String hashedPw = passwordEncoder.encode(p.getNewPassword());
+            p.setNewPassword(hashedPw);
+
+            // 이메일을 통한 비밀번호 변경
+            int result = mapper.updatePasswordThEmail(p);
+
+            mailMapper.delAuthInfo(p.getEmail());
+
+            return UserPwPatchRes.builder()
+                    .message("비밀번호 변경 완료")
+                    .result(result)
+                    .build();
+        } else if (authCheck == null) {
+            return UserPwPatchRes.builder()
+                    .message("인증된 이메일이 아닙니다.")
+                    .result(0)
+                    .build();
+        } else {
+            return UserPwPatchRes.builder()
+                    .message("인증된 이메일이 아닙니다.")
+                    .result(0)
+                    .build();
+        }
+    }
 
 }
