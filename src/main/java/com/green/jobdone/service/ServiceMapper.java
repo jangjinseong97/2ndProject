@@ -17,5 +17,5 @@ public interface ServiceMapper {
     int updServiceOption(ServicePutReq p);
 
     int getCompleted(long serviceId);
-    int putCompleted(ServicePutReq p);
+    int patchCompleted(ServicePatchReq p);
 }

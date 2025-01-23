@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServicePutComReq {
+public class ServicePatchReq {
     private int completed;
     private long serviceId;
 }

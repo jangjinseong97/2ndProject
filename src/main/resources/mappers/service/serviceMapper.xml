@@ -132,4 +132,14 @@
         </foreach>
     </update>
 
+    <update id="patchCompleted">
+        update service
+        set completed = #{completed}
+    </update>
+    <select id="getCompleted">
+        select completed
+        from service
+        where serviceId = #{serviceId}
+    </select>
+
 </mapper>

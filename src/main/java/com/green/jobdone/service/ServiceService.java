@@ -7,14 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,17 +51,26 @@ public class ServiceService {
         int res3 = serviceMapper.updServiceOption(p);
         return res3;
     }
-    @Transactional
-    public int completedService(ServicePutComReq p){
-        int oldCompleted = serviceMapper.getCompleted(p.getServiceId());
-        // 들고와서 비교
 
-        // 작성/수정 누르면 0에서 1로 변경
-        // 작성완료 >> 2로 변경
-        // 2에서는 1에서 6으로 변경 가능
-        // 3에선 4로 변경 가능
-        // 6에선 7~로 변경 7>>8 8>>9
-        return 0;
+    public int completedService(ServicePatchReq p){
+        int com = serviceMapper.getCompleted(p.getServiceId());
+        if(!transitionAllowed(com,p.getCompleted())) {
+            throw new IllegalArgumentException("잘못된 상태 전환 요청입니다.");
+        }
+            int res = serviceMapper.patchCompleted(p);
+            return res;
 
+    }
+
+    private boolean transitionAllowed(int oldCompleted, int newCompleted){
+        Map<Integer,List<Integer>> allowed = Map.of(
+          0,List.of(1,3,5),
+          1,List.of(2),
+                2,List.of(1,6),
+                3,List.of(4),
+                6,List.of(7,9),
+                7,List.of(8)
+        );
+        return allowed.getOrDefault(oldCompleted, List.of()).contains(newCompleted);
     }
 }
