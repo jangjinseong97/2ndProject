@@ -2,22 +2,20 @@ package com.green.jobdone.service.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
-public class ServiceGetRes {
+public class ServicePutReq {
     private long serviceId;
     private long userId;
-    private String userName;
-    private String reservedName;
-    private String businessName;
-    private String productName;
     private int price;
+    private String addComment;
     private int completed;
     private String startDate;
-    private String createdAt;
+    private String endDate;
+    private String mStartTime;
+    private String mEndTime;
+    private List<ServicePutDto> options;
 }
