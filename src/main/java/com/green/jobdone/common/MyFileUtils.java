@@ -92,4 +92,20 @@ public class MyFileUtils {
 
     }
 
+    public boolean deleteFile(String path) {   //지정한 경로 폴더 안의 파일만 삭제하는 메소드 추가 24.01.22
+        File dir = new File(uploadPath, path);
+        if (dir.exists() && dir.isDirectory()) {
+            File[] includedFiles = dir.listFiles();
+            if (includedFiles != null) {
+                for (File file : includedFiles) {
+                    if (file.isFile() && !file.delete()) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

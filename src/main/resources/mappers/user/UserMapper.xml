@@ -48,6 +48,45 @@
         WHERE email=#{email}
     </select>
 
+    <update id="updateUserInfo">
+        UPDATE user
+        <set>
+            <if test="phone!=null">
+                phone=#{phone}
+            </if>
+            <if test="name!=null">
+                ,name=#{name}
+            </if>
+            <if test="pic!=null">
+                ,pic=#{pic}
+            </if>
+        </set>
+        WHERE userId=#{userId}
+    </update>
+
+    <select id="selectInfoPwUser">
+        SELECT upw
+        FROM user
+        WHERE userId=#{userId}
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM user
+        WHERE userId=#{userId}
+    </delete>
+
+    <update id="updatePassword">
+        UPDATE user
+        SET upw=#{newPassword}
+        WHERE userId=#{userId}
+    </update>
+
+    <update id="updatePasswordThEmail">
+        UPDATE user
+        SET upw=#{newPassword}
+        WHERE email=#{email}
+    </update>
 
 
 </mapper>
