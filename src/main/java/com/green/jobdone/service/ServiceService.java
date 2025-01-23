@@ -2,6 +2,7 @@ package com.green.jobdone.service;
 
 import com.green.jobdone.service.model.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ServiceService {
     private final ServiceMapper serviceMapper;
 
@@ -34,6 +36,8 @@ public class ServiceService {
     }
 
     public ServiceGetOneRes getOneService(ServiceGetOneReq p){
+        log.info("p:{}",p);
+
         if(p.getServiceId()==0){
             return null;
         }

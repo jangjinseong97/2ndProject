@@ -1,6 +1,8 @@
 package com.green.jobdone.service.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -14,7 +16,6 @@ public class ServiceGetOneRes {
     private String businessName;
     private String reservedName;
     private String productName;
-    private String address;
     private int price;
     private int completed;
     private String comment;
@@ -23,10 +24,11 @@ public class ServiceGetOneRes {
     private String endDate;
     private String mStartTime;
     private String mEndTime;
+    private String address;
+    private String categoryName;
     private String businessNum;
     private String createdAt;
-    private String categoryName;
-
     private List<ServicePhone> phone; // 있다 추가 확인
     private List<ServiceOptionDto> options;
+
 }
