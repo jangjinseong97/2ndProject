@@ -10,8 +10,6 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import javax.lang.model.element.Name;
-import java.util.List;
 
 
 @RequestMapping("service")
@@ -46,6 +44,24 @@ public class ServiceController {
         return ResultResponse.<ServiceGetOneRes>builder()
                 .resultData(res)
                 .resultMessage("조회 완료")
+                .build();
+    }
+    @Operation(summary = "견적서 작성/수정")
+    @PutMapping
+    public ResultResponse<Integer> putService(@RequestBody ServicePutReq p){
+        int res = serviceService.updService(p);
+        return ResultResponse.<Integer>builder()
+                .resultData(res)
+                .resultMessage("수정 완료")
+                .build();
+    }
+    @Operation(summary = "서비스 상태 변경")
+    @PatchMapping
+    public ResultResponse<Integer> patchServiceCompleted(@RequestBody ServicePatchReq p){
+        int res = serviceService.completedService(p);
+        return ResultResponse.<Integer>builder()
+                .resultData(res)
+                .resultMessage("요청 완료")
                 .build();
     }
 

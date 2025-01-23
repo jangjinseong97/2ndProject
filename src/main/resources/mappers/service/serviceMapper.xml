@@ -101,7 +101,6 @@
         <if test="price != null"> price = #{price} </if>
         <if test="addComment != null"> addComment = #{addComment} </if>
         <if test="completed != null"> completed = #{completed} </if>
-        <if test="completed != null"> completed = #{completed} </if>
         where serviceId = #{serviceId}
         and userId = #{userId}
     </update>
@@ -113,6 +112,34 @@
         <if test="mStartTime!=null"> mStartTime = #{mStartTime}</if>
         <if test="mEndTime!=null"> mEndTime = #{mEndTime}</if>
         where serviceId = #{serviceId}
-
     </update>
+    <update id="updServiceOption" parameterType="com.green.jobdone.service.model.ServicePutReq">
+        <foreach collection="options" item="option" separator=";">
+            <if test="option.serviceOptionId != null">
+                update service_option
+                set
+                <if test="price != null">price = #{price}</if>
+                <if test="comment != null">comment = #{comment}</if>
+                where serviceOptionId = #{serviceOptionId}
+            </if>
+            <if test="option.serviceOptionId == null">
+                insert into service_option
+                set
+                serviceId = #{serviceId}
+                <if test="price != null">price = #{price}</if>
+                <if test="comment != null">comment = #{comment}</if>
+            </if>
+        </foreach>
+    </update>
+
+    <update id="patchCompleted">
+        update service
+        set completed = #{completed}
+    </update>
+    <select id="getCompleted">
+        select completed
+        from service
+        where serviceId = #{serviceId}
+    </select>
+
 </mapper>
