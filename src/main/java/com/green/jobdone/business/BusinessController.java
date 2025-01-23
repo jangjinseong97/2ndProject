@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
 import com.green.jobdone.business.model.BusinessPostSignUpReq;
@@ -64,16 +65,28 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping
+    @PutMapping("/pic")
     @Operation(summary = "사진 유형 수정")
     public ResultResponse<Integer> putBusinessPic(long businessPicId){
-        int res = businessService.putBusinessPics(businessPicId);
+        int res = businessService.udtBusinessPics(businessPicId);
 
         return ResultResponse.<Integer>builder()
                 .resultMessage("업체 사진 수정 완료")
                 .resultData(res)
                 .build();
     }
+
+    @PutMapping("/state")
+    @Operation(summary = "업체 유형 수정")
+    public ResultResponse<Integer> putBusinessState(BusinessStatePutReq p){
+        int res = businessService.udtBusinessState(p);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("업체 유형 수정 완료")
+                .resultData(res)
+                .build();
+    }
+
 }
 
 
