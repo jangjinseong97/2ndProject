@@ -48,5 +48,14 @@ public class ServiceController {
                 .resultMessage("조회 완료")
                 .build();
     }
+    @Operation(summary = "견적서 작성/수정")
+    @PutMapping
+    public ResultResponse<Integer> putService(@RequestBody ServicePutReq p){
+        int res = serviceService.updService(p);
+        return ResultResponse.<Integer>builder()
+                .resultData(res)
+                .resultMessage("수정 완료")
+                .build();
+    }
 
 }
