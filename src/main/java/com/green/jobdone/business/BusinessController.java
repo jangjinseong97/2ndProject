@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -33,16 +34,28 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping
+    @PutMapping("detail")
     @Operation(summary = "업체 상세정보 기입")
     public ResultResponse<Integer> udtBusinessDetail(@RequestPart MultipartFile logo,
                                                      BusinessDetailPutReq p){
-        int result = businessService.udtBusiness(logo, p);
+        int result = businessService.udtBusiness(p);
         return ResultResponse.<Integer>builder()
                 .resultData(result)
                 .resultMessage(result==0?"업체 정보 수정 실패":"업체 정보 수정 성공")
                 .build();
     }
+
+    @PutMapping("logo")
+    @Operation(summary = "업체 로고사진 변경")
+    public ResultResponse<String> patchProfilePic(@ModelAttribute BusinessLogoPatchReq p) {
+        log.info("UserController > patchProfilePic > p: {}", p);
+        String pic = businessService.patchBusinessLogo(p);
+        return ResultResponse.<String>builder()
+                .resultMessage("로고 사진 수정 완료")
+                .resultData(pic)
+                .build();
+    }
+
 
     @PostMapping("phone")
     @Operation(summary = "업체 전화번호 기입")
@@ -65,7 +78,7 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping("/pic")
+    @PutMapping("pic")
     @Operation(summary = "사진 유형 수정")
     public ResultResponse<Integer> putBusinessPic(long businessPicId){
         int res = businessService.udtBusinessPics(businessPicId);
@@ -76,7 +89,7 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping("/state")
+    @PutMapping("state")
     @Operation(summary = "업체 유형 수정")
     public ResultResponse<Integer> putBusinessState(BusinessStatePutReq p){
         int res = businessService.udtBusinessState(p);
