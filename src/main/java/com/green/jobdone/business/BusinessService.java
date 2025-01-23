@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicDto;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -107,6 +108,15 @@ public class BusinessService {
                 .businessId(businessId)
                 .pics(businessPicList)
                 .build();
+    }
+
+    public int udtBusinessPics(long businessPicId){
+        return businessMapper.putBusinessPic(businessPicId);
+    }
+
+
+    public int udtBusinessState(BusinessStatePutReq p){
+        return businessMapper.putBusinessState(p);
     }
 
 }

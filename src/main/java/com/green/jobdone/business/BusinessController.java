@@ -63,6 +63,17 @@ public class BusinessController {
                 .resultData(res)
                 .build();
     }
+
+    @PutMapping
+    @Operation(summary = "사진 유형 수정")
+    public ResultResponse<Integer> putBusinessPic(long businessPicId){
+        int res = businessService.putBusinessPics(businessPicId);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("업체 사진 수정 완료")
+                .resultData(res)
+                .build();
+    }
 }
 
 
