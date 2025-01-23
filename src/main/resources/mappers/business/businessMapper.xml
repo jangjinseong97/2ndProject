@@ -54,11 +54,18 @@
             phone = #{phone}
     </insert>
 
-    <update id="">
+    <update id="udtBusinessPics">
         update business_pic
-        where businessId = #{businessId}
         set state = 1
+        where businessId = #{businessId}
     </update>
+
+    <update id="udtBusinessState">
+        update business
+        set state = #{state}
+        where businessId = #{businessId}
+    </update>
+    
 
 
 
