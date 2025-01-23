@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BusinessDetailPutReq {
-    @JsonIgnore
+    @Schema(title = "로고" ,requiredMode = Schema.RequiredMode.REQUIRED)
     private String logo; // 이건 그린그램 사진없을때 프사 어떻게 수정했는지 그거 알아보기
 
 

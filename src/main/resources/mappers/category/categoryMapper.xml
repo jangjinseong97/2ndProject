@@ -6,6 +6,13 @@
         SET categoryId = #{categoryId},
             detailTypeName = #{detailTypeName}
     </insert>
+    <select id="getCategory">
+        select a.*, b.*
+        from category a
+        join detail_type b
+        on a.categoryId = b.categoryId
+    </select>
+
     <select id="getDetailType">
         SELECT detailTypeId, detailTypeName
         FROM detail_type
