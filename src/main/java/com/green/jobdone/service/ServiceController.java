@@ -38,8 +38,9 @@ public class ServiceController {
                 .build();
     }
     @Operation(summary = "견적서, 상세보기")
-    @GetMapping("{serviceId}")
+    @GetMapping("detail")
     public ResultResponse<ServiceGetOneRes> getOneService(@ParameterObject @ModelAttribute ServiceGetOneReq p){
+        log.info("p : {}",p);
         ServiceGetOneRes res = serviceService.getOneService(p);
         return ResultResponse.<ServiceGetOneRes>builder()
                 .resultData(res)
