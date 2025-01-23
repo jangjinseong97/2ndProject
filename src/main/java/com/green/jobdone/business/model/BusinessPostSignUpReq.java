@@ -26,7 +26,7 @@ public class BusinessPostSignUpReq {
     @Schema(title = "업체 주소", example = "만경관근처", requiredMode = Schema.RequiredMode.REQUIRED)
     private String address;
     @Schema(title = "서비스 유형", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long serviceTypeId;
+    private long detailTypeId;
     @Schema(title = "회사설립일", example = "2019.06.08", requiredMode = Schema.RequiredMode.REQUIRED)
     private String busiCreatedAt;
     @Schema(title = "회사전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)

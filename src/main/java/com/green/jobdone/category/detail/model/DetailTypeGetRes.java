@@ -1,4 +1,4 @@
-package com.green.jobdone.serviceType.detail.model;
+package com.green.jobdone.category.detail.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,5 +8,5 @@ import lombok.Setter;
 //1
 public class DetailTypeGetRes {
     private long detailTypeId;
-    private String name;
+    private String detailTypeName;
 }

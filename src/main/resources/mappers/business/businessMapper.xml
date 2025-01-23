@@ -4,12 +4,13 @@
 
     <insert id="insBusiness" useGeneratedKeys="true" keyProperty="businessId">
         INSERT INTO business
-        SET userId = #{userId},
+        SET
         paper = #{paper},
+        userId = #{userId},
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
-        serviceTypeId = #{serviceTypeId},
+        detailTypeId = #{serviceTypeId},
         busiCreatedAt = #{busiCreatedAt},
         tel = #{tel}
     </insert>
@@ -52,6 +53,12 @@
         set businessId = #{businessId},
             phone = #{phone}
     </insert>
+
+    <update id="">
+        update business_pic
+        where businessId = #{businessId}
+        set state = 1
+    </update>
 
 
 
