@@ -8,25 +8,47 @@
         , score = #{score}
     </insert>
 
-    <select id="selReview">
-        SELECT A.contents, A.created_at, A.score
+    <select id="selReviewWithPicList">
+        SELECT T1.*, T2.pic
+        FROM (
+        SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt, E.userId, E.name, E.pic AS writerPic, D.detailTypeName
         FROM review A
         JOIN service B
-        ON A.service_id = B.service_id
+        ON A.serviceId = B.serviceId
         JOIN product C
-        ON C.product_id = B.product_id
-        JOIN business D
-        ON D.business_id = C.business_id
-        JOIN comment E
-        ON E.review_id = A.review_id
-        WHERE D.business_id = #{businessId}
-        ORDER BY A.created_at DESC
+        ON B.productId = C.productId
+        JOIN detail_type D
+        ON D.detailTypeId = C.detailTypeId
+        JOIN user E
+        ON B.userId = E.userId
+        JOIN business F
+        ON F.businessId = C.businessId
+        <if test=" businessId != null ">
+            WHERE F.businessId = #{businessId}
+        </if>
+        <if test=" userId != null ">
+            WHERE B.userId = #{userId}
+        </if>
+        ORDER BY A.reviewId DESC
+        LIMIT #{startIdx}, #{size}
+        ) T1
+        LEFT JOIN review_pic T2
+        ON T1.reviewId = T2.reviewId
     </select>
+    
+    <update id="updReview">
+        UPDATE review
+        <set>
+            <if test="contents != null and contents != ''">
+                SET contents = #{contents}
+            </if>
+            <if test="score != null and score != ''">
+                ,score = #{score}
+            </if>
+        </set>
+        WHERE reviewId = #{reviewId} and serviceId = #{serviceId}
+    </update>
 
-    <insert id="insComment" useGeneratedKeys="true" keyProperty="commentId">
-        INSERT INTO comment
-        SET review_id = #{reviewId}
-        , user_id = #{userId}
-        , contents = #{contents}
-    </insert>
+
+
 </mapper>
