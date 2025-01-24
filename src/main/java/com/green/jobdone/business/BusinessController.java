@@ -8,6 +8,7 @@ import com.green.jobdone.business.model.BusinessPostSignUpReq;
 import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("business")
 @RestController
 @Slf4j
+@Tag(name = "업체")
 public class BusinessController {
     private final BusinessService businessService;
 
