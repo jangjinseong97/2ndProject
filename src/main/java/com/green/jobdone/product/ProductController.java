@@ -1,6 +1,8 @@
 package com.green.jobdone.product;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.product.model.ProductOptionDetailPostReq;
+import com.green.jobdone.product.model.ProductOptionPostReq;
 import com.green.jobdone.product.model.ProductPostReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,7 +25,7 @@ public class ProductController {
 
 
     @PostMapping
-    @Operation(summary = "상품 등록")
+    @Operation(summary = "업체 상품 등록")
     public ResultResponse<Integer> postProduct(@RequestBody ProductPostReq p) {
 
 
@@ -35,6 +37,37 @@ public class ProductController {
                 .resultData(result)
                 .build();
 
+    }
+
+    @PostMapping("option")
+    @Operation(summary = "업체 상품 옵션 등록")
+
+    public ResultResponse<Integer> postProductOption(@RequestBody ProductOptionPostReq p) {
+
+
+        int result = service.postProductOption(p);
+
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage(result==0?"이미 등록된 옵션입니다":"상품 옵션 등록 완료")
+                .resultData(result)
+                .build();
 
     }
+
+    @PostMapping("option/detail")
+    @Operation(summary = "업체 상품 옵션 상세 정보 등록")
+    public ResultResponse<Integer> postOptionDetail(@RequestBody ProductOptionDetailPostReq p) {
+
+
+        int result = service.postOptionDetail(p);
+
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage(result==0?"이미 등록된 상세 옵션입니다":"상품 상세 옵션 등록 완료")
+                .resultData(result)
+                .build();
+
+    }
+
 }
