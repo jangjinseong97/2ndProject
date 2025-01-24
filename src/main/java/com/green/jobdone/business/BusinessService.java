@@ -27,40 +27,61 @@ public class BusinessService {
     private final MyFileUtils myFileUtils;
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
-    public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p){
+    public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p) {
 
+        // 사업자 등록번호 유효성 체크
+        if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
+            throw new IllegalArgumentException("사업자 등록번호가 유효하지 않습니다.");
+        }
         //사업자 등록번호 중복체크
         int exists = businessMapper.existBusinessNum(p.getBusinessNum());
-        if(exists > 0){
+        if (exists > 0) {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
         // 페이퍼는 사업자등록증 사진
-        String fileName = paper != null? myFileUtils.makeRandomFileName(paper) : null;
-        if (fileName == null) {
-            return 0;
+        String fileName = null;
+        if (paper != null && !paper.isEmpty()) {
+            fileName = myFileUtils.makeRandomFileName(paper);
+            if (fileName == null) {
+                throw new IllegalStateException("파일명을 생성할 수 없습니다.");
+            }
         }
 
         p.setPaper(fileName);
-        long businessId = p.getBusinessId();
-        String folderPath = String.format("business/%d", businessId);
-        myFileUtils.makeFolders(folderPath);
-        String filePath = String.format("%s/document/%s", folderPath, folderPath);
-        try{
-            myFileUtils.transferTo(paper,filePath);
-        }catch (IOException e){
-            log.error(e.getMessage());
+        if (p.getBusinessId() <= 0) {
+            throw new IllegalArgumentException("유효하지 않은 사업자 ID입니다.");
         }
-        return businessMapper.insBusiness(p);
+
+        String folderPath = String.format("business/%d", p.getBusinessId());
+        myFileUtils.makeFolders(folderPath);
+        // 파일 경로 및 파일저장
+        if (fileName != null) {
+            String filePath = String.format("%s/document/%s", folderPath, folderPath);
+            try {
+                myFileUtils.transferTo(paper, filePath);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+                throw new IllegalArgumentException("파일 업로드 중 오류가 발생하였습니다.");
+            }
+        }
+
+        //db에 사업자 정보 저장
+        try {
+            return businessMapper.insBusiness(p);
+        } catch (Exception e) {
+            log.error("사업자 정보 저장 중 오류 발생: {}", e.getMessage());
+            throw new IllegalStateException("사업자 정보 저장 중 오류가 발생했습니다.");
+        }
     }
 
     //사업상세정보 기입 - 로고사진은 따로 뺄게요 ~~
 
-    public int udtBusiness( BusinessDetailPutReq p){
+    public int udtBusiness(BusinessDetailPutReq p) {
         return businessMapper.udtBusiness(p);
     }
 
-    public String patchBusinessLogo(BusinessLogoPatchReq p){
+    public String patchBusinessLogo(BusinessLogoPatchReq p) {
         //저장할 파일명(랜덤한 파일명) 생성한다. 이때, 확장자는 오리지날 파일명과 일치하게 한다.
         String savedPicName = (p.getLogo() != null ? myFileUtils.makeRandomFileName(p.getLogo()) : null);
 
@@ -76,7 +97,9 @@ public class BusinessService {
         p.setLogoName(savedPicName);
         int result = businessMapper.udtBusinessLogo(p);
 
-        if(p.getLogo() == null) { return null; }
+        if (p.getLogo() == null) {
+            return null;
+        }
         //원하는 위치에 저장할 파일명으로 파일을 이동(transferTo)한다.
         String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
 
@@ -88,9 +111,9 @@ public class BusinessService {
         return savedPicName;
     }
 
-    public int insBusinessPhone(BusinessPhonePostReq p){
+    public int insBusinessPhone(BusinessPhonePostReq p) {
         int exists = businessMapper.existBusinessPhone(p.getBusinessId(), p.getPhone());
-        if (exists > 0){
+        if (exists > 0) {
             throw new IllegalArgumentException("이미 존재하는 전화번호입니다");
         }
         return businessMapper.insBusinessPhone(p);
@@ -98,20 +121,20 @@ public class BusinessService {
 
 
     @Transactional
-    public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId){
+    public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
 
         String middlePath = String.format("business/%d", businessId);
         myFileUtils.makeFolders(middlePath);
 
         List<String> businessPicList = new ArrayList<>(pics.size());
-        for (MultipartFile pic : pics){
+        for (MultipartFile pic : pics) {
             //pics리스트에 있는 사진들 전수조사
             String savedPicName = myFileUtils.makeRandomFileName(pic);
 
             businessPicList.add(savedPicName);
             String filePath = String.format("%s/pics/%s", middlePath, savedPicName);
             try {
-                myFileUtils.transferTo(pic,filePath);
+                myFileUtils.transferTo(pic, filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -127,14 +150,13 @@ public class BusinessService {
                 .build();
     }
 
-    public int udtBusinessPics(long businessPicId){
+    public int udtBusinessPics(long businessPicId) {
         return businessMapper.putBusinessPic(businessPicId);
     }
 
-    public int udtBusinessState(BusinessStatePutReq p){
+    public int udtBusinessState(BusinessStatePutReq p) {
         return businessMapper.putBusinessState(p);
     }
-
 
 
 }
