@@ -12,7 +12,7 @@ public class BusinessGetRes {
     private String businessName;
     private String title;
     private double scoreAvg;
-    private int priceMin;
+    private int price;
     private int like;
 
     public BusinessGetRes(String pic, long businessId, String businessName, String title, double scoreAvg, int priceMin, int like) {
@@ -21,7 +21,7 @@ public class BusinessGetRes {
         this.businessName = businessName;
         this.title = title;
         this.scoreAvg = scoreAvg;
-        this.priceMin = priceMin;
+        this.price = priceMin;
         this.like = like;
     }
 }
