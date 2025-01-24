@@ -7,14 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ProductMapper {
-    int insProduct(ProductPostReq p);
-    int existProduct(long businessId, long detailTypeId);
-    //옵션
-    int insProductOption(ProductOptionPostReq p);
-    int existProductOption(long productId, String name);
-
-    //옵션디테일
-    int insOptionDetail(OptionDetailPostReq p);
-    int existOptionDetail(long productId, String name);
+    int postProduct(ProductPostReq p);
+    long checkBusinessProduct(long businessId);
 
 }
