@@ -35,7 +35,9 @@ public class UserService {
 
 
     public int postUserSignUp(UserSignUpReq p, MultipartFile pic) {
-        if(mapper.checkEmailExists(p.getEmail())) {
+        String existsEmail=mapper.checkEmailExists(p.getEmail());
+
+        if(existsEmail!=null) {
             throw new  IllegalArgumentException("이미 등록된 이메일입니다.");
         }
 

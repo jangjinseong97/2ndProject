@@ -3,10 +3,12 @@ package com.green.jobdone.user;
 import com.green.jobdone.user.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Optional;
+
 @Mapper
 public interface UserMapper {
     int postUserSignUp(UserSignUpReq p);
-    boolean checkEmailExists(String email);
+    String checkEmailExists(String email);
     UserSignInResDto postUserSignIn(String email);
     UserSignUpEmailCheckRes postUserEmailCheck(String email);
     UserInfoGetRes getUserInfo(long userId);
