@@ -23,7 +23,7 @@ public class MyUserDetails implements UserDetails {
 //                .map(SimpleGrantedAuthority::new) // 각 문자열을 SimpleGrantedAuthority로 매핑
 
                 // UserRole을 문자열로 변환하여 SimpleGrantedAuthority 생성
-                .map(item->new SimpleGrantedAuthority(item.name()))
+                .map(item->new SimpleGrantedAuthority("ROLE_"+item.name()))
 //                .map(item->new SimpleGrantedAuthority(item)) 위의 map 코드와 같은 표현.
                 .toList();
     }

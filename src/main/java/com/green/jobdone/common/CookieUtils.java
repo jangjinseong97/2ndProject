@@ -29,5 +29,7 @@ public class CookieUtils {
         cookie.setHttpOnly(true); //보안 쿠키 설정, 프론트에서 JS로 쿠키값을 얻을 수 없다.
         cookie.setMaxAge(maxAge);
         res.addCookie(cookie);
+
+        res.addHeader("Set-Cookie", String.format("%s=%s; Path=/; HttpOnly; Max-Age=%d", name, value, maxAge));
     }
 }
