@@ -8,10 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductPostReq {
-    @Schema(title = "업체 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "업체 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
-    @Schema(title = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long detailTypeId;
+    @Schema(description = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private int price;
 
     @JsonIgnore
     private long productId;

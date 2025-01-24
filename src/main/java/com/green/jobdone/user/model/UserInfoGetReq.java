@@ -14,7 +14,7 @@ import java.beans.ConstructorProperties;
 @ToString
 public class UserInfoGetReq {
 
-    @Schema(name = "유저 ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description= "유저 ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long userId;
 
 
