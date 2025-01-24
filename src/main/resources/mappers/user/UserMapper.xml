@@ -12,6 +12,13 @@
         ,pic=#{pic}
     </insert>
 
+    <select id="checkEmailExists">
+        SELECT userId
+        FROM user
+        WHERE email=#{email}
+        LIMIT 1
+    </select>
+
 
     <resultMap id="userSignInResDtoMap" type="com.green.jobdone.user.model.UserSignInResDto">
         <result property="userId" column="userId" />

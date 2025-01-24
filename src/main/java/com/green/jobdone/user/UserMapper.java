@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     int postUserSignUp(UserSignUpReq p);
+    boolean checkEmailExists(String email);
     UserSignInResDto postUserSignIn(String email);
     UserSignUpEmailCheckRes postUserEmailCheck(String email);
     UserInfoGetRes getUserInfo(long userId);
