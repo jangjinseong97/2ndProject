@@ -49,6 +49,11 @@
             #{businessId}, #{pic}
         </foreach>
     </insert>
+    <select id="existsBusinessPhone" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM business_phone
+        WHERE businessId = #{businessId} AND phone = #{phone}
+    </select>
 
     <insert id="insBusinessPhone">
         insert into businessPhone
