@@ -30,7 +30,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         //새로고침시 화면이 나타날 수 있도록 세팅
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/**")
+                .addResourceLocations("classpath:/static/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
@@ -48,13 +48,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*") // Swagger UI가 동작하는 주소
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*") // Swagger UI가 동작하는 주소
+//                ;
+//    }
 
 
     @Override

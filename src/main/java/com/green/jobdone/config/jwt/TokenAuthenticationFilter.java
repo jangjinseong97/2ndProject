@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,8 +15,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Slf4j
-@Component
+
 @RequiredArgsConstructor
+@ToString
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
     private final static String HEADER_AUTHORIZATION = "Authorization";
@@ -31,14 +33,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         log.info("token: {}", token);
 
         if(token!=null) {
+            try{
 
-                try{
-                    Authentication auth = tokenProvider.getAuthentication(token); // 클라이언트에게 받은 토큰에서 인증된 사용자 정보를 토대로 Authentication 객체 생성
-                    SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder 에서 Authentication 객체를 관리
-                } catch(Exception e){
-                    request.setAttribute("exception", e);
-                }
+                Authentication auth = tokenProvider.getAuthentication(token); // 클라이언트에게 받은 토큰에서 인증된 사용자 정보를 토대로 Authentication 객체 생성
+                SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder 에서 Authentication 객체를 관리
+
+
+            } catch(Exception e){
+                request.setAttribute("exception", e);
             }
+        }
         filterChain.doFilter(request, response);
     }
 
