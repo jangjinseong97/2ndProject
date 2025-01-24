@@ -80,26 +80,34 @@ public class BusinessService {
     public int udtBusiness(BusinessDetailPutReq p) {
         return businessMapper.udtBusiness(p);
     }
+    // 로고 수정
+    public int  patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
 
-    public String patchBusinessLogo(BusinessLogoPatchReq p) {
+        if (logo == null || logo.isEmpty()) {
+            int result = businessMapper.udtBusinessLogo(p);
+            return result;
+        }
+
         //저장할 파일명(랜덤한 파일명) 생성한다. 이때, 확장자는 오리지날 파일명과 일치하게 한다.
-        String savedPicName = (p.getLogo() != null ? myFileUtils.makeRandomFileName(p.getLogo()) : null);
+        String savedPicName = myFileUtils.makeRandomFileName(logo);
 
-        //폴더 만들기 (최초에 프로필 사진이 없었다면 폴더가 없기 때문)
-        String folerPath = String.format("business/%d", p.getBusinessId());
-        myFileUtils.makeFolders(folerPath);
+        p.setLogoName(savedPicName);
+
+        int result = businessMapper.udtBusinessLogo(p);
+
+        myFileUtils.deleteFile(savedPicName);
+
+        String folderPath = String.format("business/%d", p.getBusinessId()); //만약 폴더가 없었으면 새로 만들기
+        myFileUtils.makeFolders(folderPath);
 
         //기존 파일 삭제(방법 3가지 [1]: 폴더를 지운다. [2]select해서 기존 파일명을 얻어온다. [3]기존 파일명을 FE에서 받는다.)
-        String deletePath = String.format("%s/user/%d", myFileUtils.getUploadPath(), p.getBusinessId());
-        myFileUtils.deleteFolder(deletePath, false);
+
+        myFileUtils.deleteFolder(folderPath, false);
 
         //DB에 튜플을 수정(Update)한다.
         p.setLogoName(savedPicName);
-        int result = businessMapper.udtBusinessLogo(p);
 
-        if (p.getLogo() == null) {
-            return null;
-        }
+
         //원하는 위치에 저장할 파일명으로 파일을 이동(transferTo)한다.
         String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
 
@@ -108,7 +116,7 @@ public class BusinessService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return savedPicName;
+        return result;
     }
 
     public int insBusinessPhone(BusinessPhonePostReq p) {
