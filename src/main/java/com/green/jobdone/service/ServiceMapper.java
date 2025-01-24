@@ -10,6 +10,7 @@ public interface ServiceMapper {
 
     int insService(ServicePostReq p);
     int insServiceDetail(ServicePostReq p);
+    int insServiceOption(ServicePostReq p);
     List<ServiceGetRes> GetServiceFlow(ServiceGetReq p);
     ServiceGetOneRes GetServiceOne(ServiceGetOneReq p);
     int updService(ServicePutReq p);

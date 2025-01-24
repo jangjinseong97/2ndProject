@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("room")
-@Tag(name = "채팅 관련")
+@Tag(name = "6. 문의 관련")
 public class RoomController {
     private final RoomService roomService;
 

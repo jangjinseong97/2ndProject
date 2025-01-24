@@ -3,6 +3,7 @@ package com.green.jobdone.config.security;
 //Spring Security 세팅
 import com.green.jobdone.config.jwt.JwtAuthenticationEntryPoint;
 import com.green.jobdone.config.jwt.TokenAuthenticationFilter;
+import com.green.jobdone.config.jwt.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration //메소드 빈등록이 있어야 의미가 있다. 메소드 빈등록이 싱글톤이 됨.
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final TokenAuthenticationFilter tokenAuthenticationFilter;
+    //private final TokenAuthenticationFilter tokenAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     //스프링 시큐리티 기능 비활성화 (스프링 시큐리티가 관여하지 않았으면 하는 부분)
@@ -27,20 +28,24 @@ public class WebSecurityConfig {
 //                        .requestMatchers(new AntPathRequestMatcher("/static/**"));
 //    }
 
-    @Bean //스프링이 메소드 호출을 하고 리턴한 객체의 주소값을 관리한다. (빈등록)
-    public SecurityFilterChain securityilterChain(HttpSecurity http) throws Exception {
-        return http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //시큐리티가 세션을 사용하지 않는다.
-                .httpBasic(h -> h.disable()) //SSR(Server Side Rendering)이 아니다. 화면을 만들지 않을꺼기 때문에 비활성화 시킨다. 시큐리티 로그인창 나타나지 않을 것이다.
-                .formLogin(form -> form.disable()) //SSR(Server Side Rendering)이 아니다. 폼로그인 기능 자체를 비활성화
-                .csrf(csrf -> csrf.disable()) //SSR(Server Side Rendering)이 아니다. 보안관련 SSR 이 아니면 보안이슈가 없기 때문에 기능을 끈다.
-                .authorizeHttpRequests(req ->
-//                        req.requestMatchers("/api/feed", "/api/feed/**").authenticated() //로그인이 되어 있어야만 사용 가능
-//                            .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
-//                            .requestMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
-                            req.anyRequest().permitAll() //나머지 요청은 모두 허용
+
+    @Bean //스프링이 메소드 호출을 하고 리턴한 객체의 주소값을 관리한다. (빈 등록)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 안함
+                .httpBasic(h -> h.disable()) // SSR을 사용하지 않기 때문에 HTTP Basic 인증 비활성화
+                .formLogin(form -> form.disable()) // SSR을 사용하지 않기 때문에 폼 로그인 비활성화
+                .csrf(csrf -> csrf.disable()) // SSR이 아니면 CSRF 보호 필요 없음
+                .authorizeHttpRequests(req -> req
+                           .requestMatchers("/api/feed", "/api/feed/**").authenticated() //로그인이 되어 있어야만 사용 가능
+                           .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
+                           .requestMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
+                           .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
+                        .anyRequest().permitAll() // 그 외의 모든 요청은 허용
                 )
-                .exceptionHandling(e->e.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // security 쪽에서 exception 이 발생이 하면, 발동이 된다.
-                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 인증 실패 시 jwtAuthenticationEntryPoint 처리
+                //.addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 인증 필터 추가
                 .build();
     }
 

@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.jobdone.product.ProductMapper">
+    <insert id="postProduct">
+        INSERT INTO product
+        SET  businessId=#{businessId}
+            ,detailTypeId=#{detailTypeId}
+            ,price=#{price}
+    </insert>
+
+    <select id="checkBusinessProduct">
+        SELECT productId
+        FROM product
+        WHERE businessId=#{businessId}
+    </select>
+
+
+    <insert id="postProductOption">
+        INSERT INTO product_option
+        SET  productId=#{productId}
+            ,name=#{name}
+    </insert>
+
+    <select id="checkProductOption">
+        SELECT name
+        FROM product_option
+        WHERE productId=#{productId}
+    </select>
+
+
+    <insert id="postOptionDetail">
+        INSERT INTO option_detail
+        SET  productOptionId=#{productOptionId}
+            ,contents=#{contents}
+            ,price=#{price}
+            ,name=#{name}
+    </insert>
+
+    <select id="checkProductOptionDetail">
+        SELECT name
+        FROM option_detail
+        WHERE productOptionId=#{productOptionId}
+    </select>
 
 </mapper>

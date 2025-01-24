@@ -4,24 +4,31 @@
     <insert id="insRoom">
         insert into room
         set
-        serviceId = #{serviceId}
+        businessId = #{businessId},
+        userId = #{userId}
+        <if test="serviceId != null">
+            ,serviceId = #{serviceId}
+        </if>
     </insert>
 
     <select id="selRoom">
-        select a.roomId, d.title, a.createdAt as roomCreatedAt,
-        e.contents as chatContents, e.chatId
-        from room a
-        left join service b on a.serviceId = b.serviceId
-        left join product c on b.productId = c.productId
-        left join business d on c.businessId = d.businessId
-        left join (select chatId, roomId, contents, row_number() over (partition by roomId order by chatId desc) as rn
-                from chat) e on a.roomId = e.roomId
-        where
+        SELECT a.roomId, a.createdAt as roomCreatedAt, b.title, b.businessName, e.contents as chatContents,
+        e.chatId, c.serviceId
+        FROM room a
+        LEFT JOIN business b ON a.businessId = b.businessid
+        LEFT JOIN service c ON a.serviceId = c.serviceId
+        LEFT JOIN (
+        SELECT chatId, roomId, contents
+        FROM chat
+        ORDER BY chatId DESC
+        LIMIT 1
+        ) e ON a.roomId = e.roomId
+        WHERE
         <if test="userId != null">
-            b.userId = #{userId}
+            a.userId = #{userId}
         </if>
         <if test="businessId != null">
-            d.businessId = #{businessId}
+            a.businessId = #{businessId}
         </if>
     </select>
 

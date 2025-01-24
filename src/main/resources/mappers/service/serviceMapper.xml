@@ -4,16 +4,24 @@
 <mapper namespace="com.green.jobdone.service.ServiceMapper">
     <insert id="insService" keyProperty="serviceId" useGeneratedKeys="true">
         insert into service
-        (userId , productId, price, lat, lng, address, comment, phone, name)
+        (userId , productId, price, lat, lng, address, comment, phone, name, pyeong)
         values
-        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name})
+        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name}, #{pyeong})
     </insert>
 
     <insert id="insServiceDetail">
         insert into service_detail
-        (serviceId, startTime)
+        (serviceId, startDate, mStartTime)
         values
-        (#{serviceId}, #{startTime})
+        (#{serviceId}, #{startDate}, #{mStartTime})
+    </insert>
+
+    <insert id="insServiceOption">
+            INSERT INTO service_option (serviceId, optionDetailId, price, comment)
+            VALUES
+        <foreach collection="options" item="option" separator=";">
+            (#{serviceId}, #{option.optionDetailId}, #{option.price}, #{option.comment});
+        </foreach>
     </insert>
 
     <resultMap id="serviceFlow" type="com.green.jobdone.service.model.ServiceGetOneRes">
@@ -38,17 +46,17 @@
         <collection property="options" resultMap="servicePhone"/>
         <collection property="phone" resultMap="serviceOption"/>
     </resultMap>
-    <resultMap id="servicePhone" type="com.green.jobdone.service.model.ServicePhone">
+    <resultMap id="servicePhone" type="com.green.jobdone.service.model.Dto.ServicePhone">
         <result property="businessPhone" column="businessPhone"/>
     </resultMap>
 
-    <resultMap id="serviceOption" type="com.green.jobdone.service.model.ServiceOptionDto">
+    <resultMap id="serviceOption" type="com.green.jobdone.service.model.Dto.ServiceOptionDto">
         <id property="productOptionId" column="productOptionId"/>
         <result property="optionName" column="optionName"/>
         <collection property="optionDetails" resultMap="serviceOptionDetail"/>
     </resultMap>
 
-    <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.OptionDetailDto">
+    <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.Dto.OptionDetailDto">
         <id property="optionDetailId" column="optionDetailId"/>
         <result property="detailName" column="detailName"/>
         <result property="detailPrice" column="detailPrice"/>
@@ -97,37 +105,44 @@
 
     <update id="updService">
         update service
-        set
-        <if test="price != null"> price = #{price} </if>
-        <if test="addComment != null"> addComment = #{addComment} </if>
-        <if test="completed != null"> completed = #{completed} </if>
+        <set>
+            <if test="price != null">price = #{price},</if>
+            <if test="addComment != null">addComment = #{addComment},</if>
+            <if test="pyeong != null">pyeong = #{pyeong},</if>
+            completed = 2
+        </set>
         where serviceId = #{serviceId}
         and userId = #{userId}
     </update>
     <update id="updServiceDetail">
         update service_detail
-        set
-        <if test="startDate!=null"> startDate = #{startDate}</if>
-        <if test="endDate!=null"> endDate = #{endDate}</if>
-        <if test="mStartTime!=null"> mStartTime = #{mStartTime}</if>
-        <if test="mEndTime!=null"> mEndTime = #{mEndTime}</if>
+        <set>
+            <if test="startDate != null"> startDate = #{startDate}, </if>
+            <if test="endDate != null"> endDate = #{endDate}, </if>
+            <if test="mStartTime != null"> mStartTime = #{mStartTime}, </if>
+            <if test="mEndTime != null"> mEndTime = #{mEndTime} </if>
+        </set>
         where serviceId = #{serviceId}
     </update>
+
     <update id="updServiceOption" parameterType="com.green.jobdone.service.model.ServicePutReq">
         <foreach collection="options" item="option" separator=";">
             <if test="option.serviceOptionId != null">
                 update service_option
-                set
-                <if test="price != null">price = #{price}</if>
-                <if test="comment != null">comment = #{comment}</if>
-                where serviceOptionId = #{serviceOptionId}
+                <set>
+                    <if test="option.price != null">price = #{option.price},</if>
+                    <if test="option.comment != null">`comment` = #{option.comment},</if>
+                </set>
+                where serviceOptionId = #{option.serviceOptionId}
             </if>
             <if test="option.serviceOptionId == null">
                 insert into service_option
-                set
-                serviceId = #{serviceId}
-                <if test="price != null">price = #{price}</if>
-                <if test="comment != null">comment = #{comment}</if>
+                <set>
+                    serviceId = #{serviceId},
+                    optionDetailId = #{option.optionDetailId},
+                    <if test="option.price != null">price = #{option.price},</if>
+                    <if test="option.comment != null">`comment` = #{option.comment},</if>
+                </set>
             </if>
         </foreach>
     </update>
@@ -135,6 +150,7 @@
     <update id="patchCompleted">
         update service
         set completed = #{completed}
+        where serviceId = #{serviceId}
     </update>
     <select id="getCompleted">
         select completed

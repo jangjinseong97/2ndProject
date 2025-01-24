@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -7,6 +8,7 @@ import com.green.jobdone.business.model.BusinessPostSignUpReq;
 import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequestMapping("business")
 @RestController
 @Slf4j
+@Tag(name = "업체")
 public class BusinessController {
     private final BusinessService businessService;
 
@@ -33,16 +36,27 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping
+    @PutMapping("detail")
     @Operation(summary = "업체 상세정보 기입")
-    public ResultResponse<Integer> udtBusinessDetail(@RequestPart MultipartFile logo,
-                                                     BusinessDetailPutReq p){
-        int result = businessService.udtBusiness(logo, p);
+    public ResultResponse<Integer> udtBusinessDetail(@RequestPart BusinessDetailPutReq p){
+        int result = businessService.udtBusiness(p);
         return ResultResponse.<Integer>builder()
                 .resultData(result)
                 .resultMessage(result==0?"업체 정보 수정 실패":"업체 정보 수정 성공")
                 .build();
     }
+
+    @PutMapping("logo")
+    @Operation(summary = "업체 로고사진 변경")
+    public ResultResponse<Integer> patchProfilePic(@ModelAttribute BusinessLogoPatchReq p,MultipartFile logo) {
+        log.info("UserController > patchProfilePic > p: {}", p);
+        int result = businessService.patchBusinessLogo(p,logo);
+        return ResultResponse.<Integer>builder()
+                .resultMessage("로고 사진 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
 
     @PostMapping("phone")
     @Operation(summary = "업체 전화번호 기입")
@@ -65,7 +79,7 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping("/pic")
+    @PutMapping("pic")
     @Operation(summary = "사진 유형 수정")
     public ResultResponse<Integer> putBusinessPic(long businessPicId){
         int res = businessService.udtBusinessPics(businessPicId);
@@ -76,7 +90,7 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping("/state")
+    @PutMapping("state")
     @Operation(summary = "업체 유형 수정")
     public ResultResponse<Integer> putBusinessState(BusinessStatePutReq p){
         int res = businessService.udtBusinessState(p);
