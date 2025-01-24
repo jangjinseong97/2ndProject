@@ -1,8 +1,8 @@
 package com.green.jobdone.service.model;
 
-import lombok.AllArgsConstructor;
+import com.green.jobdone.service.model.Dto.ServiceOptionDto;
+import com.green.jobdone.service.model.Dto.ServicePhone;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;

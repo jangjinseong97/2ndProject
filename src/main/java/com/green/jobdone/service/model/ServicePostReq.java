@@ -1,9 +1,12 @@
 package com.green.jobdone.service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.green.jobdone.service.model.Dto.PostOptionDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,10 +22,16 @@ public class ServicePostReq {
     private String address;
     private String comment;
     private String phone;
-    @Schema(title = "일자, 시간 다작성", example = "2025/01/22 12:12:11")
-    private String startTime;
+    @Schema(title = "년/월/일 작성", example = "2025/01/22")
+    private String startDate;
+    @Schema(title = "시작 시간", example = "11:00:00")
+    private String mStartTime;
     @Schema(title = "이름", example = "필수작성")
     private String name;
+    @Schema(title = "평수")
+    private String pyeong;
+
+    private List<PostOptionDto> options;
     @JsonIgnore
     private long serviceId;
 }
