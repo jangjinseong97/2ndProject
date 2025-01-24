@@ -16,6 +16,12 @@
         tel = #{tel}
     </insert>
 
+    <select id="existsBusinessNum" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM business
+        WHERE businessNum = #{businessNum}
+    </select>
+
     <update id="udtBusiness">
         UPDATE business
         <set>
