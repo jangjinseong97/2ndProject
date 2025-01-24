@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class BusinessGetOneReq {
+public class BusinessGetOneReq { //
     private long businessId;
 }
