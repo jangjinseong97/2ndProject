@@ -36,8 +36,7 @@ public class BusinessController {
 
     @PutMapping("detail")
     @Operation(summary = "업체 상세정보 기입")
-    public ResultResponse<Integer> udtBusinessDetail(@RequestPart MultipartFile logo,
-                                                     BusinessDetailPutReq p){
+    public ResultResponse<Integer> udtBusinessDetail(@RequestPart BusinessDetailPutReq p){
         int result = businessService.udtBusiness(p);
         return ResultResponse.<Integer>builder()
                 .resultData(result)
