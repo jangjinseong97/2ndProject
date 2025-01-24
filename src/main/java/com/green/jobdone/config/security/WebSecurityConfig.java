@@ -3,6 +3,7 @@ package com.green.jobdone.config.security;
 //Spring Security 세팅
 import com.green.jobdone.config.jwt.JwtAuthenticationEntryPoint;
 import com.green.jobdone.config.jwt.TokenAuthenticationFilter;
+import com.green.jobdone.config.jwt.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +35,11 @@ public class WebSecurityConfig {
                 .formLogin(form -> form.disable()) //SSR(Server Side Rendering)이 아니다. 폼로그인 기능 자체를 비활성화
                 .csrf(csrf -> csrf.disable()) //SSR(Server Side Rendering)이 아니다. 보안관련 SSR 이 아니면 보안이슈가 없기 때문에 기능을 끈다.
                 .authorizeHttpRequests(req ->
+                                req.requestMatchers("/api/like").hasRole(UserRole.USER.name())
 //                        req.requestMatchers("/api/feed", "/api/feed/**").authenticated() //로그인이 되어 있어야만 사용 가능
 //                            .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
 //                            .requestMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
-                            req.anyRequest().permitAll() //나머지 요청은 모두 허용
+                                .anyRequest().permitAll() //나머지 요청은 모두 허용
                 )
                 .exceptionHandling(e->e.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // security 쪽에서 exception 이 발생이 하면, 발동이 된다.
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

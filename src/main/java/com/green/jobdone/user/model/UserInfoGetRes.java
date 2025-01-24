@@ -10,8 +10,8 @@ import lombok.Setter;
 @Schema(title = "유저 정보 조회 응답")
 public class UserInfoGetRes {
     private String pic;
-    private long userId;
     private String name;
+    private String email;
     private String phone;
 
 

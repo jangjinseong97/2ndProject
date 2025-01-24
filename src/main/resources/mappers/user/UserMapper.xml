@@ -48,6 +48,14 @@
         WHERE email=#{email}
     </select>
 
+
+    <select id="getUserInfo">
+        SELECT pic,name,email,phone
+        FROM user
+        WHERE userId=#{userId}
+
+    </select>
+
     <update id="updateUserInfo">
         UPDATE user
         <set>

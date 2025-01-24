@@ -11,6 +11,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,6 @@ public class TokenProvider {
 
     public String generateToken(JwtUser jwtUser, long tokenValidMillSecond) {
         Date now = new Date();
-
 
 
         return Jwts.builder()
