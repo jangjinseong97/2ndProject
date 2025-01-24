@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicDto;
@@ -53,22 +54,38 @@ public class BusinessService {
         return businessMapper.insBusiness(p);
     }
 
-    //사업상세정보 기입
-    public int udtBusiness(MultipartFile logo, BusinessDetailPutReq p){
-        if(logo == null){
-            return businessMapper.udtBusiness(p);
-        }
+    //사업상세정보 기입 - 로고사진은 따로 뺄게요 ~~
 
-        long businessId = p.getBusinessId();
-        String folderPath = String.format("business/%d", businessId);
-        myFileUtils.makeFolders(folderPath);
-        String filePath = String.format("%s/logo/%s", folderPath, folderPath);
-        try {
-            myFileUtils.transferTo(logo,filePath);
-        }catch (IOException e){
-            log.error(e.getMessage());
-        }
+    public int udtBusiness( BusinessDetailPutReq p){
         return businessMapper.udtBusiness(p);
+    }
+
+    public String patchBusinessLogo(BusinessLogoPatchReq p){
+        //저장할 파일명(랜덤한 파일명) 생성한다. 이때, 확장자는 오리지날 파일명과 일치하게 한다.
+        String savedPicName = (p.getLogo() != null ? myFileUtils.makeRandomFileName(p.getLogo()) : null);
+
+        //폴더 만들기 (최초에 프로필 사진이 없었다면 폴더가 없기 때문)
+        String folerPath = String.format("business/%d", p.getBusinessId());
+        myFileUtils.makeFolders(folerPath);
+
+        //기존 파일 삭제(방법 3가지 [1]: 폴더를 지운다. [2]select해서 기존 파일명을 얻어온다. [3]기존 파일명을 FE에서 받는다.)
+        String deletePath = String.format("%s/user/%d", myFileUtils.getUploadPath(), p.getBusinessId());
+        myFileUtils.deleteFolder(deletePath, false);
+
+        //DB에 튜플을 수정(Update)한다.
+        p.setLogoName(savedPicName);
+        int result = businessMapper.udtBusinessLogo(p);
+
+        if(p.getLogo() == null) { return null; }
+        //원하는 위치에 저장할 파일명으로 파일을 이동(transferTo)한다.
+        String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
+
+        try {
+            myFileUtils.transferTo(p.getLogo(), filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return savedPicName;
     }
 
     public int insBusinessPhone(BusinessPhonePostReq p){

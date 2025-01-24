@@ -18,11 +18,8 @@
     <update id="udtBusiness">
         UPDATE business
         <set>
-            <if test=" logo != null and logo != ''">
-                logo = #{logo}
-            </if>
             <if test=" title != null and title != ''">
-                ,title = #{title}
+                title = #{title}
             </if>
             <if test=" title != null and title != ''">
                 ,contents = #{contents}
@@ -36,8 +33,6 @@
         </set>
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
-
-
 
     <insert id="insBusinessPics">
         insert into business_pic
@@ -65,6 +60,12 @@
         set state = #{state}
         where businessId = #{businessId}
     </update>
+
+    <select id="udtBusinessLogo">
+        update business
+        set logo = #{logoName}
+        where businessId = #{businessId}
+    </select>
     
 
 

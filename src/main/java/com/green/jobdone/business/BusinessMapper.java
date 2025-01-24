@@ -1,5 +1,6 @@
 package com.green.jobdone.business;
 
+import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.business.model.get.BusinessGetReq;
 import com.green.jobdone.business.model.get.BusinessGetRes;
@@ -16,7 +17,7 @@ public interface BusinessMapper {
     int insBusiness(BusinessPostSignUpReq p); //
     int existBusinessNum(String businessNum);
     int udtBusiness(BusinessDetailPutReq p);
-
+    int udtBusinessLogo(BusinessLogoPatchReq p);
     //businessPhone
     int insBusinessPhone(BusinessPhonePostReq p);
     int existBusinessPhone(long businessId, String phone);
@@ -27,7 +28,7 @@ public interface BusinessMapper {
     //state
     int putBusinessState(BusinessStatePutReq p);
 
-    //get
+    //get 하 내일하자
     List<BusinessGetRes> selAllBusiness(BusinessGetReq p);
 
 
