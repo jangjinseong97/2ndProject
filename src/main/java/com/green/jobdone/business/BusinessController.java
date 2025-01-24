@@ -50,10 +50,10 @@ public class BusinessController {
     @Operation(summary = "업체 로고사진 변경")
     public ResultResponse<Integer> patchProfilePic(@ModelAttribute BusinessLogoPatchReq p,MultipartFile logo) {
         log.info("UserController > patchProfilePic > p: {}", p);
-        int pic = businessService.patchBusinessLogo(p,logo);
+        int result = businessService.patchBusinessLogo(p,logo);
         return ResultResponse.<Integer>builder()
                 .resultMessage("로고 사진 수정 완료")
-                .resultData(pic)
+                .resultData(result)
                 .build();
     }
 
