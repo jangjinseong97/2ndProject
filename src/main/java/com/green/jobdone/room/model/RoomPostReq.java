@@ -8,9 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoomPostReq {
-    @Schema(title = "서비스 pk", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long serviceId;
-
+    @Schema(title = "서비스 pk")
+    private Long serviceId;
+    @Schema(title = "user pk")
+    private long userId;
+    @Schema(title = "업체 pk")
+    private long businessId;
     @JsonIgnore
     private long roomId;
 }
