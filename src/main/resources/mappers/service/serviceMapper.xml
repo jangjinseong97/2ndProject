@@ -4,16 +4,24 @@
 <mapper namespace="com.green.jobdone.service.ServiceMapper">
     <insert id="insService" keyProperty="serviceId" useGeneratedKeys="true">
         insert into service
-        (userId , productId, price, lat, lng, address, comment, phone, name)
+        (userId , productId, price, lat, lng, address, comment, phone, name, pyeong)
         values
-        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name})
+        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name}, #{pyeong})
     </insert>
 
     <insert id="insServiceDetail">
         insert into service_detail
-        (serviceId, startTime)
+        (serviceId, startDate, mStartTime)
         values
-        (#{serviceId}, #{startTime})
+        (#{serviceId}, #{startDate}, #{mStartTime})
+    </insert>
+
+    <insert id="insServiceOption">
+            INSERT INTO service_option (serviceId, optionDetailId, price, comment)
+            VALUES
+        <foreach collection="options" item="option" separator=";">
+            (#{serviceId}, #{option.optionDetailId}, #{option.price}, #{option.comment});
+        </foreach>
     </insert>
 
     <resultMap id="serviceFlow" type="com.green.jobdone.service.model.ServiceGetOneRes">
@@ -38,17 +46,17 @@
         <collection property="options" resultMap="servicePhone"/>
         <collection property="phone" resultMap="serviceOption"/>
     </resultMap>
-    <resultMap id="servicePhone" type="com.green.jobdone.service.model.ServicePhone">
+    <resultMap id="servicePhone" type="com.green.jobdone.service.model.Dto.ServicePhone">
         <result property="businessPhone" column="businessPhone"/>
     </resultMap>
 
-    <resultMap id="serviceOption" type="com.green.jobdone.service.model.ServiceOptionDto">
+    <resultMap id="serviceOption" type="com.green.jobdone.service.model.Dto.ServiceOptionDto">
         <id property="productOptionId" column="productOptionId"/>
         <result property="optionName" column="optionName"/>
         <collection property="optionDetails" resultMap="serviceOptionDetail"/>
     </resultMap>
 
-    <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.OptionDetailDto">
+    <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.Dto.OptionDetailDto">
         <id property="optionDetailId" column="optionDetailId"/>
         <result property="detailName" column="detailName"/>
         <result property="detailPrice" column="detailPrice"/>
@@ -135,6 +143,7 @@
     <update id="patchCompleted">
         update service
         set completed = #{completed}
+        where serviceId = #{serviceId}
     </update>
     <select id="getCompleted">
         select completed

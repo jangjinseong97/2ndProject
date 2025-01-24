@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.green.jobdone.service.model.Dto.ServicePutDto;
 import lombok.Getter;
 import lombok.Setter;
 
