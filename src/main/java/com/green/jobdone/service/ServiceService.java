@@ -48,9 +48,6 @@ public class ServiceService {
 
     @Transactional
     public int updService(ServicePutReq p){
-        if(p.getCompleted()>2){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "불가능한 요청입니다.");
-        }
         int res1 = serviceMapper.updService(p);
         int res2 = serviceMapper.updServiceDetail(p);
         int res3 = serviceMapper.updServiceOption(p);
