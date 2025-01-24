@@ -73,10 +73,31 @@
         where businessId = #{businessId}
     </update>
 
-    <select id="udtBusinessLogo">
+    <update id="udtBusinessLogo">
         update business
         set logo = #{logoName}
         where businessId = #{businessId}
+    </update>
+
+    <select id="selAllBusiness">
+        SELECT c.pic, b.businessId, b.businessName, b.title, p.price AS price
+        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
+        FROM business b
+        left JOIN business_pic c
+        ON c.businessId = b.businessId
+        JOIN product p
+        ON b.businessId = p.businessId
+        JOIN service s
+        ON s.productId = p.productId
+        JOIN review r
+        ON r.serviceId =s.serviceId
+        JOIN `like` l
+        ON l.businessId = b.businessId
+        AND l.userId = 1
+
+        GROUP BY b.businessId, b.businessName
+
+
     </select>
     
 
