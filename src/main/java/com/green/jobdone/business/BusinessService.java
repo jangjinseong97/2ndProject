@@ -39,6 +39,24 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
+        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
+
+        int result = businessMapper.insBusiness(p);
+
+        long businessId = p.getBusinessId();
+        String middlePath = String.format("business/%d", businessId);
+        myFileUtils.makeFolders(middlePath);
+        log.info("middlePath = {}", middlePath);
+        String filePath = String.format("%s/%s", middlePath, savedPicName);
+        try {
+            myFileUtils.transferTo(paper, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+        /*
         // 페이퍼는 사업자등록증 사진
         String fileName = null;
         if (paper != null && !paper.isEmpty()) {
@@ -63,6 +81,7 @@ public class BusinessService {
             } catch (IOException e) {
                 log.error(e.getMessage());
                 throw new IllegalArgumentException("파일 업로드 중 오류가 발생하였습니다.");
+
             }
         }
 
@@ -72,14 +91,14 @@ public class BusinessService {
         } catch (Exception e) {
             log.error("사업자 정보 저장 중 오류 발생: {}", e.getMessage());
             throw new IllegalStateException("사업자 정보 저장 중 오류가 발생했습니다.");
-        }
-    }
+        }*/
 
     //사업상세정보 기입 - 로고사진은 따로 뺄게요 ~~
 
     public int udtBusiness(BusinessDetailPutReq p) {
         return businessMapper.udtBusiness(p);
     }
+
     // 로고 수정
     public int  patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
 
@@ -88,16 +107,19 @@ public class BusinessService {
             return result;
         }
 
-        //저장할 파일명(랜덤한 파일명) 생성한다. 이때, 확장자는 오리지날 파일명과 일치하게 한다.
+
         String savedPicName = myFileUtils.makeRandomFileName(logo);
 
-        p.setLogoName(savedPicName);
+        p.setLogo(savedPicName);
 
         int result = businessMapper.udtBusinessLogo(p);
 
+        String folderPath = String.format("business/%d", p.getBusinessId()); //만약 폴더가 없었으면 새로 만들기
+
         myFileUtils.deleteFile(savedPicName);
 
-        String folderPath = String.format("business/%d", p.getBusinessId()); //만약 폴더가 없었으면 새로 만들기
+
+
         myFileUtils.makeFolders(folderPath);
 
         //기존 파일 삭제(방법 3가지 [1]: 폴더를 지운다. [2]select해서 기존 파일명을 얻어온다. [3]기존 파일명을 FE에서 받는다.)
@@ -105,14 +127,13 @@ public class BusinessService {
         myFileUtils.deleteFolder(folderPath, false);
 
         //DB에 튜플을 수정(Update)한다.
-        p.setLogoName(savedPicName);
+        p.setLogo(savedPicName);
 
 
-        //원하는 위치에 저장할 파일명으로 파일을 이동(transferTo)한다.
         String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
 
         try {
-            myFileUtils.transferTo(p.getLogo(), filePath);
+            myFileUtils.transferTo(logo, filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

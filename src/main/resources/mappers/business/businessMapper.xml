@@ -11,12 +11,12 @@
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
-        detailTypeId = #{serviceTypeId},
+        detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
         tel = #{tel}
     </insert>
 
-    <select id="existsBusinessNum" parameterType="map" resultType="int">
+    <select id="existBusinessNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM business
         WHERE businessNum = #{businessNum}
@@ -58,7 +58,7 @@
     <insert id="insBusinessPhone">
         insert into businessPhone
         set businessId = #{businessId},
-            phone = #{phone}
+        phone = #{phone}
     </insert>
 
     <update id="udtBusinessPics">
@@ -75,7 +75,11 @@
 
     <update id="udtBusinessLogo">
         update business
-        set logo = #{logoName}
+        <set>
+            <if test="logo">
+                logo = #{logo}
+            </if>
+        </set>
         where businessId = #{businessId}
     </update>
 
@@ -99,12 +103,6 @@
 
 
     </select>
-    
-
-
-
-
-
 
 
 </mapper>

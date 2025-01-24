@@ -9,14 +9,16 @@ import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("business")
 @RestController
 @Slf4j
@@ -26,8 +28,8 @@ public class BusinessController {
 
     @PostMapping("sign-up")
     @Operation(summary = "업체 등록")
-    public ResultResponse<Integer> postBusiness(@RequestPart(required = true) MultipartFile paper,
-                                                  @RequestPart BusinessPostSignUpReq p){
+    public ResultResponse<Integer> postBusiness(@RequestPart(required = false) MultipartFile paper,
+                                                  @Valid @RequestPart BusinessPostSignUpReq p){
         int result = businessService.insBusiness(paper, p);
 
         return ResultResponse.<Integer>builder()
@@ -46,11 +48,13 @@ public class BusinessController {
                 .build();
     }
 
-    @PutMapping("logo")
+    @PatchMapping("logo")
     @Operation(summary = "업체 로고사진 변경")
-    public ResultResponse<Integer> patchProfilePic(@ModelAttribute BusinessLogoPatchReq p,MultipartFile logo) {
+    public ResultResponse<Integer> patchProfilePic(@RequestPart BusinessLogoPatchReq p,@RequestPart(required = false) MultipartFile logo) {
         log.info("UserController > patchProfilePic > p: {}", p);
+
         int result = businessService.patchBusinessLogo(p,logo);
+
         return ResultResponse.<Integer>builder()
                 .resultMessage("로고 사진 수정 완료")
                 .resultData(result)
