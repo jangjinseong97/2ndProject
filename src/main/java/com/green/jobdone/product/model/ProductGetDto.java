@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class ProductGetDto {
     private long productOptionId;
-    private String name;
+    private String productOptionName;
     private List<ProductGetDtoDto> optionDetailList;
 
 }

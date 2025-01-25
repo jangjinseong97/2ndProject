@@ -1,5 +1,6 @@
 package com.green.jobdone.product;
 
+import com.green.jobdone.product.model.ProductGetRes;
 import com.green.jobdone.product.model.ProductOptionDetailPostReq;
 import com.green.jobdone.product.model.ProductPostReq;
 import com.green.jobdone.product.model.ProductOptionPostReq;
@@ -15,5 +16,6 @@ public interface ProductMapper {
     List<String> checkProductOption(long productId);
     int postOptionDetail(ProductOptionDetailPostReq p);
     List<String> checkProductOptionDetail(long productOptionId);
+    List<ProductGetRes> getProductInfoByBusiness(long businessId);
 
 }

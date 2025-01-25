@@ -1,5 +1,6 @@
 package com.green.jobdone.product;
 
+import com.green.jobdone.product.model.ProductGetRes;
 import com.green.jobdone.product.model.ProductOptionDetailPostReq;
 import com.green.jobdone.product.model.ProductOptionPostReq;
 import com.green.jobdone.product.model.ProductPostReq;
@@ -72,6 +73,15 @@ public class ProductService {
         int result = mapper.postOptionDetail(p);
 
         return result;
+
+
+    }
+
+    public List<ProductGetRes> getProductInfoByBusiness(long businessId) {
+
+        List<ProductGetRes> list=mapper.getProductInfoByBusiness(businessId);
+
+        return list;
 
 
     }

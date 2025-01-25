@@ -1,19 +1,19 @@
 package com.green.jobdone.product;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.product.model.ProductGetRes;
 import com.green.jobdone.product.model.ProductOptionDetailPostReq;
 import com.green.jobdone.product.model.ProductOptionPostReq;
 import com.green.jobdone.product.model.ProductPostReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.annotation.Retention;
+import java.util.List;
 
 @RestController
 @RequestMapping("product")
@@ -65,6 +65,23 @@ public class ProductController {
 
         return ResultResponse.<Integer>builder()
                 .resultMessage(result==0?"이미 등록된 상세 옵션입니다":"상품 상세 옵션 등록 완료")
+                .resultData(result)
+                .build();
+
+    }
+
+
+
+    @GetMapping
+    @Operation(summary = "업체의 상품,상품상세옵션 조회")
+    public ResultResponse<List<ProductGetRes>> getProductInfoByBusiness(@RequestParam long businessId) {
+
+
+        List<ProductGetRes> result = service.getProductInfoByBusiness(businessId);
+
+
+        return ResultResponse.<List<ProductGetRes>>builder()
+                .resultMessage("업체의 상품,상품상세옵션 조회 완료")
                 .resultData(result)
                 .build();
 

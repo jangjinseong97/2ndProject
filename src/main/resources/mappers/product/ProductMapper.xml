@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.green.jobdone.product.ProductMapper">
     <insert id="postProduct">
         INSERT INTO product
@@ -52,13 +54,13 @@
 
 <!--    <resultMap id="selProductOptionListResultMap" type="com.green.jobdone.product.model.ProductGetDto">-->
 <!--        <id property="productOptionId" column="productOptionId"/>-->
-<!--        <result property="name" column="name"/>-->
+<!--        <result property="name" column="productOptionName"/>-->
 <!--        <collection property="optionDetailList" resultMap="selProductOptionDetailListResultMap"/>-->
 <!--    </resultMap>-->
 
 <!--    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">-->
 <!--        <id property="optionDetailId" column="optionDetailId"/>-->
-<!--        <result property="name" column="name"/>-->
+<!--        <result property="name" column="optionDetailName"/>-->
 <!--        <result property="price" column="price"/>-->
 <!--        <result property="contents" column="contents"/>-->
 
@@ -67,9 +69,8 @@
 
 
 
-
 <!--    <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">-->
-<!--        SELECT productId,price,productOptionId,name,optionDetailId,name,price,contents-->
+<!--        SELECT a.productId,a.price,b.productOptionId,b.name as productOptionName,c.optionDetailId,c.name as optionDetailName,c.price,c.contents-->
 <!--        FROM product a-->
 <!--        JOIN product_option b-->
 <!--        ON a.productId=b.productId-->
@@ -77,6 +78,49 @@
 <!--        ON b.productOptionId=c.productOptionId-->
 <!--        WHERE a.businessId=#{businessId}-->
 <!--    </select>-->
+
+
+
+
+    <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRES">
+        <id property="productId" column="productId"/>
+        <result property="price" column="productPrice"/>
+        <collection property="optionList" resultMap="selProductOptionListResultMap"/>
+    </resultMap>
+
+    <resultMap id="selProductOptionListResultMap" type="com.green.jobdone.product.model.ProductGetDto">
+        <id property="productOptionId" column="productOptionId"/>
+        <result property="name" column="productOptionName"/>
+        <collection property="optionDetailList" resultMap="selProductOptionDetailListResultMap"/>
+    </resultMap>
+
+    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
+        <id property="optionDetailId" column="optionDetailId"/>
+        <result property="name" column="optionDetailName"/>
+        <result property="price" column="optionDetailPrice"/>
+        <result property="contents" column="optionDetailContents"/>
+    </resultMap>
+
+
+
+
+
+    <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
+        SELECT
+        a.productId AS productId,
+        a.price AS productPrice,
+        b.productOptionId AS productOptionId,
+        b.name AS productOptionName,
+        c.optionDetailId AS optionDetailId,
+        c.name AS optionDetailName,
+        c.price AS optionDetailPrice,
+        c.contents AS optionDetailContents
+        FROM product a
+        JOIN product_option b ON a.productId = b.productId
+        JOIN option_detail c ON b.productOptionId = c.productOptionId
+        WHERE a.businessId = #{businessId}
+    </select>
+
 
 
 </mapper>
