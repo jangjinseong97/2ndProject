@@ -2,6 +2,10 @@ package com.green.jobdone.business;
 
 import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.get.BusinessGetOneReq;
+import com.green.jobdone.business.model.get.BusinessGetOneRes;
+import com.green.jobdone.business.model.get.BusinessGetReq;
+import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicDto;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -185,6 +189,29 @@ public class BusinessService {
 
     public int udtBusinessState(BusinessStatePutReq p) {
         return businessMapper.putBusinessState(p);
+    }
+
+
+    //업체 조회하기
+    // 1. 업체 리스트 조회
+    public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
+        List<BusinessGetRes> res;
+        if (p.getCategoryId() != 0 || p.getDetailTypeId() != 0){
+            res = businessMapper.selAllBusiness(p);
+        } else {
+            res = businessMapper.selAllBusiness(p);
+        }
+
+        return res;
+    }
+
+    // 2. 단일업체 조회
+    public BusinessGetOneRes getBusinessOne(BusinessGetOneReq p) {
+       BusinessGetOneRes res = businessMapper.selOneBusiness(p.getBusinessId());
+       if (p.getBusinessId() >0){
+           res.setBusinessId(p.getBusinessId());
+       }
+       return res;
     }
 
 
