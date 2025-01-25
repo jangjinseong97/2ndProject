@@ -12,7 +12,7 @@ public class ChatGetRes {
     private long chatId;
     private String userName;
     private String businessName;
-    private String businessPic;
+    private String logo;
     private String createdAt;
     private String contents;
     private List<GetPicDto> pics;
