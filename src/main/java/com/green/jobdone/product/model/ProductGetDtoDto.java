@@ -3,12 +3,11 @@ package com.green.jobdone.product.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class ProductGetRes {
-    private long productId;
+public class ProductGetDtoDto {
+    private long optionDetailId;
+    private String name;
     private int price;
-    private List<ProductGetDto> optionList;
+    private String contents;
 }
