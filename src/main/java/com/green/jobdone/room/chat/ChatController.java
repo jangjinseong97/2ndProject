@@ -17,11 +17,17 @@ import java.util.List;
 @Slf4j
 @Tag(name = "7. 문의 채팅")
 public class ChatController {
+    private final ChatService chatService;
 
     @Operation(summary = "채팅 보내기")
     @PostMapping
-    public ResultResponse<Integer> insChat(@RequestPart List<MultipartFile> pic, @RequestPart ChatPostReq p){
-        return null;
+    public ResultResponse<Integer> insChat(@RequestPart List<MultipartFile> pics, @RequestPart ChatPostReq p){
+        int res = chatService.insChat(pics, p);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("송신 완료")
+                .resultData(res)
+                .build();
     }
 
 }
