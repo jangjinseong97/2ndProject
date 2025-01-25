@@ -2,6 +2,7 @@ package com.green.jobdone.business;
 
 import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicDto;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -185,6 +186,12 @@ public class BusinessService {
 
     public int udtBusinessState(BusinessStatePutReq p) {
         return businessMapper.putBusinessState(p);
+    }
+
+
+    //업체 조회하기
+    public List<BusinessGetRes> getBusinessList(long businessId) {
+
     }
 
 
