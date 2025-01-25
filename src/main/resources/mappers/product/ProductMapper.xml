@@ -94,7 +94,7 @@
         <collection property="optionDetailList" resultMap="selProductOptionDetailListResultMap"/>
     </resultMap>
 
-    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
+    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.prouct.model.ProductGetDtoDto">
         <id property="optionDetailId" column="optionDetailId"/>
         <result property="name" column="optionDetailName"/>
         <result property="price" column="optionDetailPrice"/>
@@ -107,20 +107,21 @@
 
     <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
         SELECT
-        a.productId AS productId,
-        a.price AS productPrice,
-        b.productOptionId AS productOptionId,
-        b.name AS productOptionName,
-        c.optionDetailId AS optionDetailId,
-        c.name AS optionDetailName,
-        c.price AS optionDetailPrice,
-        c.contents AS optionDetailContents
+            a.productId AS productId,
+            a.price AS productPrice,
+            b.productOptionId AS productOptionId,
+            b.name AS productOptionName,
+            c.optionDetailId AS optionDetailId,
+            c.name AS optionDetailName,
+            c.price AS optionDetailPrice,
+            c.contents AS optionDetailContents
         FROM product a
-        JOIN product_option b ON a.productId = b.productId
-        JOIN option_detail c ON b.productOptionId = c.productOptionId
+        JOIN product_option b
+            ON a.productId = b.productId
+        JOIN option_detail c
+            ON b.productOptionId = c.productOptionId
         WHERE a.businessId = #{businessId}
     </select>
-
 
 
 </mapper>
