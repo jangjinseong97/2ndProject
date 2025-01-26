@@ -1,5 +1,6 @@
 package com.green.jobdone.business.model.get;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,8 @@ public class BusinessGetReq {
     private long categoryId;
     @Schema(title = "소분류")
     private long detailTypeId;
-    @Schema(title = "로그인한 유저 아이디")
+
+    @JsonIgnore
     private long signedUserId;
 
 }
