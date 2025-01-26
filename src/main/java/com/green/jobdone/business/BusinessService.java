@@ -2,6 +2,10 @@ package com.green.jobdone.business;
 
 import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.get.BusinessGetOneReq;
+import com.green.jobdone.business.model.get.BusinessGetOneRes;
+import com.green.jobdone.business.model.get.BusinessGetReq;
+import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessPicDto;
 import com.green.jobdone.business.pic.BusinessPicPostRes;
@@ -15,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,24 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
+        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
+
+        int result = businessMapper.insBusiness(p);
+
+        long businessId = p.getBusinessId();
+        String middlePath = String.format("business/%d", businessId);
+        myFileUtils.makeFolders(middlePath);
+        log.info("middlePath = {}", middlePath);
+        String filePath = String.format("%s/%s", middlePath, savedPicName);
+        try {
+            myFileUtils.transferTo(paper, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+        /*
         // 페이퍼는 사업자등록증 사진
         String fileName = null;
         if (paper != null && !paper.isEmpty()) {
@@ -63,6 +87,7 @@ public class BusinessService {
             } catch (IOException e) {
                 log.error(e.getMessage());
                 throw new IllegalArgumentException("파일 업로드 중 오류가 발생하였습니다.");
+
             }
         }
 
@@ -72,52 +97,52 @@ public class BusinessService {
         } catch (Exception e) {
             log.error("사업자 정보 저장 중 오류 발생: {}", e.getMessage());
             throw new IllegalStateException("사업자 정보 저장 중 오류가 발생했습니다.");
-        }
-    }
+        }*/
 
     //사업상세정보 기입 - 로고사진은 따로 뺄게요 ~~
+
 
     public int udtBusiness(BusinessDetailPutReq p) {
         return businessMapper.udtBusiness(p);
     }
-    // 로고 수정
-    public int  patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
 
+
+
+    // 로고 수정
+    public int patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
+        // 누락 파일 처리
         if (logo == null || logo.isEmpty()) {
-            int result = businessMapper.udtBusinessLogo(p);
-            return result;
+            return 0;
         }
 
-        //저장할 파일명(랜덤한 파일명) 생성한다. 이때, 확장자는 오리지날 파일명과 일치하게 한다.
-        String savedPicName = myFileUtils.makeRandomFileName(logo);
+        // 로고파일 저장 폴더 경로
+        String folderPath = String.format("business/%d/logo", p.getBusinessId());
 
-        p.setLogoName(savedPicName);
+        // 기존 로고 폴더가 있다면 폴더 삭제
+        myFileUtils.deleteFolder(folderPath, true); // true: 폴더 내 모든 파일 및 하위 폴더 삭제
 
-        int result = businessMapper.udtBusinessLogo(p);
-
-        myFileUtils.deleteFile(savedPicName);
-
-        String folderPath = String.format("business/%d", p.getBusinessId()); //만약 폴더가 없었으면 새로 만들기
+        // 새 폴더 생성
         myFileUtils.makeFolders(folderPath);
 
-        //기존 파일 삭제(방법 3가지 [1]: 폴더를 지운다. [2]select해서 기존 파일명을 얻어온다. [3]기존 파일명을 FE에서 받는다.)
-
-        myFileUtils.deleteFolder(folderPath, false);
-
-        //DB에 튜플을 수정(Update)한다.
-        p.setLogoName(savedPicName);
-
-
-        //원하는 위치에 저장할 파일명으로 파일을 이동(transferTo)한다.
-        String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
+        // 랜덤 파일명 생성
+        String savedPicName = myFileUtils.makeRandomFileName(logo); // 사진 등록 후 파일명 만들기
+        String newFilePath = String.format("%s/%s", folderPath, savedPicName); // 만약 폴더가 없으면 새로 만들기
 
         try {
-            myFileUtils.transferTo(p.getLogo(), filePath);
+            // 파일을 지정된 경로로 저장
+            myFileUtils.transferTo(logo, newFilePath);
+            log.info("File successfully saved to: {}", newFilePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            // 파일 저장 실패시 처리
+            log.error("Error saving file: {}", e.getMessage());
+            return 0;
         }
-        return result;
+
+        // DB에 로고 수정 정보 업데이트
+        p.setLogo(savedPicName);
+        return businessMapper.udtBusinessLogo(p);
     }
+
 
     public int insBusinessPhone(BusinessPhonePostReq p) {
         int exists = businessMapper.existBusinessPhone(p.getBusinessId(), p.getPhone());
@@ -152,10 +177,7 @@ public class BusinessService {
         businessPicDto.setPics(businessPicList);
         int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
-        return BusinessPicPostRes.builder()
-                .businessId(businessId)
-                .pics(businessPicList)
-                .build();
+        return BusinessPicPostRes.builder().businessId(businessId).pics(businessPicList).build();
     }
 
     public int udtBusinessPics(long businessPicId) {
@@ -164,6 +186,33 @@ public class BusinessService {
 
     public int udtBusinessState(BusinessStatePutReq p) {
         return businessMapper.putBusinessState(p);
+    }
+
+
+    //업체 조회하기
+    // 1. 업체 리스트 조회
+    public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
+        List<BusinessGetRes> res;
+        if (p.getCategoryId() != 0 || p.getDetailTypeId() != 0) {
+            res = businessMapper.selAllBusiness(p);
+        } else {
+            res = businessMapper.selAllBusiness(p);
+        }
+
+        return res;
+    }
+
+    // 2. 단일업체 조회
+    public BusinessGetOneRes getBusinessOne(BusinessGetOneReq p) {
+        BusinessGetOneRes res = businessMapper.selOneBusiness(p.getBusinessId());
+        if (res == null) {
+            res = new BusinessGetOneRes();  // res가 null일 경우 새로운 객체 생성
+        }
+
+        if (p.getBusinessId() > 0) {
+            res.setBusinessId(p.getBusinessId());
+        }
+        return res;
     }
 
 

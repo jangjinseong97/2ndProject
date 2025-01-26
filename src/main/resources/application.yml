@@ -3,7 +3,7 @@ const:
   auth-code-length: 6
 
 file:
-  directory: D:\pjh\2ndProject1\jobdone
+  directory: D:\SYS\USER\IdeaProjects\2ndProject\jobdone
 
 
 mybatis:

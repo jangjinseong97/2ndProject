@@ -11,12 +11,12 @@
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
-        detailTypeId = #{serviceTypeId},
+        detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
         tel = #{tel}
     </insert>
 
-    <select id="existsBusinessNum" parameterType="map" resultType="int">
+    <select id="existBusinessNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM business
         WHERE businessNum = #{businessNum}
@@ -58,7 +58,7 @@
     <insert id="insBusinessPhone">
         insert into businessPhone
         set businessId = #{businessId},
-            phone = #{phone}
+        phone = #{phone}
     </insert>
 
     <update id="udtBusinessPics">
@@ -75,7 +75,9 @@
 
     <update id="udtBusinessLogo">
         update business
-        set logo = #{logoName}
+
+       set  logo = #{logo}
+
         where businessId = #{businessId}
     </update>
 
@@ -100,12 +102,31 @@
         GROUP BY b.businessId, b.businessName
 
     </select>
-    
 
+    <select id="selOneBusiness">
 
+        SELECT c.pic,b.detailTypeId,d.detailTypeName,b.logo, b.businessId, b.businessName, b.title, p.price AS price
+        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
+        , b.address, COUNT(s.productId) AS serviceCount, b.openingTime, b.closingTime
+        , b.busiCreatedAt, b.`contents`
+        FROM business b
+        JOIN detail_type d
+        ON d.detailTypeId = b.detailTypeId
+        left JOIN business_pic c
+        ON c.businessId = b.businessId
+        JOIN product p
+        ON b.businessId = p.businessId
+        JOIN service s
+        ON s.productId = p.productId
+        JOIN review r
+        ON r.serviceId =s.serviceId
+        LEFT JOIN `like` l
+        ON l.businessId = b.businessId
+        AND l.userId = #{userId}
+        WHERE b.businessId = #{businessId}
+        GROUP BY b.businessId, b.businessName
 
-
-
+    </select>
 
 
 </mapper>

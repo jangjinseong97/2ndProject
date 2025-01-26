@@ -2,6 +2,7 @@ package com.green.jobdone.business;
 
 import com.green.jobdone.business.model.BusinessLogoPatchReq;
 import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
 import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
@@ -31,6 +32,7 @@ public interface BusinessMapper {
     //get 하 내일하자
     List<BusinessGetRes> selAllBusiness(BusinessGetReq p);
 
+    BusinessGetOneRes selOneBusiness(long businessId);
 
 
 

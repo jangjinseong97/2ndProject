@@ -73,7 +73,7 @@ public class MyFileUtils {
 
     //폴더 삭제, e.g. "user/1"
     public void deleteFolder(String path, boolean deleteRootFolder) {
-        File folder = new File(path);
+        File folder = new File(uploadPath,path); // 절대경오 박아야 폴더 없어져요 여러분
         if(folder.exists() && folder.isDirectory()) { //폴더가 존재하면서 디렉토리인가?
             File[] includedFiles = folder.listFiles();
 
