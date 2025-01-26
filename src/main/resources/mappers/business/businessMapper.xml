@@ -91,7 +91,7 @@
         ON s.productId = p.productId
         JOIN review r
         ON r.serviceId =s.serviceId
-        JOIN `like` l
+        LEFT JOIN `like` l
         ON l.businessId = b.businessId
         AND l.userId = 1
 
