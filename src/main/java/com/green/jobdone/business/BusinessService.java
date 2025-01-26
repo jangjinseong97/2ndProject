@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,50 +101,48 @@ public class BusinessService {
 
     //사업상세정보 기입 - 로고사진은 따로 뺄게요 ~~
 
+
     public int udtBusiness(BusinessDetailPutReq p) {
         return businessMapper.udtBusiness(p);
     }
 
-    // 로고 수정
-    public int  patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
 
+
+    // 로고 수정
+    public int patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
+        // 누락 파일 처리
         if (logo == null || logo.isEmpty()) {
-            int result = businessMapper.udtBusinessLogo(p);
-            return result;
+            return 0;
         }
 
+        // 로고파일 저장 폴더 경로
+        String folderPath = String.format("business/%d/logo", p.getBusinessId());
 
-        String savedPicName = myFileUtils.makeRandomFileName(logo);
+        // 기존 로고 폴더가 있다면 폴더 삭제
+        myFileUtils.deleteFolder(folderPath, true); // true: 폴더 내 모든 파일 및 하위 폴더 삭제
 
-        p.setLogo(savedPicName);
-
-        int result = businessMapper.udtBusinessLogo(p);
-
-        String folderPath = String.format("business/%d", p.getBusinessId()); //만약 폴더가 없었으면 새로 만들기
-
-        myFileUtils.deleteFile(savedPicName);
-
-
-
+        // 새 폴더 생성
         myFileUtils.makeFolders(folderPath);
 
-        //기존 파일 삭제(방법 3가지 [1]: 폴더를 지운다. [2]select해서 기존 파일명을 얻어온다. [3]기존 파일명을 FE에서 받는다.)
-
-        myFileUtils.deleteFolder(folderPath, false);
-
-        //DB에 튜플을 수정(Update)한다.
-        p.setLogo(savedPicName);
-
-
-        String filePath = String.format("business/%d/logo/%s", p.getBusinessId(), savedPicName);
+        // 랜덤 파일명 생성
+        String savedPicName = myFileUtils.makeRandomFileName(logo); // 사진 등록 후 파일명 만들기
+        String newFilePath = String.format("%s/%s", folderPath, savedPicName); // 만약 폴더가 없으면 새로 만들기
 
         try {
-            myFileUtils.transferTo(logo, filePath);
+            // 파일을 지정된 경로로 저장
+            myFileUtils.transferTo(logo, newFilePath);
+            log.info("File successfully saved to: {}", newFilePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            // 파일 저장 실패시 처리
+            log.error("Error saving file: {}", e.getMessage());
+            return 0;
         }
-        return result;
+
+        // DB에 로고 수정 정보 업데이트
+        p.setLogo(savedPicName);
+        return businessMapper.udtBusinessLogo(p);
     }
+
 
     public int insBusinessPhone(BusinessPhonePostReq p) {
         int exists = businessMapper.existBusinessPhone(p.getBusinessId(), p.getPhone());
@@ -177,10 +177,7 @@ public class BusinessService {
         businessPicDto.setPics(businessPicList);
         int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
-        return BusinessPicPostRes.builder()
-                .businessId(businessId)
-                .pics(businessPicList)
-                .build();
+        return BusinessPicPostRes.builder().businessId(businessId).pics(businessPicList).build();
     }
 
     public int udtBusinessPics(long businessPicId) {
@@ -196,7 +193,7 @@ public class BusinessService {
     // 1. 업체 리스트 조회
     public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
         List<BusinessGetRes> res;
-        if (p.getCategoryId() != 0 || p.getDetailTypeId() != 0){
+        if (p.getCategoryId() != 0 || p.getDetailTypeId() != 0) {
             res = businessMapper.selAllBusiness(p);
         } else {
             res = businessMapper.selAllBusiness(p);
@@ -207,11 +204,11 @@ public class BusinessService {
 
     // 2. 단일업체 조회
     public BusinessGetOneRes getBusinessOne(BusinessGetOneReq p) {
-       BusinessGetOneRes res = businessMapper.selOneBusiness(p.getBusinessId());
-       if (p.getBusinessId() >0){
-           res.setBusinessId(p.getBusinessId());
-       }
-       return res;
+        BusinessGetOneRes res = businessMapper.selOneBusiness(p.getBusinessId());
+        if (p.getBusinessId() > 0) {
+            res.setBusinessId(p.getBusinessId());
+        }
+        return res;
     }
 
 

@@ -75,11 +75,9 @@
 
     <update id="udtBusinessLogo">
         update business
-        <set>
-            <if test="logo">
-                logo = #{logo}
-            </if>
-        </set>
+
+       set  logo = #{logo}
+
         where businessId = #{businessId}
     </update>
 
