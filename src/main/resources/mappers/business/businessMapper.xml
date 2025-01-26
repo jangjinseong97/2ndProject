@@ -104,11 +104,13 @@
 
     <select id="selOneBusiness">
 
-        SELECT c.pic, b.businessId, b.businessName, b.title, p.price AS price
+        SELECT c.pic,b.detailTypeId,d.detailTypeName,b.logo, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
         , b.address, COUNT(s.productId) AS serviceCount, b.openingTime, b.closingTime
         , b.busiCreatedAt, b.`contents`
         FROM business b
+        JOIN detail_type d
+        ON d.detailTypeId = b.detailTypeId
         left JOIN business_pic c
         ON c.businessId = b.businessId
         JOIN product p
@@ -117,9 +119,9 @@
         ON s.productId = p.productId
         JOIN review r
         ON r.serviceId =s.serviceId
-        JOIN `like` l
+        LEFT JOIN `like` l
         ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
+        AND l.userId = #{userId}
         WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
 

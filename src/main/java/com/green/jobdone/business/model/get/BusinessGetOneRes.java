@@ -17,8 +17,8 @@ public class BusinessGetOneRes {
     private int like;
     private String address;
     private int serviceCount;
-    private String openTime;
-    private String closeTime;
+    private String openingTime;
+    private String closingTime;
     private String busiCreatedAt;
     private String contents;
 
