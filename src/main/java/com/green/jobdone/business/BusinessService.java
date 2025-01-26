@@ -205,6 +205,10 @@ public class BusinessService {
     // 2. 단일업체 조회
     public BusinessGetOneRes getBusinessOne(BusinessGetOneReq p) {
         BusinessGetOneRes res = businessMapper.selOneBusiness(p.getBusinessId());
+        if (res == null) {
+            res = new BusinessGetOneRes();  // res가 null일 경우 새로운 객체 생성
+        }
+
         if (p.getBusinessId() > 0) {
             res.setBusinessId(p.getBusinessId());
         }
