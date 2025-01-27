@@ -32,6 +32,7 @@
         <result property="reservedName" column="reservedName"/>
         <result property="productName" column="productName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="businessAddress" column="businessAddress"/>
         <result property="price" column="price"/>
         <result property="completed" column="completed"/>
         <result property="comment" column="comment"/>
@@ -67,7 +68,8 @@
         select a.serviceId, a.name as userName, a.phone as userPhone, d.businessName as businessName, b.name as reservedName,
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, group_concat(distinct j.phone) as businessPhone,
-        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId
+        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
+        b.address as businessAddress
         from service a
         left join user b on a.userId = b.userId
         left join product c on a.productId = c.productId
@@ -87,7 +89,8 @@
 
     <select id="GetServiceFlow">
         select a.serviceId, a.createdAt, a.price, a.completed, b.name as reservedName,
-        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName
+        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName,
+        a.address
         from service A
         left join user B on a.userId = b.userId
         left join service_detail C on a.serviceId = c.serviceId
