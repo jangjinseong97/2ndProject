@@ -193,11 +193,8 @@ public class BusinessService {
     // 1. 업체 리스트 조회
     public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
         List<BusinessGetRes> res;
-        if (p.getCategoryId() != 0 || p.getDetailTypeId() != 0) {
+
             res = businessMapper.selAllBusiness(p);
-        } else {
-            res = businessMapper.selAllBusiness(p);
-        }
 
         return res;
     }

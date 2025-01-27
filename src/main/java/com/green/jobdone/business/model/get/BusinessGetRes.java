@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 public class BusinessGetRes {
+    private String detailTypeName;
     private String pic;
     private long businessId;
     private String businessName;
@@ -15,13 +16,15 @@ public class BusinessGetRes {
     private int price;
     private int like;
 
-    public BusinessGetRes(String pic, long businessId, String businessName, String title, double scoreAvg, int price, int like) {
+    public BusinessGetRes(String detailTypeName,String pic, long businessId, String businessName, String title
+            , int price, double scoreAvg, int like) {
+        this.detailTypeName = detailTypeName;
         this.pic = PicUrlMaker.makePicUrl(businessId, pic);
         this.businessId = businessId;
         this.businessName = businessName;
         this.title = title;
-        this.scoreAvg = scoreAvg;
         this.price = price;
+        this.scoreAvg = scoreAvg;
         this.like = like;
     }
 }

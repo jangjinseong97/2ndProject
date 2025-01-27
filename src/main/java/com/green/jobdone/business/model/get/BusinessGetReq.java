@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 public class BusinessGetReq {
     @Schema(title = "대분류")
-    private long categoryId;
+    private Long categoryId;
     @Schema(title = "소분류")
-    private long detailTypeId;
+    private Long detailTypeId;
 
     @JsonIgnore
     private long signedUserId;
