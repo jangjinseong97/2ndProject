@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryGetRes {
-    private long categoryTypeId;
+    private long categoryId;
     private String categoryName;
 }

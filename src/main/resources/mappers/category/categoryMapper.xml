@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.jobdone.category.CategoryMapper">
+   <insert id="insCategory" useGeneratedKeys="true" keyProperty="categoryId">
+       insert into category
+       set categoryName = #{categoryName}
+   </insert>
+    <select id="existCategory" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM category
+        WHERE categoryName = #{categoryName}
+    </select>
+   
+   
     <insert id="insDetailType" useGeneratedKeys="true" keyProperty="detailTypeId">
         INSERT INTO detailType
         SET categoryId = #{categoryId},
@@ -11,6 +22,7 @@
         from category a
         join detail_type b
         on a.categoryId = b.categoryId
+        group by a.categoryId
     </select>
 
     <select id="getDetailType">
