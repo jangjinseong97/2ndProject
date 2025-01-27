@@ -81,7 +81,7 @@ public class ProductController {
 
 
         return ResultResponse.<List<ProductGetRes>>builder()
-                .resultMessage("업체의 상품,상품상세옵션 조회 완료")
+                .resultMessage(result!=null&&!result.isEmpty()?"업체의 상품,상품상세옵션 조회 완료":"등록된 상품,상품상세옵션이 없습니다")
                 .resultData(result)
                 .build();
 
