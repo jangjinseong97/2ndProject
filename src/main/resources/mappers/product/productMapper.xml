@@ -15,4 +15,31 @@
     </select>
 
 
+    <insert id="postProductOption">
+        INSERT INTO product_option
+        SET  productId=#{productId}
+            ,name=#{name}
+    </insert>
+
+    <select id="checkProductOption">
+        SELECT name
+        FROM product_option
+        WHERE productId=#{productId}
+    </select>
+
+
+    <insert id="postOptionDetail">
+        INSERT INTO option_detail
+        SET  productOptionId=#{productOptionId}
+            ,contents=#{contents}
+            ,price=#{price}
+            ,name=#{name}
+    </insert>
+
+    <select id="checkProductOptionDetail">
+        SELECT name
+        FROM option_detail
+        WHERE productOptionId=#{productOptionId}
+    </select>
+
 </mapper>

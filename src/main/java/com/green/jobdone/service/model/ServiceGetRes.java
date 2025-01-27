@@ -20,4 +20,5 @@ public class ServiceGetRes {
     private int completed;
     private String startDate;
     private String createdAt;
+    private String address;
 }

@@ -1,4 +1,4 @@
-package com.green.jobdone.product.option;
+package com.green.jobdone.product.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductOptionPostReq {
-    @Schema(title = "상품 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "업체 상품 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long productId;
-    @Schema(title = "상품명", example = "방개수", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "상품 옵션명", example = "방갯수", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @JsonIgnore

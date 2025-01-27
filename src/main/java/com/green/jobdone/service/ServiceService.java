@@ -48,9 +48,6 @@ public class ServiceService {
 
     @Transactional
     public int updService(ServicePutReq p){
-        if(p.getCompleted()>2){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "불가능한 요청입니다.");
-        }
         int res1 = serviceMapper.updService(p);
         int res2 = serviceMapper.updServiceDetail(p);
         int res3 = serviceMapper.updServiceOption(p);
@@ -73,8 +70,8 @@ public class ServiceService {
           1,List.of(2),
                 2,List.of(1,3,5,6),
                 3,List.of(4),
-                6,List.of(7,9),
-                7,List.of(8)
+                6,List.of(7),
+                7,List.of(8,9)
         );
         return allowed.getOrDefault(oldCompleted, List.of()).contains(newCompleted);
     }

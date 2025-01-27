@@ -25,6 +25,7 @@ public class ServiceGetOneRes {
     private String mStartTime;
     private String mEndTime;
     private String address;
+    private String businessAddress;
     private String categoryName;
     private String businessNum;
     private String createdAt;

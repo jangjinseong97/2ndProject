@@ -82,13 +82,9 @@
     </update>
 
     <select id="selAllBusiness">
-        SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
+        SELECT c.pic, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
         FROM business b
-        join detail_type d
-        on  d.detailTypeId = b.detailTypeId
-        join category k
-        on k.categoryId = d.categoryId
         left JOIN business_pic c
         ON c.businessId = b.businessId
         JOIN product p
@@ -97,9 +93,9 @@
         ON s.productId = p.productId
         JOIN review r
         ON r.serviceId =s.serviceId
-        left JOIN `like` l
+        JOIN `like` l
         ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
+        AND l.userId = 1
 
         GROUP BY b.businessId, b.businessName
 
@@ -123,9 +119,9 @@
         ON s.productId = p.productId
         JOIN review r
         ON r.serviceId =s.serviceId
-        JOIN `like` l
+        LEFT JOIN `like` l
         ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
+        AND l.userId = #{userId}
         WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
 
