@@ -29,7 +29,7 @@ public interface BusinessMapper {
     //state
     int putBusinessState(BusinessStatePutReq p);
 
-    //get 하 내일하자
+    //get 하 내일하자 --> 완
     List<BusinessGetRes> selAllBusiness(BusinessGetReq p);
 
     BusinessGetOneRes selOneBusiness(long businessId);
