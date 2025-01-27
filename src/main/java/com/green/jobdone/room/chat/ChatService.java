@@ -1,6 +1,8 @@
 package com.green.jobdone.room.chat;
 
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.room.chat.model.ChatGetReq;
+import com.green.jobdone.room.chat.model.ChatGetRes;
 import com.green.jobdone.room.chat.model.ChatPicDto;
 import com.green.jobdone.room.chat.model.ChatPostReq;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +48,10 @@ public class ChatService {
         int res2 = chatMapper.insChatPic(chatPicDto);
 
         return res2;
+    }
+
+    public List<ChatGetRes> selRoomChat(ChatGetReq p){
+        List<ChatGetRes> res = chatMapper.selRoomChat(p);
+        return res;
     }
 }
