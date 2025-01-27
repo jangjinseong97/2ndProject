@@ -15,13 +15,13 @@ public class BusinessGetRes {
     private int price;
     private int like;
 
-    public BusinessGetRes(String pic, long businessId, String businessName, String title, double scoreAvg, int priceMin, int like) {
+    public BusinessGetRes(String pic, long businessId, String businessName, String title, double scoreAvg, int price, int like) {
         this.pic = PicUrlMaker.makePicUrl(businessId, pic);
         this.businessId = businessId;
         this.businessName = businessName;
         this.title = title;
         this.scoreAvg = scoreAvg;
-        this.price = priceMin;
+        this.price = price;
         this.like = like;
     }
 }
