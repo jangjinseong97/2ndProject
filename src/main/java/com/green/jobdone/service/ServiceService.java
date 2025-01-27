@@ -70,8 +70,8 @@ public class ServiceService {
           1,List.of(2),
                 2,List.of(1,3,5,6),
                 3,List.of(4),
-                6,List.of(7,9),
-                7,List.of(8)
+                6,List.of(7),
+                7,List.of(8,9)
         );
         return allowed.getOrDefault(oldCompleted, List.of()).contains(newCompleted);
     }
