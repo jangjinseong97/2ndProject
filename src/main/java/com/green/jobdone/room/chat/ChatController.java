@@ -1,6 +1,8 @@
 package com.green.jobdone.room.chat;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.room.chat.model.ChatGetReq;
+import com.green.jobdone.room.chat.model.ChatGetRes;
 import com.green.jobdone.room.chat.model.ChatPostReq;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +29,17 @@ public class ChatController {
         return ResultResponse.<Integer>builder()
                 .resultMessage("송신 완료")
                 .resultData(res)
+                .build();
+    }
+
+    @Operation(summary = "채팅 조회")
+    @GetMapping
+    public ResultResponse<List<ChatGetRes>> getRoomChat(@ModelAttribute ChatGetReq p){
+        List<ChatGetRes> res = chatService.selRoomChat(p);
+
+        return ResultResponse.<List<ChatGetRes>>builder()
+                .resultData(res)
+                .resultMessage("조회 완료")
                 .build();
     }
 
