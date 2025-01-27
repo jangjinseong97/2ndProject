@@ -40,6 +40,7 @@
         <result property="endDate" column="endDate"/>
         <result property="mStartTime" column="mStartTime"/>
         <result property="mEndTime" column="mEndTime"/>
+        <result property="pyeong" column="pyeong"/>
         <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="createdAt" column="createdAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
@@ -67,7 +68,8 @@
         select a.serviceId, a.name as userName, a.phone as userPhone, d.businessName as businessName, b.name as reservedName,
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, group_concat(distinct j.phone) as businessPhone,
-        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId
+        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
+        a.pyeong
         from service a
         left join user b on a.userId = b.userId
         left join product c on a.productId = c.productId
