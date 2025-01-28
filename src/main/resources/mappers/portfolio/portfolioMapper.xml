@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.jobdone.portfolio.PortfolioMapper">
+
+    <insert id="insPortfolio" useGeneratedKeys="true" keyProperty="portfolioId">
+        insert into portfolio
+        set businessId = #{businessId},
+            category = #{category},
+            detailType = #{detailType},
+            price = #{price},
+            takingTime = #{takingTime},
+            title = #{title},
+            contents = #{contents}
+    </insert>
+
+    <insert id="insPortfolioPic" useGeneratedKeys="true" keyProperty="portfolioPicId">
+        insert into portfolio_pic
+        (portfolioId, pic)
+        values
+        <foreach collection="pics" item = "pic" separator=",">
+            (#{portfolioId}, #{pic})
+        </foreach>
+    </insert>
+</mapper>

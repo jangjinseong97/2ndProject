@@ -41,9 +41,9 @@
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
 
-    <insert id="insBusinessPics">
+    <insert id="insBusinessPic" useGeneratedKeys="true" keyProperty="businessPicId">
         insert into business_pic
-        (business_id, pic)
+        (businessId, pic)
         values
         <foreach collection="pics" item="pic" open="(" close=")" separator="),(">
             #{businessId}, #{pic}
@@ -61,7 +61,7 @@
         phone = #{phone}
     </insert>
 
-    <update id="udtBusinessPics">
+    <update id="putBusinessPic">
         update business_pic
         set state = 1
         where businessId = #{businessId}

@@ -93,7 +93,7 @@ public class BusinessController {
         int res = businessService.udtBusinessPics(businessPicId);
 
         return ResultResponse.<Integer>builder()
-                .resultMessage("업체 사진 수정 완료")
+                .resultMessage(res == 0? "업체사진 수정 실패":"업체 사진 수정 완료")
                 .resultData(res)
                 .build();
     }
