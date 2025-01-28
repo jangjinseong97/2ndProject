@@ -6,6 +6,11 @@ import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
+import com.green.jobdone.portfolio.model.PortfolioPutReq;
+import com.green.jobdone.portfolio.model.get.PortfolioGetOneReq;
+import com.green.jobdone.portfolio.model.get.PortfolioGetOneRes;
+import com.green.jobdone.portfolio.model.get.PortfolioListGetReq;
+import com.green.jobdone.portfolio.model.get.PortfolioListGetRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,6 +56,26 @@ public class PortfolioService {
         int resultPics = portfolioMapper.insPortfolioPic(portfolioPicDto);
 
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
+    }
+
+    public int udtPortfolio(PortfolioPutReq p){
+        return portfolioMapper.udtPortfolio(p);
+    }
+
+    public List<PortfolioListGetRes> getPortfolioList(PortfolioListGetReq p){
+        return portfolioMapper.selAllPortfolioList(p);
+    }
+
+    public PortfolioGetOneRes getOnePortfolio(PortfolioGetOneReq p) {
+        PortfolioGetOneRes res = portfolioMapper.selOnePortfolio(p.getPortfolioId());
+        if (res == null) {
+            res = new PortfolioGetOneRes();
+        }
+
+        if (p.getPortfolioId()>0){
+            res.setPortfolioId(p.getPortfolioId());
+        }
+        return res;
     }
 
 

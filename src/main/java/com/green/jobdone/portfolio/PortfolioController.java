@@ -4,14 +4,16 @@ import com.green.jobdone.common.model.ResultResponse;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
+import com.green.jobdone.portfolio.model.PortfolioPutReq;
+import com.green.jobdone.portfolio.model.get.PortfolioGetOneReq;
+import com.green.jobdone.portfolio.model.get.PortfolioGetOneRes;
+import com.green.jobdone.portfolio.model.get.PortfolioListGetReq;
+import com.green.jobdone.portfolio.model.get.PortfolioListGetRes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -44,5 +46,27 @@ public class PortfolioController {
                 .build();
     }
 
+    @PutMapping
+    @Operation(summary = "포폴 수정")
+    public ResultResponse<Integer> udtPortfolioPut(PortfolioPutReq p) {
+        int res = portfolioService.udtPortfolio(p);
+        return ResultResponse.<Integer>builder().resultData(res).resultMessage(res > 0? "포폴 수정 완료": "포폴 수정 빠꾸").build();
+    }
+
+    @GetMapping
+    @Operation(summary = "여러 포폴조회")
+    public ResultResponse<List<PortfolioListGetRes>> getPortfolioList(PortfolioListGetReq p) {
+        List<PortfolioListGetRes> res = portfolioService.getPortfolioList(p);
+        return ResultResponse.<List<PortfolioListGetRes>>builder().resultData(res).resultMessage("포폴 리스트 조회 완료").build();
+    }
+
+    @GetMapping("/{portfolioId}")
+    @Operation(summary = "한 포폴 조회")
+    public ResultResponse<PortfolioGetOneRes> selPortfolio(@PathVariable Long portfolioId) {
+        PortfolioGetOneReq req = new PortfolioGetOneReq(portfolioId);
+        PortfolioGetOneRes res = portfolioService.getOnePortfolio(req);
+
+        return ResultResponse.<PortfolioGetOneRes>builder().resultData(res).resultMessage("한 포폴 조회 완").build();
+    }
 
 }

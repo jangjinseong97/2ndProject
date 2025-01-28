@@ -21,4 +21,64 @@
             (#{portfolioId}, #{pic})
         </foreach>
     </insert>
+
+    <update id="udtPortfolio">
+        update portfolio
+        <set>
+            <if test=" category != null and category != '' ">
+                category = #{category}
+            </if>
+            <if test=" detailType != null and detailType != '' ">
+                ,detailType = #{detailType}
+            </if>
+            <if test=" price != null and price != '' ">
+                ,price = #{price}
+            </if>
+            <if test=" takingTime != null and takingTime != '' ">
+                ,takingTime = #{takingTime}
+            </if>
+            <if test=" title != null and title != '' ">
+                ,title = #{title}
+            </if>
+            <if test=" contents != null and contents != '' ">
+                ,contents = #{contents}
+            </if>
+        </set>
+        where portfolioId = #{portfolioId}
+    </update>
+
+    <select id="selAllPortfolioList">
+
+        SELECT f.portfolioId, f.title, t.pic AS isThumbnail
+        FROM portfolio f
+        LEFT JOIN (
+        SELECT c.portfolioId, c.pic
+        FROM portfolio_pic c
+        WHERE c.portfolioPicId = #{portfolioPicId}
+        ) t
+        ON f.portfolioId = t.portfolioId
+        LEFT JOIN business b
+        ON b.businessId = f.businessId
+        LEFT JOIN detail_type d
+        ON d.detailTypeId = b.detailTypeId
+        LEFT JOIN category k
+        ON k.categoryId = d.categoryId
+        WHERE
+        (#{categoryId} IS null OR k.categoryId = #{categoryId})
+        AND (#{detailTypeId} IS null OR d.detailTypeId = #{detailTypeId})
+        AND (#{businessId} IS null OR b.businessId = #{businessId});
+
+    </select>
+    <select id="selOnePortfolio">
+        SELECT p.portfolioId, p.title, p.category
+        , p.detailType, p.price, p.takingTime, p.contents
+        FROM portfolio p
+        WHERE p.portfolioId = #{portfolioId}
+
+    </select>
+
+    <!-- 사진 가져오기는 있다가 한번에 하자 -->
+    <select id="selOnePortfolioPics">
+
+    </select>
 </mapper>
