@@ -78,7 +78,9 @@
     </select>
 
     <!-- 사진 가져오기는 있다가 한번에 하자 -->
-    <select id="selOnePortfolioPics">
-
+    <select id="getPortfolioPicList">
+        select p.portfolioPicId, p.pic
+        from portfolio_pic p
+        where p.portfolioId = #{portfolioId}
     </select>
 </mapper>
