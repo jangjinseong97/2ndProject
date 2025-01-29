@@ -1,14 +1,10 @@
 package com.green.jobdone.portfolio;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
 import com.green.jobdone.portfolio.model.PortfolioPutReq;
-import com.green.jobdone.portfolio.model.get.PortfolioGetOneReq;
-import com.green.jobdone.portfolio.model.get.PortfolioGetOneRes;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetReq;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetRes;
+import com.green.jobdone.portfolio.model.get.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +63,14 @@ public class PortfolioController {
         PortfolioGetOneRes res = portfolioService.getOnePortfolio(req);
 
         return ResultResponse.<PortfolioGetOneRes>builder().resultData(res).resultMessage("한 포폴 조회 완").build();
+    }
+
+    @GetMapping("pic/{portfolioId}")
+    @Operation(summary = "한 포폴에서 사진 여러장 조회")
+    public ResultResponse<List<PortfolioPicGetRes>> getPortfolioPicList(PortfolioPicGetReq p){
+        List<PortfolioPicGetRes> res = portfolioService.getPortfolioPicList(p);
+
+        return ResultResponse.<List<PortfolioPicGetRes>>builder().resultData(res).resultMessage(res != null? "포폴 사진 조회 완" : "포폴 사진 조회 싯빠이").build();
     }
 
 }

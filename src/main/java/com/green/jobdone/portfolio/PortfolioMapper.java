@@ -3,9 +3,7 @@ package com.green.jobdone.portfolio;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
 import com.green.jobdone.portfolio.model.PortfolioPutReq;
-import com.green.jobdone.portfolio.model.get.PortfolioGetOneRes;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetReq;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetRes;
+import com.green.jobdone.portfolio.model.get.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,5 +17,8 @@ public interface PortfolioMapper {
 
     List<PortfolioListGetRes> selAllPortfolioList(PortfolioListGetReq p);
     PortfolioGetOneRes selOnePortfolio(long portfolioId);
+
+    //pic
+    List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p);
 }
 
