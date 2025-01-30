@@ -188,4 +188,9 @@
         join detail_type c on b.detailTypeId = c.detailTypeId
         where serviceId = #{serviceId}
     </select>
+    <update id="payCompleted">
+        update service
+        set completed = 6
+        where serviceId = #{serviceId}
+    </update>
 </mapper>
