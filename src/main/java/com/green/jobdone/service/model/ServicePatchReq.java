@@ -8,4 +8,6 @@ import lombok.Setter;
 public class ServicePatchReq {
     private int completed;
     private long serviceId;
+    private long userId;
+    private Long businessId;
 }

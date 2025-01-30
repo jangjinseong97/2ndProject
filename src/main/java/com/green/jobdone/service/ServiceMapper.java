@@ -1,6 +1,7 @@
 package com.green.jobdone.service;
 
 import com.green.jobdone.service.model.*;
+import com.green.jobdone.service.model.Dto.KakaoPayDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,7 +17,11 @@ public interface ServiceMapper {
     int updService(ServicePutReq p);
     int updServiceDetail(ServicePutReq p);
     int updServiceOption(ServicePutReq p);
+    Long providerUserId(Long serviceId);
+    Long findUserId(Long businessId);
 
     int getCompleted(long serviceId);
     int patchCompleted(ServicePatchReq p);
+
+    KakaoPayDto serviceInfo(Long serviceId);
 }
