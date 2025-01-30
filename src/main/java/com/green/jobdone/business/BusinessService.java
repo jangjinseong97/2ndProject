@@ -45,21 +45,26 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
-        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
-
-        int result = businessMapper.insBusiness(p);
-
-        long businessId = p.getBusinessId();
-        String middlePath = String.format("business/%d", businessId);
-        myFileUtils.makeFolders(middlePath);
-        log.info("middlePath = {}", middlePath);
-        String filePath = String.format("%s/%s", middlePath, savedPicName);
-        try {
-            myFileUtils.transferTo(paper, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (paper == null || paper.isEmpty()) {
+            return 0;
         }
-        return result;
+
+        String folderPath = String.format("business/%d/paper",p.getBusinessId());
+        myFileUtils.makeFolders(folderPath);
+        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
+        String filePath = String.format("%s/%s",folderPath,savedPicName);
+        try {
+            myFileUtils.transferTo(paper,filePath);
+        }catch (IOException e){
+            log.error(e.getMessage());
+            return 0;
+        }
+
+        p.setPaper(savedPicName);
+        return businessMapper.insBusiness(p);
+
+
+
     }
 
         /*
