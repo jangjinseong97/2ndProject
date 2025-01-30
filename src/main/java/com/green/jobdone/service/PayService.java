@@ -83,6 +83,7 @@ public class PayService {
         return response.getBody();
     }
 
+    @Transactional
     public KakaoPayRes payRes(String pgToken, long serviceId, String tid){
         // 요청 전송
 
@@ -105,6 +106,11 @@ public class PayService {
                 "https://open-api.kakaopay.com/online/v1/payment/approve",
                 requestEntity,KakaoPayRes.class);
         log.info("kakaoPayRedayRes: {}", kakaoPayRes);
+
+        int res = serviceMapper.payCompleted(serviceId);
+        if(res==0){
+            throw new RuntimeException();
+        }
         return kakaoPayRes;
     }
 }

@@ -24,4 +24,5 @@ public interface ServiceMapper {
     int patchCompleted(ServicePatchReq p);
 
     KakaoPayDto serviceInfo(Long serviceId);
+    int payCompleted(long serviceId);
 }
