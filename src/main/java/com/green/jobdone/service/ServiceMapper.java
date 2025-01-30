@@ -16,6 +16,8 @@ public interface ServiceMapper {
     int updService(ServicePutReq p);
     int updServiceDetail(ServicePutReq p);
     int updServiceOption(ServicePutReq p);
+    Long providerUserId(Long serviceId);
+    Long findUserId(Long businessId);
 
     int getCompleted(long serviceId);
     int patchCompleted(ServicePatchReq p);

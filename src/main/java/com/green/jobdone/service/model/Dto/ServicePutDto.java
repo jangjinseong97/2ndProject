@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ServicePutDto {
     private Long serviceOptionId;
     private Long optionDetailId;
-    private String comment;
+    private String optionComment;
     private int price;
 }

@@ -16,7 +16,7 @@ public class ServicePostReq {
     private long userId;
     @Schema(title = "받고싶은 서비스 pk", example = "1")
     private long productId;
-    private int price;
+    private int totalPrice;
     private double lat;
     private double lng;
     private String address;
