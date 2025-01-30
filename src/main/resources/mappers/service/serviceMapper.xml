@@ -180,4 +180,12 @@
         where serviceId = #{serviceId}
     </select>
 
+
+    <select id="serviceInfo">
+        select a.userId, a.price, c.detailTypeName as productName
+        from service a
+        join product b on a.productId = b.productId
+        join detail_type c on b.detailTypeId = c.detailTypeId
+        where serviceId = #{serviceId}
+    </select>
 </mapper>
