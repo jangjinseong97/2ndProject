@@ -9,5 +9,5 @@ import java.util.List;
 @Setter
 public class BusinessOnePicsGetRes {
     private long businessId;
-    private List<BusinessOnePicDto> busiOnePics;
+    private String pic;
 }

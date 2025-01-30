@@ -1,16 +1,11 @@
 package com.green.jobdone.portfolio;
 
-import com.green.jobdone.business.pic.BusinessPicDto;
-import com.green.jobdone.business.pic.BusinessPicPostRes;
 import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
 import com.green.jobdone.portfolio.model.PortfolioPutReq;
-import com.green.jobdone.portfolio.model.get.PortfolioGetOneReq;
-import com.green.jobdone.portfolio.model.get.PortfolioGetOneRes;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetReq;
-import com.green.jobdone.portfolio.model.get.PortfolioListGetRes;
+import com.green.jobdone.portfolio.model.get.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -76,6 +71,10 @@ public class PortfolioService {
             res.setPortfolioId(p.getPortfolioId());
         }
         return res;
+    }
+
+    public List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p) {
+        return portfolioMapper.getPortfolioPicList(p);
     }
 
 

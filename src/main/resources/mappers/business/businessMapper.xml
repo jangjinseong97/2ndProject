@@ -132,6 +132,11 @@
         GROUP BY b.businessId, b.businessName
 
     </select>
+    <select id="getBusinessPicList">
+        select p.businessPicId, p.pic
+        from business_pic p
+        where p.businessId = #{businessId}
+    </select>
 
 
 </mapper>

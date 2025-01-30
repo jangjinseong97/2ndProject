@@ -7,14 +7,15 @@ import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
 import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
-import com.green.jobdone.business.pic.BusinessPicPostRes;
+import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
+import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
+import com.green.jobdone.business.pic.BusinessPicPostReq;
 import com.green.jobdone.business.model.BusinessPostSignUpReq;
 import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -78,10 +79,10 @@ public class BusinessController {
 
     @PostMapping("businessPic")
     @Operation(summary = "업체 사진 등록")
-    public ResultResponse<BusinessPicPostRes> postBusinessPic(@RequestPart List<MultipartFile> pics,
+    public ResultResponse<BusinessPicPostReq> postBusinessPic(@RequestPart List<MultipartFile> pics,
                                                               @RequestPart long businessId) {
-        BusinessPicPostRes res = businessService.insBusinessPic(pics, businessId);
-        return ResultResponse.<BusinessPicPostRes>builder()
+        BusinessPicPostReq res = businessService.insBusinessPic(pics, businessId);
+        return ResultResponse.<BusinessPicPostReq>builder()
                 .resultMessage("업체사진등록 완료")
                 .resultData(res)
                 .build();
@@ -127,6 +128,19 @@ public class BusinessController {
                 .resultData(res).resultMessage("업체 리스트 조회 완료")
                 .build();
     }
+
+    @GetMapping("pic/{businessId}")
+    @Operation(summary = "한 업체의 사진 리스트")
+    public ResultResponse<List<BusinessOnePicsGetRes>> getBusinessPicList(@PathVariable Long businessId) {
+        BusinessOnePicsGetReq req = new BusinessOnePicsGetReq(businessId);
+        List<BusinessOnePicsGetRes> res = businessService.getBusinessOnePics(req);
+
+        return  ResultResponse.<List<BusinessOnePicsGetRes>>builder()
+                .resultData(res)
+                .resultMessage(res != null?"업체 사진 리스트 조회완":"업체 사진 리스트 조회 실패")
+                .build();
+    }
+
 }
 
 
