@@ -7,8 +7,10 @@ import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
 import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
+import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
+import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicDto;
-import com.green.jobdone.business.pic.BusinessPicPostRes;
+import com.green.jobdone.business.pic.BusinessPicPostReq;
 import com.green.jobdone.business.model.BusinessPostSignUpReq;
 import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.MyFileUtils;
@@ -19,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,7 +154,7 @@ public class BusinessService {
 
 
     @Transactional
-    public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
+    public BusinessPicPostReq insBusinessPic(List<MultipartFile> pics, long businessId) {
 
         String middlePath = String.format("business/%d", businessId);
         myFileUtils.makeFolders(middlePath);
@@ -177,7 +177,7 @@ public class BusinessService {
         businessPicDto.setPics(businessPicList);
         int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
-        return BusinessPicPostRes.builder().businessId(businessId).pics(businessPicList).build();
+        return BusinessPicPostReq.builder().businessId(businessId).pics(businessPicList).build();
     }
 
     public int udtBusinessPics(long businessPicId) {
@@ -210,6 +210,11 @@ public class BusinessService {
             res.setBusinessId(p.getBusinessId());
         }
         return res;
+    }
+
+    //업체 하나에 있는 사진들
+    public List<BusinessOnePicsGetRes> getBusinessOnePics(BusinessOnePicsGetReq p) {
+        return businessMapper.getBusinessPicList(p);
     }
 
 

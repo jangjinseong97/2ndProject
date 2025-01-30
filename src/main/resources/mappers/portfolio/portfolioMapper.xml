@@ -54,7 +54,7 @@
         LEFT JOIN (
         SELECT c.portfolioId, c.pic
         FROM portfolio_pic c
-        WHERE c.portfolioPicId = #{portfolioPicId}
+        WHERE c.state = 2
         ) t
         ON f.portfolioId = t.portfolioId
         LEFT JOIN business b

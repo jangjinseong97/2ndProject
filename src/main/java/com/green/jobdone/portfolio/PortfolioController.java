@@ -67,8 +67,9 @@ public class PortfolioController {
 
     @GetMapping("pic/{portfolioId}")
     @Operation(summary = "한 포폴에서 사진 여러장 조회")
-    public ResultResponse<List<PortfolioPicGetRes>> getPortfolioPicList(PortfolioPicGetReq p){
-        List<PortfolioPicGetRes> res = portfolioService.getPortfolioPicList(p);
+    public ResultResponse<List<PortfolioPicGetRes>> getPortfolioPicList(@PathVariable Long portfolioId){
+        PortfolioPicGetReq req = new PortfolioPicGetReq(portfolioId);
+        List<PortfolioPicGetRes> res = portfolioService.getPortfolioPicList(req);
 
         return ResultResponse.<List<PortfolioPicGetRes>>builder().resultData(res).resultMessage(res != null? "포폴 사진 조회 완" : "포폴 사진 조회 싯빠이").build();
     }
