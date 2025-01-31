@@ -19,8 +19,8 @@
     <insert id="insServiceOption">
             INSERT INTO service_option (serviceId, optionDetailId)
             VALUES
-        <foreach collection="options" item="option" separator=";">
-            (#{serviceId}, #{option.optionDetailId});
+        <foreach collection="options" item="option" separator=",">
+            (#{serviceId}, #{option.optionDetailId})
         </foreach>
     </insert>
 
