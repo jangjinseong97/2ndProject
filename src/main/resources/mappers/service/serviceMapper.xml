@@ -6,7 +6,7 @@
         insert into service
         (userId , productId, price, lat, lng, address, comment, phone, name, pyeong)
         values
-        (#{userId} , #{productId}, #{price}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name}, #{pyeong})
+        (#{userId} , #{productId}, #{totalPrice}, #{lat}, #{lng}, #{address}, #{comment}, #{phone}, #{name}, #{pyeong})
     </insert>
 
     <insert id="insServiceDetail">
@@ -17,10 +17,10 @@
     </insert>
 
     <insert id="insServiceOption">
-            INSERT INTO service_option (serviceId, optionDetailId, price, comment)
+            INSERT INTO service_option (serviceId, optionDetailId)
             VALUES
         <foreach collection="options" item="option" separator=";">
-            (#{serviceId}, #{option.optionDetailId}, #{option.price}, #{option.comment});
+            (#{serviceId}, #{option.optionDetailId});
         </foreach>
     </insert>
 
@@ -32,6 +32,7 @@
         <result property="reservedName" column="reservedName"/>
         <result property="productName" column="productName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="businessAddress" column="businessAddress"/>
         <result property="price" column="price"/>
         <result property="completed" column="completed"/>
         <result property="comment" column="comment"/>
@@ -40,6 +41,7 @@
         <result property="endDate" column="endDate"/>
         <result property="mStartTime" column="mStartTime"/>
         <result property="mEndTime" column="mEndTime"/>
+        <result property="pyeong" column="pyeong"/>
         <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="createdAt" column="createdAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
@@ -67,7 +69,8 @@
         select a.serviceId, a.name as userName, a.phone as userPhone, d.businessName as businessName, b.name as reservedName,
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, group_concat(distinct j.phone) as businessPhone,
-        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId
+        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
+        a.pyeong, b.address as businessAddress
         from service a
         left join user b on a.userId = b.userId
         left join product c on a.productId = c.productId
@@ -87,7 +90,8 @@
 
     <select id="GetServiceFlow">
         select a.serviceId, a.createdAt, a.price, a.completed, b.name as reservedName,
-        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName
+        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName,
+        a.address
         from service A
         left join user B on a.userId = b.userId
         left join service_detail C on a.serviceId = c.serviceId
@@ -103,16 +107,24 @@
         </if>
     </select>
 
+    <select id="providerUserId">
+        select d.userId
+        from service a
+        join product b on a.productId = b.productId
+        join business c on b.businessId = c.businessId
+        join user d on c.userId = d.userId
+        where a.serviceId = #{serviceId}
+    </select>
+
     <update id="updService">
         update service
         <set>
-            <if test="price != null">price = #{price},</if>
+            <if test="totalPrice != null">price = #{totalPrice},</if>
             <if test="addComment != null">addComment = #{addComment},</if>
             <if test="pyeong != null">pyeong = #{pyeong},</if>
             completed = 2
         </set>
         where serviceId = #{serviceId}
-        and userId = #{userId}
     </update>
     <update id="updServiceDetail">
         update service_detail
@@ -131,7 +143,7 @@
                 update service_option
                 <set>
                     <if test="option.price != null">price = #{option.price},</if>
-                    <if test="option.comment != null">`comment` = #{option.comment},</if>
+                    <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
                 </set>
                 where serviceOptionId = #{option.serviceOptionId}
             </if>
@@ -141,21 +153,44 @@
                     serviceId = #{serviceId},
                     optionDetailId = #{option.optionDetailId},
                     <if test="option.price != null">price = #{option.price},</if>
-                    <if test="option.comment != null">`comment` = #{option.comment},</if>
+                    <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
                 </set>
             </if>
         </foreach>
     </update>
 
+    <select id="findUserId">
+        select userId
+        from business
+        where businessId = #{businessId}
+    </select>
+
     <update id="patchCompleted">
         update service
         set completed = #{completed}
         where serviceId = #{serviceId}
+        <if test="userId !=0">
+            and userId = #{userId}
+        </if>
     </update>
+
     <select id="getCompleted">
         select completed
         from service
         where serviceId = #{serviceId}
     </select>
 
+
+    <select id="serviceInfo">
+        select a.userId, a.price, c.detailTypeName as productName
+        from service a
+        join product b on a.productId = b.productId
+        join detail_type c on b.detailTypeId = c.detailTypeId
+        where serviceId = #{serviceId}
+    </select>
+    <update id="payCompleted">
+        update service
+        set completed = 6
+        where serviceId = #{serviceId}
+    </update>
 </mapper>

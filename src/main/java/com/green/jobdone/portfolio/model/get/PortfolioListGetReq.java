@@ -1,4 +1,4 @@
-package com.green.jobdone.business.model.get;
+package com.green.jobdone.portfolio.model.get;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,13 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BusinessGetReq {
+public class PortfolioListGetReq {
     @Schema(title = "대분류")
     private Long categoryId;
     @Schema(title = "소분류")
     private Long detailTypeId;
+    @Schema(title = "업체")
+    private Long businessId;
 
-    @JsonIgnore
-    private long signedUserId;
 
 }

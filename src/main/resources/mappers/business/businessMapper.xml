@@ -11,12 +11,12 @@
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
-        detailTypeId = #{serviceTypeId},
+        detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
         tel = #{tel}
     </insert>
 
-    <select id="existsBusinessNum" parameterType="map" resultType="int">
+    <select id="existBusinessNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM business
         WHERE businessNum = #{businessNum}
@@ -41,9 +41,9 @@
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
 
-    <insert id="insBusinessPics">
+    <insert id="insBusinessPic" useGeneratedKeys="true" keyProperty="businessPicId">
         insert into business_pic
-        (business_id, pic)
+        (businessId, pic)
         values
         <foreach collection="pics" item="pic" open="(" close=")" separator="),(">
             #{businessId}, #{pic}
@@ -58,10 +58,10 @@
     <insert id="insBusinessPhone">
         insert into businessPhone
         set businessId = #{businessId},
-            phone = #{phone}
+        phone = #{phone}
     </insert>
 
-    <update id="udtBusinessPics">
+    <update id="putBusinessPic">
         update business_pic
         set state = 1
         where businessId = #{businessId}
@@ -75,14 +75,48 @@
 
     <update id="udtBusinessLogo">
         update business
-        set logo = #{logoName}
+
+       set  logo = #{logo}
+
         where businessId = #{businessId}
     </update>
 
     <select id="selAllBusiness">
-        SELECT c.pic, b.businessId, b.businessName, b.title, p.price AS price
+        SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
         FROM business b
+        left join detail_type d
+        on  d.detailTypeId = b.detailTypeId
+        left join category k
+        on k.categoryId = d.categoryId
+        left JOIN business_pic c
+        ON c.businessId = b.businessId
+        JOIN product p
+        ON b.businessId = p.businessId
+        JOIN service s
+        ON s.productId = p.productId
+        JOIN review r
+        ON r.serviceId =s.serviceId
+        left JOIN `like` l
+        ON l.businessId = b.businessId
+        AND l.userId = #{signedUserId}
+        WHERE
+        (#{categoryId} IS null OR k.categoryId = #{categoryId})
+        AND (#{detailTypeId} IS null OR d.detailTypeId = #{detailTypeId})
+        GROUP BY
+        b.businessId, b.businessName, d.detailTypeName
+
+    </select>
+
+    <select id="selOneBusiness">
+
+        SELECT c.pic,b.detailTypeId,d.detailTypeName,b.logo, b.businessId, b.businessName, b.title, p.price AS price
+        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
+        , b.address, COUNT(s.productId) AS serviceCount, b.openingTime, b.closingTime
+        , b.busiCreatedAt, b.`contents`
+        FROM business b
+        JOIN detail_type d
+        ON d.detailTypeId = b.detailTypeId
         left JOIN business_pic c
         ON c.businessId = b.businessId
         JOIN product p
@@ -93,18 +127,16 @@
         ON r.serviceId =s.serviceId
         JOIN `like` l
         ON l.businessId = b.businessId
-        AND l.userId = 1
-
+        AND l.userId = #{signedUserId}
+        WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
 
-
     </select>
-    
-
-
-
-
-
+    <select id="getBusinessPicList">
+        select p.businessPicId, p.pic
+        from business_pic p
+        where p.businessId = #{businessId}
+    </select>
 
 
 </mapper>

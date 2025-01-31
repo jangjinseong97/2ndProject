@@ -25,9 +25,11 @@ public class ServiceGetOneRes {
     private String mStartTime;
     private String mEndTime;
     private String address;
+    private String businessAddress;
     private String categoryName;
     private String businessNum;
     private String createdAt;
+    private String pyeong;
     private List<ServicePhone> phone; // 있다 추가 확인
     private List<ServiceOptionDto> options;
 

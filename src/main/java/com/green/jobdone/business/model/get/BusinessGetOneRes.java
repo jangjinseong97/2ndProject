@@ -13,7 +13,7 @@ public class BusinessGetOneRes {
     private String businessName;
     private String title;
     private double scoreAvg;
-    private int priceMin;
+    private int price;
     private int like;
     private String address;
     private int serviceCount;
@@ -21,4 +21,6 @@ public class BusinessGetOneRes {
     private String closingTime;
     private String busiCreatedAt;
     private String contents;
+
+
 }
