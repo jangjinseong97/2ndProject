@@ -17,6 +17,13 @@
         SET categoryId = #{categoryId},
             detailTypeName = #{detailTypeName}
     </insert>
+
+    <select id="existDetailType" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM detail_type
+        WHERE categoryId = #{categoryId} and detailTypeName = #{detailTypeName}
+    </select>
+
     <select id="getCategory">
         select a.*, b.*
         from category a
