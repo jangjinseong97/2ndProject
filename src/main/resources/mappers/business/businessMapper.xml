@@ -80,6 +80,13 @@
 
         where businessId = #{businessId}
     </update>
+    <update id="udtBusinessPaper">
+        update business
+
+       set paper = #{paper}
+
+        where businessId = #{businessId}
+    </update>
 
     <select id="selAllBusiness">
         SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
