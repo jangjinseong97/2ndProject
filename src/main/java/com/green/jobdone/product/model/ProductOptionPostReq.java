@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductOptionPostReq {
-    @Schema(title = "업체 상품 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long productId;
+    @Schema(title = "소분류 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private long detailTypeId;
     @Schema(title = "상품 옵션명", example = "방갯수", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 

@@ -1,9 +1,6 @@
 package com.green.jobdone.product;
 
-import com.green.jobdone.product.model.ProductGetRes;
-import com.green.jobdone.product.model.ProductOptionDetailPostReq;
-import com.green.jobdone.product.model.ProductOptionPostReq;
-import com.green.jobdone.product.model.ProductPostReq;
+import com.green.jobdone.product.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,12 +29,13 @@ public class ProductService {
     }
 
 
-    public int postProductOption(ProductOptionPostReq p) {
 
-        List<String> list = mapper.checkProductOption(p.getProductId());
+    public int postOption(ProductOptionPostReq p) {
+
+        List<String> list = mapper.checkOption(p.getDetailTypeId());
 
         if (list == null || list.size() == 0) {
-            int result = mapper.postProductOption(p);
+            int result = mapper.postOption(p);
 
             return result;
         }
@@ -48,11 +46,42 @@ public class ProductService {
             }
         }
 
+        int result = mapper.postOption(p);
+
+        return result;
+
+    }
+
+
+
+    public int postProductOption(ProductOptionPostDto p){
+
+        List<Long> list = mapper.checkProductOption(p.getProductId());
+
+        if (list == null || list.size() == 0) {
+            int result = mapper.postProductOption(p);
+
+            return result;
+        }
+
+        for (Long s : list) {
+            if (s.equals(p.getOptionId())) {
+                return 0;
+            }
+        }
+
+
         int result = mapper.postProductOption(p);
 
         return result;
 
     }
+
+
+
+
+
+
 
     public int postOptionDetail(ProductOptionDetailPostReq p) {
 
@@ -76,6 +105,8 @@ public class ProductService {
 
 
     }
+
+
 
     public List<ProductGetRes> getProductInfoByBusiness(long businessId) {
 

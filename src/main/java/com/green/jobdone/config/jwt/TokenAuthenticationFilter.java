@@ -37,17 +37,17 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
         // 토큰이 필요 없는 API 패스
-        if (isExcludedPath(request.getRequestURI())) {
-            filterChain.doFilter(request, response); // 필터 체인 계속 진행
-            return;
-        }
-
-
-        if (authorizationHeader == null || !authorizationHeader.startsWith(TOKEN_PREFIX)) {
-            log.error("Authorization header is missing or invalid");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "토큰이 필요합니다.");
-            return; // 400 응답을 반환한 후, 필터 체인 진행을 막음
-        }
+//        if (isExcludedPath(request.getRequestURI())) {
+//            filterChain.doFilter(request, response); // 필터 체인 계속 진행
+//            return;
+//        }
+//
+//
+//        if (authorizationHeader == null || !authorizationHeader.startsWith(TOKEN_PREFIX)) {
+//            log.error("Authorization header is missing or invalid");
+//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "토큰이 필요합니다.");
+//            return; // 400 응답을 반환한 후, 필터 체인 진행을 막음
+//        }
 
         if (token != null) {
             try {

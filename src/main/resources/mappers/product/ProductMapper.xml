@@ -17,17 +17,35 @@
     </select>
 
 
-    <insert id="postProductOption">
-        INSERT INTO product_option
-        SET  productId=#{productId}
+    <insert id="postOption">
+        INSERT INTO option
+        SET  detailTypeId=#{detailTypeId}
             ,name=#{name}
     </insert>
-
-    <select id="checkProductOption">
+    <select id="checkOption">
         SELECT name
+        FROM option
+        WHERE detailTypeId=#{detailTypeId}
+    </select>
+
+
+
+
+    <insert id="postProductOption">
+        INSERT INTO product_option
+        SET productId=#{productId}
+            ,optionId=#{optionId}
+    </insert>
+    <select id="checkProductOption">
+        SELECT optionId
         FROM product_option
         WHERE productId=#{productId}
     </select>
+
+
+
+
+
 
 
     <insert id="postOptionDetail">
@@ -46,82 +64,55 @@
 
 
 
-<!--    <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRES">-->
-<!--        <id property="productId" column="productId"/>-->
-<!--        <result property="price" column="price"/>-->
-<!--        <collection property="optionList" resultMap="selProductOptionListResultMap"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="selProductOptionListResultMap" type="com.green.jobdone.product.model.ProductGetDto">-->
-<!--        <id property="productOptionId" column="productOptionId"/>-->
-<!--        <result property="name" column="productOptionName"/>-->
-<!--        <collection property="optionDetailList" resultMap="selProductOptionDetailListResultMap"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">-->
-<!--        <id property="optionDetailId" column="optionDetailId"/>-->
-<!--        <result property="name" column="optionDetailName"/>-->
-<!--        <result property="price" column="price"/>-->
-<!--        <result property="contents" column="contents"/>-->
-
-<!--    </resultMap>-->
 
 
 
 
-<!--    <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">-->
-<!--        SELECT a.productId,a.price,b.productOptionId,b.name as productOptionName,c.optionDetailId,c.name as optionDetailName,c.price,c.contents-->
-<!--        FROM product a-->
-<!--        JOIN product_option b-->
-<!--        ON a.productId=b.productId-->
-<!--        JOIN option_detail c-->
-<!--        ON b.productOptionId=c.productOptionId-->
-<!--        WHERE a.businessId=#{businessId}-->
-<!--    </select>-->
 
-
-
-
-    <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRES">
+    <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRes">
         <id property="productId" column="productId"/>
-        <result property="price" column="productPrice"/>
+        <result property="price" column="price"/>
         <collection property="optionList" resultMap="selProductOptionListResultMap"/>
     </resultMap>
 
     <resultMap id="selProductOptionListResultMap" type="com.green.jobdone.product.model.ProductGetDto">
         <id property="productOptionId" column="productOptionId"/>
-        <result property="name" column="productOptionName"/>
+        <result property="optionName" column="optionName"/>
         <collection property="optionDetailList" resultMap="selProductOptionDetailListResultMap"/>
     </resultMap>
 
-    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.prouct.model.ProductGetDtoDto">
+    <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
         <id property="optionDetailId" column="optionDetailId"/>
-        <result property="name" column="optionDetailName"/>
-        <result property="price" column="optionDetailPrice"/>
-        <result property="contents" column="optionDetailContents"/>
-    </resultMap>
+        <result property="optionDetailName" column="optionDetailName"/>
+        <result property="price" column="price"/>
+        <result property="contents" column="contents"/>
 
+    </resultMap>
 
 
 
 
     <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
         SELECT
-            a.productId AS productId,
-            a.price AS productPrice,
-            b.productOptionId AS productOptionId,
-            b.name AS productOptionName,
-            c.optionDetailId AS optionDetailId,
-            c.name AS optionDetailName,
-            c.price AS optionDetailPrice,
-            c.contents AS optionDetailContents
+            a.productId
+            ,a.price
+            ,b.productOptionId
+            ,d.name as optionName
+            ,c.optionDetailId
+            ,c.name as optionDetailName
+            ,c.price
+            ,c.contents
         FROM product a
-        JOIN product_option b
-            ON a.productId = b.productId
-        JOIN option_detail c
-            ON b.productOptionId = c.productOptionId
-        WHERE a.businessId = #{businessId}
+        left JOIN product_option b
+            ON a.productId=b.productId
+        left JOIN option_detail c
+            ON b.productOptionId=c.productOptionId
+        left JOIN option d
+            on b.optionId=d.optionId
+        WHERE a.businessId=#{businessId}
     </select>
+
+
 
 
 </mapper>
