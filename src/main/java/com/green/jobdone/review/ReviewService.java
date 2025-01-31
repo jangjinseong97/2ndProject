@@ -136,7 +136,8 @@ public class ReviewService {
     }
 
     public void updReviewPicState(ReviewPicStatePutReq p) {
-        reviewPicMapper.updReviewPicState(p.getReviewPicId());
+        reviewPicMapper.updReviewPicState(p);
     }
+
 
 }
