@@ -41,27 +41,27 @@
         WHERE businessId = #{businessId} and userId = #{userId}
     </update>
 
-    <insert id="insBusinessPics">
+    <insert id="insBusinessPic" useGeneratedKeys="true" keyProperty="businessPicId">
         insert into business_pic
-        (business_id, pic)
+        (businessId, pic)
         values
         <foreach collection="pics" item="pic" open="(" close=")" separator="),(">
             #{businessId}, #{pic}
         </foreach>
     </insert>
-    <select id="existsBusinessPhone" parameterType="map" resultType="int">
+    <select id="existBusinessPhone" parameterType="map" resultType="int">
         SELECT COUNT(*)
         FROM business_phone
         WHERE businessId = #{businessId} AND phone = #{phone}
     </select>
 
     <insert id="insBusinessPhone">
-        insert into businessPhone
+        insert into business_phone
         set businessId = #{businessId},
         phone = #{phone}
     </insert>
 
-    <update id="udtBusinessPics">
+    <update id="putBusinessPic">
         update business_pic
         set state = 1
         where businessId = #{businessId}
@@ -131,6 +131,11 @@
         WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
 
+    </select>
+    <select id="getBusinessPicList">
+        select p.businessPicId, p.pic
+        from business_pic p
+        where p.businessId = #{businessId}
     </select>
 
 

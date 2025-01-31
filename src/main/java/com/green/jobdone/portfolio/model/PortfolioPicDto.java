@@ -1,4 +1,4 @@
-package com.green.jobdone.business.pic;
+package com.green.jobdone.portfolio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -6,11 +6,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
-public class BusinessPicDto {
+@Setter
+public class PortfolioPicDto {
     @JsonIgnore
-    private long businessPicId;
-    private long businessId;
+    private long portfolioPicId;
+    private long portfolioId;
     private List<String> pics;
 }

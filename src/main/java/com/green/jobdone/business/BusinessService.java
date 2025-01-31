@@ -1,16 +1,15 @@
 package com.green.jobdone.business;
 
-import com.green.jobdone.business.model.BusinessLogoPatchReq;
-import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.*;
 import com.green.jobdone.business.model.get.BusinessGetOneReq;
 import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
 import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
+import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
+import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicDto;
-import com.green.jobdone.business.pic.BusinessPicPostRes;
-import com.green.jobdone.business.model.BusinessPostSignUpReq;
-import com.green.jobdone.business.model.BusinessDetailPutReq;
+import com.green.jobdone.business.pic.BusinessPicPostReq;
 import com.green.jobdone.common.MyFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,21 +42,26 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
-        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
-
-        int result = businessMapper.insBusiness(p);
-
-        long businessId = p.getBusinessId();
-        String middlePath = String.format("business/%d", businessId);
-        myFileUtils.makeFolders(middlePath);
-        log.info("middlePath = {}", middlePath);
-        String filePath = String.format("%s/%s", middlePath, savedPicName);
-        try {
-            myFileUtils.transferTo(paper, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (paper == null || paper.isEmpty()) {
+            return 0;
         }
-        return result;
+
+        String folderPath = String.format("business/%d/paper",p.getBusinessId());
+        myFileUtils.makeFolders(folderPath);
+        String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
+        String filePath = String.format("%s/%s",folderPath,savedPicName);
+        try {
+            myFileUtils.transferTo(paper,filePath);
+        }catch (IOException e){
+            log.error(e.getMessage());
+            return 0;
+        }
+
+        p.setPaper(savedPicName);
+        return businessMapper.insBusiness(p);
+
+
+
     }
 
         /*
@@ -142,6 +144,40 @@ public class BusinessService {
         p.setLogo(savedPicName);
         return businessMapper.udtBusinessLogo(p);
     }
+    // 사업자등록증 수정
+    public int patchBusinessPaper(BusinessPaperPatchReq p, MultipartFile paper) {
+        // 누락 파일 처리
+        if (paper == null || paper.isEmpty()) {
+            return 0;
+        }
+
+        // 로고파일 저장 폴더 경로
+        String folderPath = String.format("business/%d/paper", p.getBusinessId());
+
+        // 기존 로고 폴더가 있다면 폴더 삭제
+        myFileUtils.deleteFolder(folderPath, true); // true: 폴더 내 모든 파일 및 하위 폴더 삭제
+
+        // 새 폴더 생성
+        myFileUtils.makeFolders(folderPath);
+
+        // 랜덤 파일명 생성
+        String savedPicName = myFileUtils.makeRandomFileName(paper); // 사진 등록 후 파일명 만들기
+        String newFilePath = String.format("%s/%s", folderPath, savedPicName); // 만약 폴더가 없으면 새로 만들기
+
+        try {
+            // 파일을 지정된 경로로 저장
+            myFileUtils.transferTo(paper, newFilePath);
+            log.info("File successfully saved to: {}", newFilePath);
+        } catch (IOException e) {
+            // 파일 저장 실패시 처리
+            log.error("Error saving file: {}", e.getMessage());
+            return 0;
+        }
+
+        // DB에 로고 수정 정보 업데이트
+        p.setPaper(savedPicName);
+        return businessMapper.udtBusinessPaper(p);
+    }
 
 
     public int insBusinessPhone(BusinessPhonePostReq p) {
@@ -154,7 +190,7 @@ public class BusinessService {
 
 
     @Transactional
-    public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
+    public BusinessPicPostReq insBusinessPic(List<MultipartFile> pics, long businessId) {
 
         String middlePath = String.format("business/%d", businessId);
         myFileUtils.makeFolders(middlePath);
@@ -177,7 +213,7 @@ public class BusinessService {
         businessPicDto.setPics(businessPicList);
         int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
-        return BusinessPicPostRes.builder().businessId(businessId).pics(businessPicList).build();
+        return BusinessPicPostReq.builder().businessId(businessId).pics(businessPicList).build();
     }
 
     public int udtBusinessPics(long businessPicId) {
@@ -210,6 +246,11 @@ public class BusinessService {
             res.setBusinessId(p.getBusinessId());
         }
         return res;
+    }
+
+    //업체 하나에 있는 사진들
+    public List<BusinessOnePicsGetRes> getBusinessOnePics(BusinessOnePicsGetReq p) {
+        return businessMapper.getBusinessPicList(p);
     }
 
 

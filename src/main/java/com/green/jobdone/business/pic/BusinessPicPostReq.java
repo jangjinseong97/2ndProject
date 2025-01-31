@@ -1,13 +1,13 @@
 package com.green.jobdone.business.pic;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
+@Builder
 @Getter
-@Setter
-public class BusinessOnePicsGetRes {
+public class BusinessPicPostReq {
     private long businessId;
-    private String pic;
+    private List<String> pics;
 }
