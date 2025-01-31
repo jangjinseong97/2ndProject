@@ -1,5 +1,6 @@
 package com.green.jobdone.service;
 
+import com.green.jobdone.service.model.Dto.KakaoPayReq;
 import com.green.jobdone.service.model.KakaoPayRedayRes;
 import com.green.jobdone.service.model.KakaoPayRes;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,10 @@ public class PayController {
     }
 
     @PostMapping("/success")
-    public ResponseEntity<KakaoPayRes> paySuccess(@RequestParam("pg_token") String pgToken,
-                                                  @RequestParam Long serviceId,
-                                                  @RequestParam String tid) {
-        KakaoPayRes kakaoPayRes = payService.payRes(pgToken, serviceId, tid);
+    public ResponseEntity<KakaoPayRes> paySuccess(@RequestBody KakaoPayReq p) {
+        KakaoPayRes kakaoPayRes = payService.payRes(p.getPgToken(),p.getServiceId(),p.getTid());
+
+
 
         return new ResponseEntity<>(kakaoPayRes, HttpStatus.OK);
     }
