@@ -33,6 +33,7 @@
         <result property="productName" column="productName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessAddress" column="businessAddress"/>
+        <result property="businessPhone" column="businessPhone"/>
         <result property="price" column="price"/>
         <result property="completed" column="completed"/>
         <result property="comment" column="comment"/>
@@ -45,8 +46,8 @@
         <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="createdAt" column="createdAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
-        <collection property="options" resultMap="servicePhone"/>
-        <collection property="phone" resultMap="serviceOption"/>
+        <collection property="options" resultMap="serviceOption"/>
+        <collection property="phone" resultMap="servicePhone"/>
     </resultMap>
     <resultMap id="servicePhone" type="com.green.jobdone.service.model.Dto.ServicePhone">
         <result property="businessPhone" column="businessPhone"/>
@@ -68,9 +69,9 @@
     <select id="GetServiceOne" resultMap="serviceFlow">
         select a.serviceId, a.name as userName, a.phone as userPhone, d.businessName as businessName, b.name as reservedName,
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
-        k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, group_concat(distinct j.phone) as businessPhone,
-        g.productOptionId, g.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
-        a.pyeong, b.address as businessAddress
+        k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
+        g.productOptionId, n.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
+        a.pyeong, d.address as businessAddress
         from service a
         left join user b on a.userId = b.userId
         left join product c on a.productId = c.productId
@@ -82,6 +83,7 @@
         left join business_phone j on d.businessId = j.businessId
         left join service_detail k on a.serviceId = k.serviceId
         left join category l on e.categoryId = l.categoryId
+        left join option n on n.optionId = g.optionId
         where
         a.serviceId = #{serviceId}
 
