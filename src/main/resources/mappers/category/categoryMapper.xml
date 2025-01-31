@@ -25,11 +25,8 @@
     </select>
 
     <select id="getCategory">
-        select a.*, b.*
+        select a.*
         from category a
-        join detail_type b
-        on a.categoryId = b.categoryId
-        group by a.categoryId
     </select>
 
     <select id="getDetailType">

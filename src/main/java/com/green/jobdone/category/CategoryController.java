@@ -49,9 +49,9 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResultResponse<List<CategoryGetRes>> getAllCategory(categoryGetReq p) {
+    public ResultResponse<List<CategoryGetRes>> getAllCategory() {
         return ResultResponse.<List<CategoryGetRes>>builder().resultMessage("카테고리 조회 완료")
-                .resultData(categoryService.getCategory(p))
+                .resultData(categoryService.getCategory())
                 .build();
     }
 
