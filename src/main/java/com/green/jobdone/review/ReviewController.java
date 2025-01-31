@@ -33,7 +33,7 @@ public class ReviewController {
     }
 
     @GetMapping
-    @Operation(summary = "Review 리스트 불러오기")
+    @Operation(summary = "리뷰 리스트 불러오기")
     public ResultResponse<List<ReviewGetRes>> getReviewList(@Valid @ParameterObject @ModelAttribute ReviewGetReq p) {
         log.info("ReviewController > getReviewList > p: {}", p);
         List<ReviewGetRes> list = reviewService.getFeedList(p);
@@ -44,8 +44,18 @@ public class ReviewController {
     }
 
     @PutMapping
-    @Operation(summary = "Review 사진 상태값 업데이트")
-    public void putReviewPicState(ReviewPicStatePutReq p) {
+    @Operation(summary = "리뷰 수정")
+    public ResultResponse<ReviewPutRes> updReview(@RequestPart List<MultipartFile> pics, @Valid @RequestPart ReviewPutReq p) {
+        ReviewPutRes res = reviewService.updReview(pics, p);
+        return ResultResponse.<ReviewPutRes>builder()
+                .resultMessage("리뷰 수정 완료")
+                .resultData(res)
+                .build();
+    }
+
+    @PutMapping("state")
+    @Operation(summary = "리뷰 사진 상태값 업데이트")
+    public void putReviewPicState(@RequestBody ReviewPicStatePutReq p) {
         reviewService.updReviewPicState(p);
     }
 

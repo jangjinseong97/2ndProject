@@ -23,4 +23,10 @@
         WHERE A.reviewId = #{reviewId}
     </select>
 
+    <update id="updReviewComment">
+        UPDATE comment
+           SET contents = #{contents}
+         WHERE reviewId = #{reviewId} and userId = #{userId}
+    </update>
+
 </mapper>

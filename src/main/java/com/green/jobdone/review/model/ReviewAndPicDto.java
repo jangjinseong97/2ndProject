@@ -17,4 +17,5 @@ public class ReviewAndPicDto {
     private String writerPic;
     private String detailTypeName;
     private String pic;
+    private String reviewPicId;
 }

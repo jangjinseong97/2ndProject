@@ -4,6 +4,7 @@ import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.review.comment.model.ReviewCommentGetReq;
 import com.green.jobdone.review.comment.model.ReviewCommentGetRes;
 import com.green.jobdone.review.comment.model.ReviewCommentPostReq;
+import com.green.jobdone.review.comment.model.ReviewCommentUpdReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class ReviewCommentService {
 
     public ReviewCommentGetRes selReviewCommentByReviewId(ReviewCommentGetReq p) {
         return reviewCommentMapper.selReviewCommentByReviewId(p.getReviewId());
+    }
+
+    public int updReviewComment(ReviewCommentUpdReq p) {
+        p.setUserId(authenticationFacade.getSignedUserId());
+        return reviewCommentMapper.updReviewComment(p);
     }
 }

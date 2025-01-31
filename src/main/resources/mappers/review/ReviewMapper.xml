@@ -9,7 +9,7 @@
     </insert>
 
     <select id="selReviewWithPicList">
-        SELECT T1.*, T2.pic
+        SELECT T1.*, T2.pic, T2.reviewPicId
         FROM (
         SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt, E.userId, E.name, E.pic AS writerPic, D.detailTypeName
         FROM review A
@@ -40,7 +40,7 @@
         UPDATE review
         <set>
             <if test="contents != null and contents != ''">
-                SET contents = #{contents}
+                contents = #{contents}
             </if>
             <if test="score != null and score != ''">
                 ,score = #{score}

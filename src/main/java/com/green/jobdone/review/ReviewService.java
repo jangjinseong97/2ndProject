@@ -88,6 +88,7 @@ public class ReviewService {
                 beforeReviewGetRes.setDetailTypeName(reviewAndPicDto.getDetailTypeName());
             }
             beforeReviewGetRes.getPics().add(reviewAndPicDto.getPic());
+            beforeReviewGetRes.getPics().add(reviewAndPicDto.getReviewPicId());
         }
         //SELECT (2): review_comment
         List<Long> reviewIds = new ArrayList<>(list.size());
@@ -133,6 +134,7 @@ public class ReviewService {
                 .pics(picNameList)
                 .build();
     }
+
     public void updReviewPicState(ReviewPicStatePutReq p) {
         reviewPicMapper.updReviewPicState(p.getReviewPicId());
     }
