@@ -1,19 +1,14 @@
 package com.green.jobdone.product;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.product.model.ProductOptionDetailPostReq;
-import com.green.jobdone.product.model.ProductOptionPostReq;
-import com.green.jobdone.product.model.ProductPostReq;
+import com.green.jobdone.product.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.lang.annotation.Retention;
+import java.util.List;
 
 @RestController
 @RequestMapping("product")
@@ -25,7 +20,7 @@ public class ProductController {
 
 
     @PostMapping
-    @Operation(summary = "업체 상품 등록")
+    @Operation(summary = "업체별 업체 상품 등록, 업체가 등록함")
     public ResultResponse<Integer> postProduct(@RequestBody ProductPostReq p) {
 
 
@@ -39,24 +34,55 @@ public class ProductController {
 
     }
 
+
+
     @PostMapping("option")
-    @Operation(summary = "업체 상품 옵션 등록")
+    @Operation(summary = "관리자 상품 소분류 옵션 등록, 관리자가 등록함")
+    public ResultResponse<Integer> postOption(@RequestBody ProductOptionPostReq p) {
+        int result = service.postOption(p);
 
-    public ResultResponse<Integer> postProductOption(@RequestBody ProductOptionPostReq p) {
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage(result == 0 ? "이미 등록된 상품 소분류  옵션입니다" : "상품 소분류 옵션 등록 완료")
+                .resultData(result)
+                .build();
+    }
 
 
+
+    @PostMapping("productOption")
+    @Operation(summary = "업체 상품별 소분류 옵션 등록, 업체가 등록함")
+    public ResultResponse<Integer> postProductOption(@RequestBody ProductOptionPostDto p) {
         int result = service.postProductOption(p);
 
 
         return ResultResponse.<Integer>builder()
-                .resultMessage(result==0?"이미 등록된 옵션입니다":"상품 옵션 등록 완료")
+                .resultMessage(result == 0 ? "이미 등록된 상품 소분류  옵션입니다" : "업체 상품별 소분류 옵션 등록 완료")
                 .resultData(result)
                 .build();
-
     }
 
+
+
+
+//    @PostMapping("option")
+//    @Operation(summary = "업체 상품 옵션 등록")
+//
+//    public ResultResponse<Integer> postProductOption(@RequestBody ProductOptionPostReq p) {
+//
+//
+//        int result = service.postProductOption(p);
+//
+//
+//        return ResultResponse.<Integer>builder()
+//                .resultMessage(result==0?"이미 등록된 옵션입니다":"상품 옵션 등록 완료")
+//                .resultData(result)
+//                .build();
+//
+//    }
+
     @PostMapping("option/detail")
-    @Operation(summary = "업체 상품 옵션 상세 정보 등록")
+    @Operation(summary = "업체 상품 옵션 상세 정보 등록, 업체가 등록함")
     public ResultResponse<Integer> postOptionDetail(@RequestBody ProductOptionDetailPostReq p) {
 
 
@@ -65,6 +91,23 @@ public class ProductController {
 
         return ResultResponse.<Integer>builder()
                 .resultMessage(result==0?"이미 등록된 상세 옵션입니다":"상품 상세 옵션 등록 완료")
+                .resultData(result)
+                .build();
+
+    }
+
+
+
+    @GetMapping
+    @Operation(summary = "업체의 상품,상품상세옵션 조회")
+    public ResultResponse<List<ProductGetRes>> getProductInfoByBusiness(@RequestParam long businessId) {
+
+
+        List<ProductGetRes> result = service.getProductInfoByBusiness(businessId);
+
+
+        return ResultResponse.<List<ProductGetRes>>builder()
+                .resultMessage(result!=null&&!result.isEmpty()?"업체의 상품,상품상세옵션 조회 완료":"등록된 상품,상품상세옵션이 없습니다")
                 .resultData(result)
                 .build();
 

@@ -3,6 +3,7 @@ package com.green.jobdone.config.jwt;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import java.io.IOException;
 
 //시큐리티에 등록이 필요하다. (WebSecurityConfig 클래스에서 DI 해줘야한다)
+@Slf4j
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final HandlerExceptionResolver resolver;
@@ -26,6 +28,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request
                         , HttpServletResponse response
                         , AuthenticationException authException) throws IOException, ServletException {
+
 
 
         // GlobalExceptionHandler 에서 exception 을 잡을 수 있도록 연결하는 작업.
