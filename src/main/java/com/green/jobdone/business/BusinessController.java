@@ -1,7 +1,6 @@
 package com.green.jobdone.business;
 
-import com.green.jobdone.business.model.BusinessLogoPatchReq;
-import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.*;
 import com.green.jobdone.business.model.get.BusinessGetOneReq;
 import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
@@ -10,8 +9,6 @@ import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicPostReq;
-import com.green.jobdone.business.model.BusinessPostSignUpReq;
-import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -66,6 +63,19 @@ public class BusinessController {
                 .build();
     }
 
+    @PatchMapping("paper")
+    @Operation(summary = "업체 사업자등록증 변경")
+    public ResultResponse<Integer> patchProfilePaper(@RequestPart BusinessPaperPatchReq p, @RequestPart(required = false) MultipartFile paper) {
+        log.info("UserController > patchProfilePic > p: {}", p);
+
+        int result = businessService.patchBusinessPaper(p, paper);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("사업자등록증 사진 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
 
     @PostMapping("phone")
     @Operation(summary = "업체 전화번호 기입")
@@ -80,8 +90,8 @@ public class BusinessController {
     @PostMapping("businessPic")
     @Operation(summary = "업체 사진 등록")
     public ResultResponse<BusinessPicPostReq> postBusinessPic(@RequestPart List<MultipartFile> pics,
-                                                              @RequestPart long businessId) {
-        BusinessPicPostReq res = businessService.insBusinessPic(pics, businessId);
+                                                              @RequestPart BusinessGetOneReq p) {
+        BusinessPicPostReq res = businessService.insBusinessPic(pics, p.getBusinessId());
         return ResultResponse.<BusinessPicPostReq>builder()
                 .resultMessage("업체사진등록 완료")
                 .resultData(res)
@@ -90,8 +100,8 @@ public class BusinessController {
 
     @PutMapping("pic")
     @Operation(summary = "사진 유형 수정")
-    public ResultResponse<Integer> putBusinessPic(long businessPicId) {
-        int res = businessService.udtBusinessPics(businessPicId);
+    public ResultResponse<Integer> putBusinessPic(BusinessGetOneReq p) {
+        int res = businessService.udtBusinessPics(p.getBusinessId());
 
         return ResultResponse.<Integer>builder()
                 .resultMessage(res == 0? "업체사진 수정 실패":"업체 사진 수정 완료")
@@ -112,8 +122,8 @@ public class BusinessController {
 
     @GetMapping("/{businessId}")
     @Operation(summary = "한 업체 조회")
-    public ResultResponse<BusinessGetOneRes> selBusiness(@PathVariable Long businessId) {
-        BusinessGetOneReq req = new BusinessGetOneReq(businessId);
+    public ResultResponse<BusinessGetOneRes> selBusiness( BusinessGetOneReq p) {
+        BusinessGetOneReq req = new BusinessGetOneReq(p.getBusinessId());
         BusinessGetOneRes res = businessService.getBusinessOne(req);
 
         return ResultResponse.<BusinessGetOneRes>builder().resultData(res).resultMessage("한 업체 조회완료").build();
@@ -131,8 +141,8 @@ public class BusinessController {
 
     @GetMapping("pic/{businessId}")
     @Operation(summary = "한 업체의 사진 리스트")
-    public ResultResponse<List<BusinessOnePicsGetRes>> getBusinessPicList(@PathVariable Long businessId) {
-        BusinessOnePicsGetReq req = new BusinessOnePicsGetReq(businessId);
+    public ResultResponse<List<BusinessOnePicsGetRes>> getBusinessPicList(BusinessGetOneReq p) {
+        BusinessOnePicsGetReq req = new BusinessOnePicsGetReq(p.getBusinessId());
         List<BusinessOnePicsGetRes> res = businessService.getBusinessOnePics(req);
 
         return  ResultResponse.<List<BusinessOnePicsGetRes>>builder()
