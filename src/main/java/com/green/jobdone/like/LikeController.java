@@ -1,6 +1,7 @@
 package com.green.jobdone.like;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.like.model.LikeGetRes;
 import com.green.jobdone.like.model.LikePostReq;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +26,7 @@ public class LikeController {
     @Operation(summary = "찜 등록")
     public ResultResponse<Integer> postLikeInfo(@RequestBody LikePostReq p){
 
+
         int result=service.postLikeInfo(p);
 
         return ResultResponse.<Integer>builder()
@@ -41,12 +43,10 @@ public class LikeController {
 
         List<LikeGetRes> result=service.getLikeInfo(userId);
 
-        if(result.isEmpty()){
-            result=null;
-        }
+
 
         return ResultResponse.<List<LikeGetRes>>builder()
-                .resultMessage(result==null?"찜한 업체 목록이 없습니다":"찜한 업체 목록 출력 완료")
+                .resultMessage(result==null&& result.isEmpty()?"찜한 업체 목록이 없습니다":"찜한 업체 목록 출력 완료")
                 .resultData(result)
                 .build();
 
