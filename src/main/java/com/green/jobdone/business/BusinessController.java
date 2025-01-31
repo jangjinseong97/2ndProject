@@ -1,7 +1,6 @@
 package com.green.jobdone.business;
 
-import com.green.jobdone.business.model.BusinessLogoPatchReq;
-import com.green.jobdone.business.model.BusinessStatePutReq;
+import com.green.jobdone.business.model.*;
 import com.green.jobdone.business.model.get.BusinessGetOneReq;
 import com.green.jobdone.business.model.get.BusinessGetOneRes;
 import com.green.jobdone.business.model.get.BusinessGetReq;
@@ -10,8 +9,6 @@ import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicPostReq;
-import com.green.jobdone.business.model.BusinessPostSignUpReq;
-import com.green.jobdone.business.model.BusinessDetailPutReq;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -62,6 +59,19 @@ public class BusinessController {
 
         return ResultResponse.<Integer>builder()
                 .resultMessage("로고 사진 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @PatchMapping("paper")
+    @Operation(summary = "업체 사업자등록증 변경")
+    public ResultResponse<Integer> patchProfilePaper(@RequestPart BusinessPaperPatchReq p, @RequestPart(required = false) MultipartFile paper) {
+        log.info("UserController > patchProfilePic > p: {}", p);
+
+        int result = businessService.patchBusinessPaper(p, paper);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("사업자등록증 사진 수정 완료")
                 .resultData(result)
                 .build();
     }
