@@ -107,6 +107,18 @@
         <if test="businessId != null and userId == null">
             f.businessId = #{businessId}
         </if>
+        <if test="status == 0">
+            and completed in (0, 1, 3, 5)
+        </if>
+        <if test="status == 1">
+            and completed in (2, 6)
+        </if>
+        <if test="status == 2">
+            and completed in (0, 2)
+        </if>
+        <if test="status == 3">
+            and completed in (0, 1, 2, 6, 7, 8, 9)
+        </if>
     </select>
 
     <select id="providerUserId">
