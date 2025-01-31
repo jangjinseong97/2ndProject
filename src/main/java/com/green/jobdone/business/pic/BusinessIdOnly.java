@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BusinessOnePicDto {
-    private long businessPicId;
-    private String pic;
+public class BusinessIdOnly {
+    private long businessId;
 }

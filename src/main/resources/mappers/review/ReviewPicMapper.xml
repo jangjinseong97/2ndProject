@@ -26,6 +26,27 @@
         </foreach>
     </select>
 
+    <update id="updReviewPicState">
+        UPDATE review_pic
+        <set>
+            <if test="reviewId != null and reviewId != ''">
+                state = 0
+                WHERE reviewId = #{reviewId}
+            </if>
+            <if test="reviewPicId != null and reviewPicId != ''">
+                state = 1
+                WHERE reviewPicId = #{reviewPicId}
+            </if>
+        </set>
+    </update>
+
+
+    <delete id="delReviewPic">
+        DELETE FROM review_pic
+         WHERE reviewId = #{reviewId}
+           AND state = 1;
+    </delete>
+
 
 
 </mapper>
