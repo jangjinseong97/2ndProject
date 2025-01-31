@@ -29,9 +29,9 @@ public class CategoryService {
         return categoryMapper.insCategory(p);
     }
 
-    public List<CategoryGetRes> getCategory(categoryGetReq p) {
+    public List<CategoryGetRes> getCategory() {
 
-        return categoryMapper.getCategory(p);
+        return categoryMapper.getCategory();
     }
 
     //여기부터 디테일
@@ -47,7 +47,7 @@ public class CategoryService {
     }
 
     public List<DetailTypeGetRes> getDetailType(DetailTypeGetReq p) {
-        return categoryMapper.getDetailTypeList(p);
+        return categoryMapper.getDetailType(p);
     }
 
 

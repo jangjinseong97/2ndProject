@@ -15,13 +15,13 @@ public interface CategoryMapper {
     int insCategory(CategoryPostReq p);
     int existCategory(String categoryName);
 
-    List<CategoryGetRes> getCategory(categoryGetReq p);
+    List<CategoryGetRes> getCategory();
 
     // 디테일 타입
 
     int insDetailType(DetailTypePostReq p);
     int existDetailType(long categoryId,String detailTypeName);
 
-    List<DetailTypeGetRes> getDetailTypeList(DetailTypeGetReq p);
+    List<DetailTypeGetRes> getDetailType(DetailTypeGetReq p);
 
 }
