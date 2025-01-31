@@ -34,8 +34,8 @@ public class PortfolioController {
     @PostMapping("portfolioPic")
     @Operation(summary = "포폴사진등록")
     public ResultResponse<PortfolioPicPostRes> postPortfolioPic(@RequestPart List<MultipartFile> pics,
-                                                                @RequestPart long portfolioId) {
-        PortfolioPicPostRes res = portfolioService.insPortfolioPic(pics, portfolioId);
+                                                                PortfolioGetOneReq p) {
+        PortfolioPicPostRes res = portfolioService.insPortfolioPic(pics, p.getPortfolioId());
         return ResultResponse.<PortfolioPicPostRes>builder()
                 .resultMessage(res != null? "포트폴리오 사진 등록":"빠꾸먹음")
                 .resultData(res)
@@ -58,8 +58,8 @@ public class PortfolioController {
 
     @GetMapping("/{portfolioId}")
     @Operation(summary = "한 포폴 조회")
-    public ResultResponse<PortfolioGetOneRes> selPortfolio(@PathVariable Long portfolioId) {
-        PortfolioGetOneReq req = new PortfolioGetOneReq(portfolioId);
+    public ResultResponse<PortfolioGetOneRes> selPortfolio(PortfolioGetOneReq p) {
+        PortfolioGetOneReq req = new PortfolioGetOneReq(p.getPortfolioId());
         PortfolioGetOneRes res = portfolioService.getOnePortfolio(req);
 
         return ResultResponse.<PortfolioGetOneRes>builder().resultData(res).resultMessage("한 포폴 조회 완").build();
@@ -67,8 +67,8 @@ public class PortfolioController {
 
     @GetMapping("pic/{portfolioId}")
     @Operation(summary = "한 포폴에서 사진 여러장 조회")
-    public ResultResponse<List<PortfolioPicGetRes>> getPortfolioPicList(@PathVariable Long portfolioId){
-        PortfolioPicGetReq req = new PortfolioPicGetReq(portfolioId);
+    public ResultResponse<List<PortfolioPicGetRes>> getPortfolioPicList(PortfolioGetOneReq p){
+        PortfolioPicGetReq req = new PortfolioPicGetReq(p.getPortfolioId());
         List<PortfolioPicGetRes> res = portfolioService.getPortfolioPicList(req);
 
         return ResultResponse.<List<PortfolioPicGetRes>>builder().resultData(res).resultMessage(res != null? "포폴 사진 조회 완" : "포폴 사진 조회 싯빠이").build();
