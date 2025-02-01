@@ -15,9 +15,10 @@ public class BusinessGetRes {
     private double scoreAvg;
     private int price;
     private int like;
+    private int reviewCount;
 
     public BusinessGetRes(String detailTypeName,String pic, long businessId, String businessName, String title
-            , int price, double scoreAvg, int like) {
+            , int price, double scoreAvg, int like, int reviewCount) {
         this.detailTypeName = detailTypeName;
         this.pic = PicUrlMaker.makePicUrl(businessId, pic);
         this.businessId = businessId;
@@ -26,5 +27,6 @@ public class BusinessGetRes {
         this.price = price;
         this.scoreAvg = scoreAvg;
         this.like = like;
+        this.reviewCount = reviewCount;
     }
 }

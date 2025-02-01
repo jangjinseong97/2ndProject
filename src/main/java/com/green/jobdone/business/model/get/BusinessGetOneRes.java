@@ -21,6 +21,7 @@ public class BusinessGetOneRes {
     private String closingTime;
     private String busiCreatedAt;
     private String contents;
+    private int reviewCount;
 
 
 }

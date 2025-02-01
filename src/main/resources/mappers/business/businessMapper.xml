@@ -90,7 +90,7 @@
 
     <select id="selAllBusiness">
         SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
-        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
+        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`,COUNT(r.reviewId) AS reviewCount
         FROM business b
         left join detail_type d
         on  d.detailTypeId = b.detailTypeId
@@ -98,11 +98,11 @@
         on k.categoryId = d.categoryId
         left JOIN business_pic c
         ON c.businessId = b.businessId
-        JOIN product p
+        left JOIN product p
         ON b.businessId = p.businessId
-        JOIN service s
+        left JOIN service s
         ON s.productId = p.productId
-        JOIN review r
+        left JOIN review r
         ON r.serviceId =s.serviceId
         left JOIN `like` l
         ON l.businessId = b.businessId
@@ -120,17 +120,17 @@
         SELECT c.pic,b.detailTypeId,d.detailTypeName,b.logo, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
         , b.address, COUNT(s.productId) AS serviceCount, b.openingTime, b.closingTime
-        , b.busiCreatedAt, b.`contents`
+        , b.busiCreatedAt, b.`contents`,COUNT(r.reviewId) AS reviewCount
         FROM business b
         JOIN detail_type d
         ON d.detailTypeId = b.detailTypeId
         left JOIN business_pic c
         ON c.businessId = b.businessId
-        JOIN product p
+        left JOIN product p
         ON b.businessId = p.businessId
-        JOIN service s
+        left JOIN service s
         ON s.productId = p.productId
-        JOIN review r
+        left JOIN review r
         ON r.serviceId =s.serviceId
         JOIN `like` l
         ON l.businessId = b.businessId
