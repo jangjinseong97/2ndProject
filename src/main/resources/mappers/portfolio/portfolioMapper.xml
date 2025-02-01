@@ -70,8 +70,7 @@
 
     </select>
     <select id="selOnePortfolio">
-        SELECT p.portfolioId, p.title, p.category
-        , p.detailType, p.price, p.takingTime, p.contents
+        SELECT p.portfolioId, p.title, p.price, p.takingTime, p.contents
         FROM portfolio p
         WHERE p.portfolioId = #{portfolioId}
 
