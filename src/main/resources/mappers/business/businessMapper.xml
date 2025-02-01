@@ -13,7 +13,9 @@
         address = #{address},
         detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
-        tel = #{tel}
+        tel = #{tel},
+        tel2 = #{tel2},
+        tel3 = #{tel3}
     </insert>
 
     <select id="existBusinessNum" parameterType="String" resultType="int">
@@ -137,6 +139,9 @@
         b.contents,
         COUNT(r.reviewId) AS reviewCount,
         <!-- trunc ( ( sysdate - b.createdAt ) + 1 ) / 365 ) as years-->
+        b.tel,
+        b.tel2,
+        b.tel3
         FROM business b
         JOIN detail_type d ON d.detailTypeId = b.detailTypeId
         LEFT JOIN business_pic c ON c.businessId = b.businessId

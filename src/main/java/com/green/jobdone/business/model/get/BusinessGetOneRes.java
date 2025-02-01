@@ -22,6 +22,9 @@ public class BusinessGetOneRes {
     private String busiCreatedAt;
     private String contents;
     private int reviewCount;
+    private String tel;
+    private String tel2;
+    private String tel3;
 
 
 }

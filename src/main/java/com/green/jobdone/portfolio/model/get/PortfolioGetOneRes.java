@@ -11,5 +11,7 @@ public class PortfolioGetOneRes {
     private int price;
     private String takingTime;
     private String contents;
+    private String detailType;
+    private String category;
 
 }
