@@ -89,8 +89,6 @@
     </update>
 
     <select id="selAllBusiness">
-
-        <!-- 문제 -->
         SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`,COUNT(r.reviewId) AS reviewCount
         FROM business b
@@ -102,9 +100,9 @@
         ON c.businessId = b.businessId
         left JOIN product p
         ON b.businessId = p.businessId
-        left JOIN service s
+        JOIN service s
         ON s.productId = p.productId
-        left JOIN review r
+        JOIN review r
         ON r.serviceId =s.serviceId
         left JOIN `like` l
         ON l.businessId = b.businessId
@@ -116,6 +114,7 @@
         b.businessId, b.businessName, d.detailTypeName
 
     </select>
+
 
     <select id="selOneBusiness">
         SELECT
