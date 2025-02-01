@@ -134,7 +134,7 @@
         DATE_FORMAT(b.closingTime, '%H:%i') AS closingTime,
         b.busiCreatedAt,
         b.contents,
-        COUNT(r.reviewId) AS reviewCount,
+        COUNT(r.reviewId) AS reviewCount
         <!-- trunc ( ( sysdate - b.createdAt ) + 1 ) / 365 ) as years-->
         FROM business b
         JOIN detail_type d ON d.detailTypeId = b.detailTypeId
