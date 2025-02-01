@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.green.jobdone.service.model.Dto.ServiceEtcDto;
 import com.green.jobdone.service.model.Dto.ServicePutDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +20,5 @@ public class ServicePutReq {
     private String mEndTime;
     private Integer pyeong;
     private List<ServicePutDto> options;
+    private List<ServiceEtcDto> etc;
 }

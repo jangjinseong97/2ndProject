@@ -45,14 +45,15 @@
         <result property="pyeong" column="pyeong"/>
         <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="createdAt" column="createdAt"/>
+        <result property="updatedAt" column="updatedAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <collection property="options" resultMap="serviceOption"/>
-        <collection property="phone" resultMap="servicePhone"/>
+        <collection property="etc" resultMap="serviceEtc"/>
     </resultMap>
-    <resultMap id="servicePhone" type="com.green.jobdone.service.model.Dto.ServicePhone">
-        <result property="businessPhone" column="businessPhone"/>
+    <resultMap id="serviceEtc" type="com.green.jobdone.service.model.Dto.ServiceEtcDto">
+        <result property="etcPrice" column="etcPrice"/>
+        <result property="etcComment" column="etcComment"/>
     </resultMap>
-
     <resultMap id="serviceOption" type="com.green.jobdone.service.model.Dto.ServiceOptionDto">
         <id property="productOptionId" column="productOptionId"/>
         <result property="optionName" column="optionName"/>
@@ -71,7 +72,7 @@
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
-        a.pyeong, d.address as businessAddress
+        a.pyeong, d.address as businessAddress, a.updatedAt
         from service a
         left join user b on a.userId = b.userId
         left join product c on a.productId = c.productId
@@ -80,14 +81,17 @@
         left join service_option f on a.serviceId = f.serviceId
         left join option_detail i ON f.optionDetailId = i.optionDetailId
         left join product_option g on i.productOptionId = g.productOptionId
-        left join business_phone j on d.businessId = j.businessId
         left join service_detail k on a.serviceId = k.serviceId
         left join category l on e.categoryId = l.categoryId
         left join option n on n.optionId = g.optionId
         where
         a.serviceId = #{serviceId}
 
-
+    </select>
+    <select id="GetEtc">
+        SELECT price AS etcPrice, `comment` AS etcComment
+        FROM etc
+        WHERE serviceId = #{serviceId}
     </select>
 
     <select id="GetServiceFlow">
@@ -152,7 +156,7 @@
     </update>
 
     <update id="updServiceOption" parameterType="com.green.jobdone.service.model.ServicePutReq">
-        <foreach collection="options" item="option" separator=";">
+        <foreach collection="options" item="option">
             <if test="option.serviceOptionId != null">
                 update service_option
                 <set>
@@ -163,14 +167,36 @@
             </if>
             <if test="option.serviceOptionId == null">
                 insert into service_option
-                <set>
-                    serviceId = #{serviceId},
-                    optionDetailId = #{option.optionDetailId},
-                    <if test="option.price != null">price = #{option.price},</if>
-                    <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
-                </set>
+                set
+                serviceId = #{serviceId},
+                optionDetailId = #{option.optionDetailId}
+                <if test="option.price != null">,price = #{option.price}</if>
+                <if test="option.optionComment != null">,`comment` = #{option.optionComment}</if>
+
             </if>
         </foreach>
+    </update>
+    <update id="updServiceEtc" parameterType="com.green.jobdone.service.model.ServiceGetReq">
+        <foreach collection="etc" item="item">
+        <if test="item.etcId != null">
+            update etc
+            <set>
+            <if test="item.etcPrice != null">price = #{item.etcPrice},</if>
+            <if test="item.etcComment != null">`comment` = #{item.etcComment},</if>
+            </set>
+            where etcId = #{item.etcId}
+        </if>
+
+        <if test="item.etcId == null">
+            insert into etc
+            set
+            serviceId = #{serviceId}
+            <if test="item.etcPrice != null">, price = #{item.etcPrice}</if>
+            <if test="item.etcComment != null">, `comment` = #{item.etcComment}</if>
+
+        </if>
+        </foreach>
+
     </update>
 
     <select id="findUserId">
