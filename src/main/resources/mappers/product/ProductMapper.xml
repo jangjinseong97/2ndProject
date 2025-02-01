@@ -71,7 +71,7 @@
 
     <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRes">
         <id property="productId" column="productId"/>
-        <result property="price" column="price"/>
+        <result property="price" column="productPrice"/>
         <collection property="optionList" resultMap="selProductOptionListResultMap"/>
     </resultMap>
 
@@ -84,7 +84,7 @@
     <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
         <id property="optionDetailId" column="optionDetailId"/>
         <result property="optionDetailName" column="optionDetailName"/>
-        <result property="price" column="price"/>
+        <result property="price" column="optionPrice"/>
         <result property="contents" column="contents"/>
 
     </resultMap>
@@ -95,12 +95,12 @@
     <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
         SELECT
             a.productId
-            ,a.price
+            ,a.price as productPrice
             ,b.productOptionId
             ,d.name as optionName
             ,c.optionDetailId
             ,c.name as optionDetailName
-            ,c.price
+            ,c.price as optionPrice
             ,c.contents
         FROM product a
         left JOIN product_option b
