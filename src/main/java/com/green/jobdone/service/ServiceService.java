@@ -1,6 +1,7 @@
 package com.green.jobdone.service;
 
 import com.green.jobdone.service.model.*;
+import com.green.jobdone.service.model.Dto.ServiceEtcDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,10 @@ public class ServiceService {
         if(p.getServiceId()==0){
             return null;
         }
+
         ServiceGetOneRes res = serviceMapper.GetServiceOne(p);
+        List<ServiceEtcDto> dto = serviceMapper.GetEtc(p.getServiceId());
+        res.setEtc(dto);
         return res;
     }
 
