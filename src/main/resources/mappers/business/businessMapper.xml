@@ -89,6 +89,8 @@
     </update>
 
     <select id="selAllBusiness">
+
+        <!-- 문제 -->
         SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
         , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`,COUNT(r.reviewId) AS reviewCount
         FROM business b
@@ -134,7 +136,7 @@
         DATE_FORMAT(b.closingTime, '%H:%i') AS closingTime,
         b.busiCreatedAt,
         b.contents,
-        COUNT(r.reviewId) AS reviewCount
+        COUNT(r.reviewId) AS reviewCount,
         <!-- trunc ( ( sysdate - b.createdAt ) + 1 ) / 365 ) as years-->
         FROM business b
         JOIN detail_type d ON d.detailTypeId = b.detailTypeId
