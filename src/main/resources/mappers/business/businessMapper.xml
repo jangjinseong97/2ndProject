@@ -138,7 +138,7 @@
         b.busiCreatedAt,
         b.contents,
         COUNT(r.reviewId) AS reviewCount,
-        <!-- trunc ( ( sysdate - b.createdAt ) + 1 ) / 365 ) as years-->
+        TIMESTAMPDIFF(YEAR,b.busiCreatedAt, NOW()) AS years,
         b.tel,
         b.tel2,
         b.tel3
