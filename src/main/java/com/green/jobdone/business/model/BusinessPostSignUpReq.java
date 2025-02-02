@@ -31,8 +31,10 @@ public class BusinessPostSignUpReq {
     private String busiCreatedAt;
     @Schema(title = "회사전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
     private String tel;
-
-
+    @Schema(title = "예비전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String tel2;
+    @Schema(title = "예비전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String tel3;
 
 
 }

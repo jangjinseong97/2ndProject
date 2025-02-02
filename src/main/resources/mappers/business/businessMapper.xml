@@ -13,7 +13,9 @@
         address = #{address},
         detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
-        tel = #{tel}
+        tel = #{tel},
+        tel2 = #{tel2},
+        tel3 = #{tel3}
     </insert>
 
     <select id="existBusinessNum" parameterType="String" resultType="int">
@@ -90,7 +92,7 @@
 
     <select id="selAllBusiness">
         SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
-        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
+        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`,COUNT(r.reviewId) AS reviewCount
         FROM business b
         left join detail_type d
         on  d.detailTypeId = b.detailTypeId
@@ -98,7 +100,7 @@
         on k.categoryId = d.categoryId
         left JOIN business_pic c
         ON c.businessId = b.businessId
-        JOIN product p
+        left JOIN product p
         ON b.businessId = p.businessId
         JOIN service s
         ON s.productId = p.productId
@@ -115,30 +117,42 @@
 
     </select>
 
-    <select id="selOneBusiness">
 
-        SELECT c.pic,b.detailTypeId,d.detailTypeName,b.logo, b.businessId, b.businessName, b.title, p.price AS price
-        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`
-        , b.address, COUNT(s.productId) AS serviceCount, b.openingTime, b.closingTime
-        , b.busiCreatedAt, b.`contents`
+    <select id="selOneBusiness">
+        SELECT
+        c.pic,
+        b.detailTypeId,
+        d.detailTypeName,
+        b.logo,
+        b.businessId,
+        b.businessName,
+        b.title,
+        p.price AS price,
+        ROUND(AVG(r.score), 2) AS scoreAvg,
+        IF(l.userId IS NULL, 0, 1) AS `like`,
+        b.address,
+        COUNT(s.productId) AS serviceCount,
+        -- openingTime과 closingTime에서 초를 00으로 설정하여 시:분 형태로 출력
+        DATE_FORMAT(b.openingTime, '%H:%i') AS openingTime,
+        DATE_FORMAT(b.closingTime, '%H:%i') AS closingTime,
+        b.busiCreatedAt,
+        b.contents,
+        COUNT(r.reviewId) AS reviewCount,
+        <!-- trunc ( ( sysdate - b.createdAt ) + 1 ) / 365 ) as years-->
+        b.tel,
+        b.tel2,
+        b.tel3
         FROM business b
-        JOIN detail_type d
-        ON d.detailTypeId = b.detailTypeId
-        left JOIN business_pic c
-        ON c.businessId = b.businessId
-        JOIN product p
-        ON b.businessId = p.businessId
-        JOIN service s
-        ON s.productId = p.productId
-        JOIN review r
-        ON r.serviceId =s.serviceId
-        JOIN `like` l
-        ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
+        JOIN detail_type d ON d.detailTypeId = b.detailTypeId
+        LEFT JOIN business_pic c ON c.businessId = b.businessId
+        LEFT JOIN product p ON b.businessId = p.businessId
+        LEFT JOIN service s ON s.productId = p.productId
+        LEFT JOIN review r ON r.serviceId = s.serviceId
+        JOIN `like` l ON l.businessId = b.businessId AND l.userId = #{signedUserId}
         WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
-
     </select>
+
     <select id="getBusinessPicList">
         select p.businessPicId, p.pic
         from business_pic p
