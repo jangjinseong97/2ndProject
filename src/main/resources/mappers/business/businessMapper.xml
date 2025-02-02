@@ -90,33 +90,74 @@
         where businessId = #{businessId}
     </update>
 
-    <select id="selAllBusiness">
-        SELECT c.pic,d.detailTypeName, b.businessId, b.businessName, b.title, p.price AS price
-        , ROUND(AVG(r.score),2)AS scoreAvg, IF(l.userId IS null,0,1)AS `like`,COUNT(r.reviewId) AS reviewCount
-        FROM business b
-        left join detail_type d
-        on  d.detailTypeId = b.detailTypeId
-        left join category k
-        on k.categoryId = d.categoryId
-        left JOIN business_pic c
-        ON c.businessId = b.businessId
-        left JOIN product p
-        ON b.businessId = p.businessId
-        JOIN service s
-        ON s.productId = p.productId
-        JOIN review r
-        ON r.serviceId =s.serviceId
-        left JOIN `like` l
-        ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
-        WHERE
-        (#{categoryId} IS null OR k.categoryId = #{categoryId})
-        AND (#{detailTypeId} IS null OR d.detailTypeId = #{detailTypeId})
-        GROUP BY
-        b.businessId, b.businessName, d.detailTypeName
+<!--    <select id="selAllBusiness">-->
+<!--        SELECT-->
+<!--        d.detailTypeName-->
+<!--        , c.pic-->
+<!--        , b.businessId-->
+<!--        , b.businessName-->
+<!--        , b.title-->
+<!--        , ROUND(AVG(r.score),2)AS scoreAvg-->
+<!--        , p.price AS price-->
+<!--        , IF(l.userId IS null,0,1)AS `like`-->
+<!--        , COUNT(r.reviewId) AS reviewCount-->
+<!--        FROM business b-->
+<!--        left join detail_type d-->
+<!--        on  d.detailTypeId = b.detailTypeId-->
+<!--        left join category k-->
+<!--        on k.categoryId = d.categoryId-->
+<!--        left JOIN business_pic c-->
+<!--        ON c.businessId = b.businessId-->
+<!--        JOIN product p-->
+<!--        ON b.businessId = p.businessId-->
+<!--        JOIN service s-->
+<!--        ON s.productId = p.productId-->
+<!--        JOIN review r-->
+<!--        ON r.serviceId =s.serviceId-->
+<!--        left JOIN `like` l-->
+<!--        ON l.businessId = b.businessId-->
+<!--        AND l.userId = #{signedUserId}-->
+<!--        WHERE-->
+<!--        (#{categoryId} IS null OR k.categoryId = #{categoryId})-->
+<!--        AND (#{detailTypeId} IS null OR d.detailTypeId = #{detailTypeId})-->
+<!--        GROUP BY-->
+<!--        b.businessId, b.businessName, d.detailTypeName-->
 
-    </select>
+<!--    </select>-->
+<select id="selAllBusiness">
 
+    SELECT
+    d.detailTypeName,
+    c.pic,
+    b.businessId,
+    b.businessName,
+    b.title,
+    ROUND(AVG(COALESCE(r.score, 0)), 2) AS scoreAvg,  -- null 처리
+    p.price AS price,
+    IF(COALESCE(l.userId, 0) = 0, 0, 1) AS `like`,  -- null 처리
+    COALESCE(COUNT(r.reviewId), 0) AS reviewCount  -- null 처리
+    FROM business b
+    LEFT JOIN detail_type d
+    ON d.detailTypeId = b.detailTypeId
+    LEFT JOIN category k
+    ON k.categoryId = d.categoryId
+    LEFT JOIN business_pic c
+    ON c.businessId = b.businessId
+    JOIN product p
+    ON b.businessId = p.businessId
+    JOIN service s
+    ON s.productId = p.productId
+    JOIN review r
+    ON r.serviceId = s.serviceId
+    LEFT JOIN `like` l
+    ON l.businessId = b.businessId
+    AND l.userId = #{signedUserId}
+    WHERE
+    (#{categoryId} IS NULL OR k.categoryId = #{categoryId})
+    AND (#{detailTypeId} IS NULL OR d.detailTypeId = #{detailTypeId})
+    GROUP BY
+    b.businessId, b.businessName, d.detailTypeName
+</select>
 
     <select id="selOneBusiness">
         SELECT
