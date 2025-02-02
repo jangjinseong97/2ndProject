@@ -1,6 +1,7 @@
 package com.green.jobdone.config.security;
 
 //Spring Security 세팅
+import com.green.jobdone.config.handler.CustomAccessDeniedHandler;
 import com.green.jobdone.config.jwt.JwtAuthenticationEntryPoint;
 import com.green.jobdone.config.jwt.TokenAuthenticationFilter;
 import com.green.jobdone.config.jwt.UserRole;
@@ -44,7 +45,9 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
                         .anyRequest().permitAll() // 그 외의 모든 요청은 허용
                 )
-                .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 인증 실패 시 jwtAuthenticationEntryPoint 처리
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)// 인증 실패 시 jwtAuthenticationEntryPoint 처리, 401 Unauthorized 처리(토큰이 필요하다는 에러)
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()))  // 403 Forbidden 처리(접근 가능한 role 이 아니다 라는 에러)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 인증 필터 추가
                 .build();
     }

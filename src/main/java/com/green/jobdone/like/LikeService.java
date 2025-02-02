@@ -1,5 +1,6 @@
 package com.green.jobdone.like;
 
+import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.like.model.LikeGetRes;
 import com.green.jobdone.like.model.LikePostReq;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,9 @@ public class LikeService {
 
         List<LikeGetRes> res=mapper.getLikeInfo(userId);
 
+        for(LikeGetRes r:res){
+            r.setPic(PicUrlMaker.makePicUrl(r.getBusinessId(),r.getPic()));
+        }
 
         return res;
 
