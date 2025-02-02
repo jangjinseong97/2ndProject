@@ -124,44 +124,64 @@
 <!--        b.businessId, b.businessName, d.detailTypeName-->
 
 <!--    </select>-->
-<select id="selAllBusiness">
+    <select id="selAllBusiness" resultType="map">
+        SELECT
+        d.detailTypeName,
 
-    SELECT
-    d.detailTypeName,
-    c.pic,
-    b.businessId,
-    b.businessName,
-    b.title,
-    ROUND(AVG(COALESCE(r.score, 0)), 2) AS scoreAvg,  -- null 처리
-    p.price AS price,
-    IF(COALESCE(l.userId, 0) = 0, 0, 1) AS `like`,  -- null 처리
-    COALESCE(COUNT(r.reviewId), 0) AS reviewCount  -- null 처리
-    FROM business b
-    LEFT JOIN detail_type d
-    ON d.detailTypeId = b.detailTypeId
-    LEFT JOIN category k
-    ON k.categoryId = d.categoryId
-    LEFT JOIN business_pic c
-    ON c.businessId = b.businessId
-    JOIN product p
-    ON b.businessId = p.businessId
-    JOIN service s
-    ON s.productId = p.productId
-    JOIN review r
-    ON r.serviceId = s.serviceId
-    LEFT JOIN `like` l
-    ON l.businessId = b.businessId
-    AND l.userId = #{signedUserId}
-    WHERE
-    (#{categoryId} IS NULL OR k.categoryId = #{categoryId})
-    AND (#{detailTypeId} IS NULL OR d.detailTypeId = #{detailTypeId})
-    GROUP BY
-    b.businessId, b.businessName, d.detailTypeName
-</select>
+        <!-- 업체 사진이 NULL이면 'default.jpg'로 설정 -->
+        COALESCE(GROUP_CONCAT(DISTINCT IFNULL(c.pic, 'default.jpg') ORDER BY c.pic SEPARATOR ','), 'default.jpg') AS pic,
+
+        b.businessId,
+        b.businessName,
+        b.title,
+
+        <!-- 평균 평점 계산 시 NULL 값이 나오면 0으로 처리 -->
+        ROUND(COALESCE(AVG(r.score), 0), 2) AS scoreAvg,
+
+        p.price AS price,
+
+        <!-- 좋아요(like) 값이 NULL이면 0으로 설정 -->
+        IFNULL(l.userId, 0) AS `like`,
+
+        <!-- 리뷰 개수를 세는데 중복 제거하여 정확한 값 반환 -->
+        COUNT(DISTINCT r.reviewId) AS reviewCount
+
+        FROM business b
+        LEFT JOIN detail_type d ON d.detailTypeId = b.detailTypeId
+        LEFT JOIN category k ON k.categoryId = d.categoryId
+        LEFT JOIN business_pic c ON c.businessId = b.businessId
+        LEFT JOIN product p ON b.businessId = p.businessId
+        LEFT JOIN service s ON s.productId = p.productId
+        LEFT JOIN review r ON r.serviceId = s.serviceId
+
+        <!-- 사용자가 좋아요(like)한 업체인지 확인 -->
+        LEFT JOIN `like` l
+        ON l.businessId = b.businessId
+        AND l.userId = #{signedUserId}
+
+        WHERE 1=1  <!-- WHERE 절이 비어있는 것을 방지하는 더미 조건 -->
+
+        <if test="categoryId != null">
+            <!-- 특정 카테고리(categoryId)로 필터링 -->
+            AND k.categoryId = #{categoryId}
+        </if>
+
+        <if test="detailTypeId != null">
+            <!-- 특정 서비스 유형(detailTypeId)으로 필터링 -->
+            AND d.detailTypeId = #{detailTypeId}
+        </if>
+
+        <!-- 같은 업체가 여러 번 나오지 않도록 businessId 기준으로 그룹화 -->
+        GROUP BY b.businessId
+
+        <!-- 평점이 높은 업체를 우선으로 정렬하고, 같은 평점이면 리뷰 개수가 많은 순으로 정렬 -->
+        ORDER BY scoreAvg DESC, reviewCount DESC;
+    </select>
+
+
 
     <select id="selOneBusiness">
         SELECT
-        c.pic,
         b.detailTypeId,
         d.detailTypeName,
         b.logo,
@@ -189,7 +209,7 @@
         LEFT JOIN product p ON b.businessId = p.businessId
         LEFT JOIN service s ON s.productId = p.productId
         LEFT JOIN review r ON r.serviceId = s.serviceId
-        JOIN `like` l ON l.businessId = b.businessId AND l.userId = #{signedUserId}
+        left JOIN `like` l ON l.businessId = b.businessId AND l.userId = #{signedUserId}
         WHERE b.businessId = #{businessId}
         GROUP BY b.businessId, b.businessName
     </select>
