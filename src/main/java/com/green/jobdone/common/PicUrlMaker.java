@@ -23,4 +23,9 @@ public class PicUrlMaker {
     }
 
 
+
+    public static String makePicUrlChat(long roomId, long chatId, String picName ) {
+        return String.format("/pic/room/%d/chat/%d/%s", roomId, chatId, picName);
+    }
+
 }

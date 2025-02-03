@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.green.jobdone.service.model.Dto.ServiceEtcDto;
 import com.green.jobdone.service.model.Dto.ServiceOptionDto;
 import com.green.jobdone.service.model.Dto.ServicePhone;
 import lombok.Getter;
@@ -29,7 +30,8 @@ public class ServiceGetOneRes {
     private String categoryName;
     private String businessNum;
     private String createdAt;
+    private String updatedAt;
     private String pyeong;
     private List<ServiceOptionDto> options;
-
+    private List<ServiceEtcDto> etc;
 }
