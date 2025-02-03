@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class OptionDetailDto {
     private long optionDetailId;
-    private String detailName;
-    private int detailPrice;
+    private String optionDetailName;
+    private int optionDetailPrice;
     private String contents;
+    private Long serviceOptionId;
+    private String optionComment;
 }

@@ -55,8 +55,8 @@ public class ServiceService {
 
         int res1 = serviceMapper.updService(p);
         int res2 = serviceMapper.updServiceDetail(p);
-        int res3 = serviceMapper.updServiceOption(p);
-        return res3;
+//        int res3 = serviceMapper.updServiceOption(p);
+        return res2;
     }
 
     public int completedService(ServicePatchReq p){
