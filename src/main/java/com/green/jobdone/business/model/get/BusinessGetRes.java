@@ -24,6 +24,7 @@ public class BusinessGetRes {
     private int orderCount;
 
 
+
     public BusinessGetRes(long categoryId,String categoryName, long detailTypeId, String detailTypeName,String pic, long businessId, String businessName
             , String title, int price, double scoreAvg, int like, int reviewCount, long regionId, String region, int orderCount) {
         this.categoryId = categoryId;

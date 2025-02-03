@@ -163,18 +163,22 @@
         GROUP BY b.businessId
 
         <choose>
-            <when test="sortType == 'latest'">
+            <when test="sortType == '최신순'">
                 ORDER BY b.busiCreatedAt DESC
             </when>
-            <when test="sortType == 'rating'">
+            <when test="sortType == '인기순'">
                 ORDER BY scoreAvg DESC, reviewCount DESC
             </when>
-            <when test="sortType == 'order'">
+            <when test="sortType == '주문량순'">
                 ORDER BY orderCount DESC
+            </when>
+            <when test="sortType == '저가순'">
+                ORDER BY p.price
             </when>
             <otherwise>
                 ORDER BY scoreAvg DESC, reviewCount DESC
             </otherwise>
+
         </choose>
     </select>
 
