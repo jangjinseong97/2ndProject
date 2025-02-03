@@ -12,7 +12,7 @@ public class ProductOptionDetailPatchReq {
     @Schema(title = "상품옵션에 대한 상세옵션에 대한 설명", example = "1개입니다")
     private String contents;
     @Schema(title = "상품옵션에 대한 상세옵션에 대한 가격", example = "5000")
-    private int price;
+    private int optionDetailPrice;
     @Schema(title = "상품옵션에 대한 상세옵션에 대한 이름", example = "1개")
-    private String name;
+    private String optionDetailName;
 }

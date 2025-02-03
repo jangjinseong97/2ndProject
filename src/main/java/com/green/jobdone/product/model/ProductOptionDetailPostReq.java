@@ -5,19 +5,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class ProductOptionDetailPostReq {
     @Schema(title = "상품옵션 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long productOptionId;
     @Schema(title = "옵션 상세 명", example = "1개,2개", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String name;
+    private String optionDetailName;
     @Schema(title = "옵션 상세 내용", example = "1개,2개 입니다", requiredMode = Schema.RequiredMode.REQUIRED)
     private String contents;
     @Schema(title = "옵션별 상세 가격", example = "40000", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int price;
+    private int optionDetailPrice;
 
     @JsonIgnore
     private long optionDetailId;

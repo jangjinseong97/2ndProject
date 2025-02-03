@@ -126,26 +126,20 @@
 <!--    </select>-->
     <select id="selAllBusiness" resultType="map">
         SELECT
+        k.categoryId,
+        k.categoryName,
+        d.detailTypeId,
         d.detailTypeName,
-
-        <!-- 업체 사진이 NULL이면 'default.jpg'로 설정 -->
         COALESCE(GROUP_CONCAT(DISTINCT IFNULL(c.pic, 'default.jpg') ORDER BY c.pic SEPARATOR ','), 'default.jpg') AS pic,
-
         b.businessId,
         b.businessName,
         b.title,
-
-        <!-- 평균 평점 계산 시 NULL 값이 나오면 0으로 처리 -->
         ROUND(COALESCE(AVG(r.score), 0), 2) AS scoreAvg,
-
         p.price AS price,
-
-        <!-- 좋아요(like) 값이 NULL이면 0으로 설정 -->
         IFNULL(l.userId, 0) AS `like`,
-
-        <!-- 리뷰 개수를 세는데 중복 제거하여 정확한 값 반환 -->
-        COUNT(DISTINCT r.reviewId) AS reviewCount
-
+        COUNT(DISTINCT r.reviewId) AS reviewCount,
+        COUNT(s.serviceId) AS orderCount,
+        g.regionId, g.name as region
         FROM business b
         LEFT JOIN detail_type d ON d.detailTypeId = b.detailTypeId
         LEFT JOIN category k ON k.categoryId = d.categoryId
@@ -153,31 +147,36 @@
         LEFT JOIN product p ON b.businessId = p.businessId
         LEFT JOIN service s ON s.productId = p.productId
         LEFT JOIN review r ON r.serviceId = s.serviceId
-
-        <!-- 사용자가 좋아요(like)한 업체인지 확인 -->
-        LEFT JOIN `like` l
-        ON l.businessId = b.businessId
-        AND l.userId = #{signedUserId}
-
-        WHERE 1=1  <!-- WHERE 절이 비어있는 것을 방지하는 더미 조건 -->
-
+        LEFT JOIN `like` l ON l.businessId = b.businessId AND l.userId = #{signedUserId}
+        left join business_region br on b.businessId = br.businessId
+        left join region g on g.regionId = br.regionId
+        WHERE 1=1
+        <if test="regionId != null">
+            AND br.regionId = #{regionId}
+        </if>
         <if test="categoryId != null">
-            <!-- 특정 카테고리(categoryId)로 필터링 -->
             AND k.categoryId = #{categoryId}
         </if>
-
         <if test="detailTypeId != null">
-            <!-- 특정 서비스 유형(detailTypeId)으로 필터링 -->
             AND d.detailTypeId = #{detailTypeId}
         </if>
-
-        <!-- 같은 업체가 여러 번 나오지 않도록 businessId 기준으로 그룹화 -->
         GROUP BY b.businessId
 
-        <!-- 평점이 높은 업체를 우선으로 정렬하고, 같은 평점이면 리뷰 개수가 많은 순으로 정렬 -->
-        ORDER BY scoreAvg DESC, reviewCount DESC;
+        <choose>
+            <when test="sortType == 'latest'">
+                ORDER BY b.busiCreatedAt DESC
+            </when>
+            <when test="sortType == 'rating'">
+                ORDER BY scoreAvg DESC, reviewCount DESC
+            </when>
+            <when test="sortType == 'order'">
+                ORDER BY orderCount DESC
+            </when>
+            <otherwise>
+                ORDER BY scoreAvg DESC, reviewCount DESC
+            </otherwise>
+        </choose>
     </select>
-
 
 
     <select id="selOneBusiness">

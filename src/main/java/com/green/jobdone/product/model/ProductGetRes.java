@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 public class ProductGetRes {
     private long productId;
-    private int price;
+    private int productPrice;
+    private String detailTypeName;
     private List<ProductGetDto> optionList;
 }

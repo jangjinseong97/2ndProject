@@ -29,7 +29,7 @@
         <result property="userName" column="userName"/>
         <result property="userPhone" column="userPhone" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessName" column="businessName"/>
-        <result property="productName" column="productName"/>
+        <result property="detailTypeName" column="detailTypeName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessAddress" column="businessAddress"/>
         <result property="businessPhone" column="businessPhone"/>
@@ -46,52 +46,64 @@
         <result property="createdAt" column="createdAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <collection property="options" resultMap="serviceOption"/>
-        <collection property="phone" resultMap="servicePhone"/>
     </resultMap>
-    <resultMap id="servicePhone" type="com.green.jobdone.service.model.Dto.ServicePhone">
-        <result property="businessPhone" column="businessPhone"/>
-    </resultMap>
+
 
     <resultMap id="serviceOption" type="com.green.jobdone.service.model.Dto.ServiceOptionDto">
         <id property="productOptionId" column="productOptionId"/>
         <result property="optionName" column="optionName"/>
-        <collection property="optionDetails" resultMap="serviceOptionDetail"/>
+        <result property="optionDetailId" column="optionDetailId"/>
+        <result property="optionDetailName" column="optionDetailName"/>
+        <result property="optionDetailPrice" column="optionDetailPrice"/>
+        <result property="contents" column="contents"/>
+        <result property="serviceOptionId" column="serviceOptionId"/>
+        <result property="optionComment" column="optionComment"/>
     </resultMap>
 
     <resultMap id="serviceOptionDetail" type="com.green.jobdone.service.model.Dto.OptionDetailDto">
         <id property="optionDetailId" column="optionDetailId"/>
-        <result property="detailName" column="detailName"/>
-        <result property="detailPrice" column="detailPrice"/>
+        <result property="optionDetailName" column="optionDetailName"/>
+        <result property="optionDetailPrice" column="optionDetailPrice"/>
         <result property="contents" column="contents"/>
+        <result property="serviceOptionId" column="serviceOptionId"/>
+        <result property="optionComment" column="optionComment"/>
     </resultMap>
 
     <select id="GetServiceOne" resultMap="serviceFlow">
         select a.serviceId, b.name as userName, b.phone as userPhone, d.businessName as businessName,
-        e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
+        e.detailTypeName as detailTypeName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
-        g.productOptionId, n.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
-        a.pyeong, d.address as businessAddress
-        from service a
-        left join user b on a.userId = b.userId
-        left join product c on a.productId = c.productId
-        left join business d on c.businessId = d.businessId
-        left join detail_type e on c.detailTypeId = e.detailTypeId
-        left join service_option f on a.serviceId = f.serviceId
-        left join option_detail i ON f.optionDetailId = i.optionDetailId
-        left join product_option g on i.productOptionId = g.productOptionId
-        left join business_phone j on d.businessId = j.businessId
-        left join service_detail k on a.serviceId = k.serviceId
-        left join category l on e.categoryId = l.categoryId
-        left join option n on n.optionId = g.optionId
-        where
-        a.serviceId = #{serviceId}
+        g.productOptionId, n.name as optionName, i.name as optionDetailName, i.contents, i.optionDetailId,
+        a.pyeong, d.address as businessAddress,
+        IFNULL(o.optionDetailPrice, i.price) AS optionDetailPrice, o.serviceOptionId, o.comment AS optionComment
+        FROM service a
+        LEFT JOIN user b ON a.userId = b.userId
+        LEFT JOIN product c ON a.productId = c.productId
+        LEFT JOIN business d ON c.businessId = d.businessId
+        LEFT JOIN detail_type e ON c.detailTypeId = e.detailTypeId
+        LEFT JOIN service_option f ON a.serviceId = f.serviceId
+        LEFT JOIN option_detail i ON f.optionDetailId = i.optionDetailId
+        LEFT JOIN product_option g ON i.productOptionId = g.productOptionId
+        LEFT JOIN service_detail k ON a.serviceId = k.serviceId
+        LEFT JOIN category l ON e.categoryId = l.categoryId
+        LEFT JOIN option n ON n.optionId = g.optionId
+        LEFT JOIN (
+        SELECT
+        a.serviceOptionId,
+        IFNULL(a.price, b.price) AS optionDetailPrice,
+        a.optionDetailId, a.comment
+        FROM service_option a
+        LEFT JOIN option_detail b ON a.optionDetailId = b.optionDetailId
+        WHERE a.serviceId = #{serviceId}
+        ) o ON i.optionDetailId = o.optionDetailId
+        WHERE a.serviceId = #{serviceId}
 
 
     </select>
 
     <select id="GetServiceFlow">
-        select a.serviceId, a.createdAt, a.price, a.completed, b.name as reservedName,
-        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName,
+        select a.serviceId, a.createdAt, a.price, a.completed, b.name as userName,
+        c.startDate, e.detailTypeName as detailTypeName, f.businessName as businessName,
         a.address
         from service A
         left join user B on a.userId = b.userId
