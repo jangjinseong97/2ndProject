@@ -104,10 +104,10 @@
 
 
 
-
     <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRes">
         <id property="productId" column="productId"/>
         <result property="productPrice" column="productPrice"/>
+        <result property="detailTypeName" column="detailTypeName"/>
         <collection property="optionList" resultMap="selProductOptionListResultMap"/>
     </resultMap>
 
@@ -118,10 +118,11 @@
     </resultMap>
 
     <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
-        <id property="optionDetailId" column="optionDetailId"/>
-        <result property="optionDetailName" column="optionDetailName"/>
-        <result property="optionDetailPrice" column="optionDetailPrice"/>
-        <result property="contents" column="contents"/>
+    <id property="optionDetailId" column="optionDetailId"/>
+    <result property="optionDetailName" column="optionDetailName"/>
+    <result property="optionDetailPrice" column="optionDetailPrice"/>
+    <result property="contents" column="contents"/>
+
 
     </resultMap>
     <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
@@ -134,6 +135,7 @@
         ,c.name as optionDetailName
         ,c.price as optionDetailPrice
         ,c.contents
+        ,e.detailTypeName
         FROM product a
         left JOIN product_option b
         ON a.productId=b.productId
@@ -141,6 +143,8 @@
         ON b.productOptionId=c.productOptionId
         left JOIN option d
         on b.optionId=d.optionId
+        left JOIN detail_type e
+        on a.detailTypeId=e.detailTypeId
         WHERE a.businessId=#{businessId}
     </select>
 

@@ -10,5 +10,6 @@ import java.util.List;
 public class ProductGetRes {
     private long productId;
     private int productPrice;
+    private String detailTypeName;
     private List<ProductGetDto> optionList;
 }
