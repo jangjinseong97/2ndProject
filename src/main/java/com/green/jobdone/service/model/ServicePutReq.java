@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.green.jobdone.service.model.Dto.ServicePutDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,6 @@ public class ServicePutReq {
     private String mStartTime;
     private String mEndTime;
     private Integer pyeong;
+    @JsonIgnore
     private List<ServicePutDto> options;
 }
