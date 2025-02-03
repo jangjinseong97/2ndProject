@@ -29,7 +29,6 @@
         <result property="userName" column="userName"/>
         <result property="userPhone" column="userPhone" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessName" column="businessName"/>
-        <result property="reservedName" column="reservedName"/>
         <result property="productName" column="productName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessAddress" column="businessAddress"/>
@@ -67,7 +66,7 @@
     </resultMap>
 
     <select id="GetServiceOne" resultMap="serviceFlow">
-        select a.serviceId, a.name as userName, a.phone as userPhone, d.businessName as businessName, b.name as reservedName,
+        select a.serviceId, b.name as userName, b.phone as userPhone, d.businessName as businessName,
         e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
@@ -119,6 +118,9 @@
         <if test="status == 3">
             and completed in (0, 1, 2, 6, 7, 8, 9)
         </if>
+        <if test="status == 4">
+            and completed in(6, 7, 8, 9)
+        </if>
     </select>
 
     <select id="providerUserId">
@@ -156,7 +158,7 @@
             <if test="option.serviceOptionId != null">
                 update service_option
                 <set>
-                    <if test="option.price != null">price = #{option.price},</if>
+                    <if test="option.price != null">price = #{option.detailPrice},</if>
                     <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
                 </set>
                 where serviceOptionId = #{option.serviceOptionId}
@@ -166,7 +168,7 @@
                 <set>
                     serviceId = #{serviceId},
                     optionDetailId = #{option.optionDetailId},
-                    <if test="option.price != null">price = #{option.price},</if>
+                    <if test="option.price != null">price = #{option.detailPrice},</if>
                     <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
                 </set>
             </if>

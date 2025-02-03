@@ -9,5 +9,5 @@ public class ServicePutDto {
     private Long serviceOptionId;
     private Long optionDetailId;
     private String optionComment;
-    private int price;
+    private int detailPrice;
 }
