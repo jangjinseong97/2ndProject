@@ -14,7 +14,7 @@ public class ServiceGetOneRes {
     private String userName;
     private String userPhone;
     private String businessName;
-    private String productName;
+    private String detailTypeName;
     private String businessPhone;
     private int price;
     private int completed;

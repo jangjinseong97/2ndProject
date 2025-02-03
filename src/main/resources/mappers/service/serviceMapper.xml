@@ -29,7 +29,7 @@
         <result property="userName" column="userName"/>
         <result property="userPhone" column="userPhone" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessName" column="businessName"/>
-        <result property="productName" column="productName"/>
+        <result property="detailTypeName" column="detailTypeName"/>
         <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessAddress" column="businessAddress"/>
         <result property="businessPhone" column="businessPhone"/>
@@ -67,7 +67,7 @@
 
     <select id="GetServiceOne" resultMap="serviceFlow">
         select a.serviceId, b.name as userName, b.phone as userPhone, d.businessName as businessName,
-        e.detailTypeName as productName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
+        e.detailTypeName as detailTypeName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as detailName, i.contents, i.price as detailPrice, i.optionDetailId,
         a.pyeong, d.address as businessAddress
@@ -90,8 +90,8 @@
     </select>
 
     <select id="GetServiceFlow">
-        select a.serviceId, a.createdAt, a.price, a.completed, b.name as reservedName,
-        a.name userName, c.startDate, e.detailTypeName as productName, f.businessName as businessName,
+        select a.serviceId, a.createdAt, a.price, a.completed, b.name as userName,
+        c.startDate, e.detailTypeName as detailTypeName, f.businessName as businessName,
         a.address
         from service A
         left join user B on a.userId = b.userId

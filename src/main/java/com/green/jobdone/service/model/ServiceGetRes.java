@@ -12,9 +12,8 @@ import java.util.List;
 public class ServiceGetRes {
     private long serviceId;
     private String userName;
-    private String reservedName;
     private String businessName;
-    private String productName;
+    private String detailTypeName;
     private int price;
     private int completed;
     private String startDate;
