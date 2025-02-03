@@ -12,10 +12,12 @@ public class UserSignInRes {
     private long userId;
     private String name;
     private String email;
+    private String phone;
     @JsonIgnore
     private String type;
     private String pic;
     private String accessToken;
+    private long businessId;
 
 
     @JsonIgnore //swagger 표시 안 되지만, 응답 때 빼는 역할도 한다.

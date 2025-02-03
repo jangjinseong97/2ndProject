@@ -16,6 +16,8 @@ public class UserSignInResDto {
     private String pic;
     private List<UserRole> roles;
     private String upw;
+    private String phone;
+    private long businessId;
 
 
 }

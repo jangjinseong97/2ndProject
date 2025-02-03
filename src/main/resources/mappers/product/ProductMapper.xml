@@ -7,7 +7,7 @@
         INSERT INTO product
         SET businessId=#{businessId}
         ,detailTypeId=#{detailTypeId}
-        ,price=#{price}
+        ,price=#{productPrice}
     </insert>
     <select id="checkBusinessProduct">
         SELECT productId
@@ -17,8 +17,8 @@
     <update id="updProduct">
         UPDATE product
         <set>
-            <if test="price!=null">
-                price=#{price}
+            <if test="productPrice!=null">
+                price=#{productPrice}
             </if>
         </set>
         WHERE productId=#{productId}
@@ -34,7 +34,7 @@
     <insert id="postOption">
         INSERT INTO option
         SET detailTypeId=#{detailTypeId}
-        ,name=#{name}
+        ,name=#{optionName}
     </insert>
     <select id="checkOption">
         SELECT name
@@ -48,7 +48,7 @@
     </resultMap>
     <resultMap id="selOptionDetailResultMap" type="com.green.jobdone.product.model.ProductGetOptionDto">
         <result property="optionId" column="optionId"/>
-        <result property="name" column="name"/>
+        <result property="optionName" column="name"/>
     </resultMap>
     <select id="getProductOption" resultMap="selOptionResultMap">
         SELECT a.detailTypeId
@@ -77,8 +77,8 @@
         INSERT INTO option_detail
         SET productOptionId=#{productOptionId}
         ,contents=#{contents}
-        ,price=#{price}
-        ,name=#{name}
+        ,price=#{optionDetailPrice}
+        ,name=#{optionDetailName}
     </insert>
     <select id="checkProductOptionDetail">
         SELECT name
@@ -88,11 +88,11 @@
     <update id="updOptionDetail">
         UPDATE option_detail
         <set>
-            <if test="price!=null">
-                price=#{price}
+            <if test="optionDetailPrice!=null">
+                price=#{optionDetailPrice}
             </if>
-            <if test="name!=null">
-                ,name=#{name}
+            <if test="optionDetailName!=null">
+                ,name=#{optionDetailName}
             </if>
             <if test="contents!=null">
                 ,contents=#{contents}
@@ -107,7 +107,7 @@
 
     <resultMap id="selProductOptionResultMap" type="com.green.jobdone.product.model.ProductGetRes">
         <id property="productId" column="productId"/>
-        <result property="price" column="productPrice"/>
+        <result property="productPrice" column="productPrice"/>
         <collection property="optionList" resultMap="selProductOptionListResultMap"/>
     </resultMap>
 
@@ -120,7 +120,7 @@
     <resultMap id="selProductOptionDetailListResultMap" type="com.green.jobdone.product.model.ProductGetDtoDto">
         <id property="optionDetailId" column="optionDetailId"/>
         <result property="optionDetailName" column="optionDetailName"/>
-        <result property="price" column="optionPrice"/>
+        <result property="optionDetailPrice" column="optionDetailPrice"/>
         <result property="contents" column="contents"/>
 
     </resultMap>
@@ -132,7 +132,7 @@
         ,d.name as optionName
         ,c.optionDetailId
         ,c.name as optionDetailName
-        ,c.price as optionPrice
+        ,c.price as optionDetailPrice
         ,c.contents
         FROM product a
         left JOIN product_option b

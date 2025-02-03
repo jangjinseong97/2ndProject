@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ProductGetDtoDto {
     private long optionDetailId;
     private String optionDetailName;
-    private int price;
+    private int optionDetailPrice;
     private String contents;
 }
