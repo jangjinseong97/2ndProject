@@ -11,6 +11,7 @@ import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicDto;
 import com.green.jobdone.business.pic.BusinessPicPostReq;
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.PicUrlMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -244,6 +245,10 @@ public class BusinessService {
 
         if (p.getBusinessId() > 0) {
             res.setBusinessId(p.getBusinessId());
+        }
+
+        if (res != null && res.getLogo() != null) {
+            res.setLogo(PicUrlMaker.makePicUrlLogo(p.getBusinessId(),res.getLogo()));
         }
         return res;
     }

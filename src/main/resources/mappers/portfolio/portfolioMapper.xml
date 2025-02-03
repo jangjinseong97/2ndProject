@@ -70,9 +70,15 @@
 
     </select>
     <select id="selOnePortfolio">
-        SELECT p.portfolioId, p.title, p.category
-        , p.detailType, p.price, p.takingTime, p.contents
+        SELECT p.portfolioId, p.title, p.price, p.takingTime, p.contents
+        ,d.detailTypeName as detailType, c.categoryName as category
         FROM portfolio p
+        JOIN business b
+        ON p.businessId = b.businessId
+        join detail_type d
+        ON d.detailTypeId = b.businessId
+        join category c
+        on c.categoryId = d.categoryId
         WHERE p.portfolioId = #{portfolioId}
 
     </select>

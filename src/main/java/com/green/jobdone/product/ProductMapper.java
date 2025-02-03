@@ -9,10 +9,11 @@ import java.util.List;
 public interface ProductMapper {
     int postProduct(ProductPostReq p);
     Long checkBusinessProduct(long businessId);
+    int updProduct(ProductPatchReq p);
 
     int postOption(ProductOptionPostReq p);
     List<String> checkOption(long detailTypeId);
-
+    List<ProductGetOption> getProductOption();
 
     int postProductOption(ProductOptionPostDto p);
     List<Long> checkProductOption(Long productId);
@@ -20,7 +21,7 @@ public interface ProductMapper {
 
     int postOptionDetail(ProductOptionDetailPostReq p);
     List<String> checkProductOptionDetail(long productOptionId);
-
+    int updOptionDetail(ProductOptionDetailPatchReq p);
 
 
     List<ProductGetRes> getProductInfoByBusiness(long businessId);

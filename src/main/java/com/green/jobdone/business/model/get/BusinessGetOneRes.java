@@ -19,8 +19,12 @@ public class BusinessGetOneRes {
     private int serviceCount;
     private String openingTime;
     private String closingTime;
-    private String busiCreatedAt;
+    private int years;
     private String contents;
+    private int reviewCount;
+    private String tel;
+    private String tel2;
+    private String tel3;
 
 
 }

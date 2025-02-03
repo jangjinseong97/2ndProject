@@ -1,5 +1,6 @@
 package com.green.jobdone.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class UserInfoGetRes {
     private String name;
     private String email;
     private String phone;
+
 
 
 }
