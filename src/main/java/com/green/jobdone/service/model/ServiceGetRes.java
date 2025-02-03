@@ -11,7 +11,6 @@ import java.util.List;
 @ToString
 public class ServiceGetRes {
     private long serviceId;
-    private long userId;
     private String userName;
     private String reservedName;
     private String businessName;

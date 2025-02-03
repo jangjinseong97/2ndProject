@@ -14,7 +14,6 @@ public class ServiceGetOneRes {
     private String userName;
     private String userPhone;
     private String businessName;
-    private String reservedName;
     private String productName;
     private String businessPhone;
     private int price;
@@ -31,7 +30,6 @@ public class ServiceGetOneRes {
     private String businessNum;
     private String createdAt;
     private String pyeong;
-    private List<ServicePhone> phone; // 있다 추가 확인
     private List<ServiceOptionDto> options;
 
 }
