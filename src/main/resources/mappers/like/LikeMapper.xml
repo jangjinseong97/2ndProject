@@ -34,7 +34,7 @@
         business_pic bp ON b.businessId = bp.businessId
         LEFT JOIN
         product p ON b.businessId = p.businessId
-        JOIN
+        LEFT JOIN
         service s ON p.productId = s.productId  <!-- productId와 service 테이블을 연결 -->
         LEFT JOIN
         review r ON s.serviceId = r.serviceId  <!-- serviceId와 review 테이블을 연결 -->

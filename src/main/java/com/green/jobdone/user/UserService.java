@@ -2,6 +2,7 @@ package com.green.jobdone.user;
 
 import com.green.jobdone.common.CookieUtils;
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.config.jwt.JwtConst;
 import com.green.jobdone.config.jwt.JwtUser;
 import com.green.jobdone.config.jwt.TokenProvider;
@@ -137,8 +138,13 @@ public class UserService {
 
     public UserInfoGetRes getUserInfo(long userId) {
 
+        UserInfoGetRes res=mapper.getUserInfo(userId);
 
-        return mapper.getUserInfo(userId);
+
+        res.setPic(PicUrlMaker.makePicUserUrl(userId,res.getPic()));
+
+        return res;
+
 
     }
 
