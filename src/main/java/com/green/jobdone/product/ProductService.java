@@ -41,7 +41,7 @@ public class ProductService {
         }
 
         for (String s : list) {
-            if (s.equals(p.getName())) {
+            if (s.equals(p.getOptionName())) {
                 return 0;
             }
         }
@@ -99,7 +99,7 @@ public class ProductService {
         }
 
         for (String s : list) {
-            if (s.equals(p.getName())) {
+            if (s.equals(p.getOptionDetailName())) {
                 return 0;
             }
         }

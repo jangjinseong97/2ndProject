@@ -12,8 +12,8 @@ public class ProductPostReq {
     private long businessId;
     @Schema(description = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long detailTypeId;
-    @Schema(description = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int price;
+    @Schema(description = "업체 상품 시작 가격", example = "5000", requiredMode = Schema.RequiredMode.REQUIRED)
+    private int productPrice;
 
     @JsonIgnore
     private long productId;

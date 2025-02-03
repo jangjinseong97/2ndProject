@@ -96,6 +96,10 @@ public class UserService {
                     .build();
         }
 
+        if(res.getPic()!=null){
+            res.setPic(PicUrlMaker.makePicUserUrl(res.getUserId(), res.getPic()));
+        }
+
         /*
         JWT 토큰 생성 2개? AccessToken(20분), RefreshToken(15일)
          */
@@ -120,7 +124,9 @@ public class UserService {
                 .pic(res.getPic())
                 .accessToken(accessToken)
                 .name(res.getName())
+                .phone(res.getPhone())
                 .message("로그인 성공")
+                .businessId(res.getBusinessId())
                 .build();
     }
 

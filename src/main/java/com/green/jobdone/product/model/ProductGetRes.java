@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class ProductGetRes {
     private long productId;
-    private int price;
+    private int productPrice;
     private List<ProductGetDto> optionList;
 }
