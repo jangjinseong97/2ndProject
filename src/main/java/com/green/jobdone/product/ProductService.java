@@ -52,6 +52,11 @@ public class ProductService {
 
     }
 
+    public List<ProductGetOption> getProductOption(){
+
+        return mapper.getProductOption();
+    }
+
 
 
     public int postProductOption(ProductOptionPostDto p){
@@ -115,6 +120,18 @@ public class ProductService {
         return list;
 
 
+    }
+
+    public int updOptionDetail(ProductOptionDetailPatchReq p){
+        int result = mapper.updOptionDetail(p);
+
+        return result;
+    }
+
+    public int updProduct(ProductPatchReq p){
+        int result = mapper.updProduct(p);
+
+        return result;
     }
 
 

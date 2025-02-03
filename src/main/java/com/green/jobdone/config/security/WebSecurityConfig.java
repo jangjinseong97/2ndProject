@@ -1,6 +1,7 @@
 package com.green.jobdone.config.security;
 
 //Spring Security 세팅
+import com.green.jobdone.config.handler.CustomAccessDeniedHandler;
 import com.green.jobdone.config.jwt.JwtAuthenticationEntryPoint;
 import com.green.jobdone.config.jwt.TokenAuthenticationFilter;
 import com.green.jobdone.config.jwt.UserRole;
@@ -37,14 +38,15 @@ public class WebSecurityConfig {
                 .formLogin(form -> form.disable()) // SSR을 사용하지 않기 때문에 폼 로그인 비활성화
                 .csrf(csrf -> csrf.disable()) // SSR이 아니면 CSRF 보호 필요 없음
                 .authorizeHttpRequests(req -> req
-                           .requestMatchers("/api/feed", "/api/feed/**").authenticated() //로그인이 되어 있어야만 사용 가능
-                           .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
-                           .requestMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
-                           .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
+//                                .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
+//                              .requestMatchers(HttpMethod.PATCH,"/api/user/pic").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
+                                .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
+//                              .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
                         .anyRequest().permitAll() // 그 외의 모든 요청은 허용
                 )
-                .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // 인증 실패 시 jwtAuthenticationEntryPoint 처리
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)// 인증 실패 시 jwtAuthenticationEntryPoint 처리, 401 Unauthorized 처리(토큰이 필요하다는 에러)
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()))  // 403 Forbidden 처리(접근 가능한 role 이 아니다 라는 에러)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 인증 필터 추가
                 .build();
     }
