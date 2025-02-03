@@ -9,7 +9,7 @@ import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
 import com.green.jobdone.business.pic.BusinessPicDto;
-import com.green.jobdone.business.pic.BusinessPicPostReq;
+import com.green.jobdone.business.pic.BusinessPicPostRes;
 import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.common.PicUrlMaker;
 import lombok.RequiredArgsConstructor;
@@ -191,7 +191,7 @@ public class BusinessService {
 
 
     @Transactional
-    public BusinessPicPostReq insBusinessPic(List<MultipartFile> pics, long businessId) {
+    public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
 
         String middlePath = String.format("business/%d", businessId);
         myFileUtils.makeFolders(middlePath);
@@ -214,7 +214,7 @@ public class BusinessService {
         businessPicDto.setPics(businessPicList);
         int resultPics = businessMapper.insBusinessPic(businessPicDto);
 
-        return BusinessPicPostReq.builder().businessId(businessId).pics(businessPicList).build();
+        return BusinessPicPostRes.builder().businessId(businessId).pics(businessPicList).build();
     }
 
     public int udtBusinessPics(long businessPicId) {

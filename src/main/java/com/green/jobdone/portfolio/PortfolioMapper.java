@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper
 public interface PortfolioMapper {
     int insPortfolio(PortfolioPostReq p);
-    int insPortfolioPic(PortfolioPicDto p);
 
     int udtPortfolio(PortfolioPutReq p);
 
@@ -19,6 +18,7 @@ public interface PortfolioMapper {
     PortfolioGetOneRes selOnePortfolio(long portfolioId);
 
     //pic
+    int insPortfolioPic(PortfolioPicDto p);
     List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p);
 }
 

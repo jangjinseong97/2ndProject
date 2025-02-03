@@ -7,7 +7,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class BusinessPicPostReq {
+public class BusinessPicPostRes {
     private long businessId;
     private List<String> pics;
 }

@@ -8,7 +8,7 @@ import com.green.jobdone.business.model.get.BusinessGetRes;
 import com.green.jobdone.business.phone.BusinessPhonePostReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetReq;
 import com.green.jobdone.business.pic.BusinessOnePicsGetRes;
-import com.green.jobdone.business.pic.BusinessPicPostReq;
+import com.green.jobdone.business.pic.BusinessPicPostRes;
 import com.green.jobdone.common.model.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -89,10 +89,10 @@ public class BusinessController {
 
     @PostMapping("businessPic")
     @Operation(summary = "업체 사진 등록")
-    public ResultResponse<BusinessPicPostReq> postBusinessPic(@RequestPart List<MultipartFile> pics,
+    public ResultResponse<BusinessPicPostRes> postBusinessPic(@RequestPart List<MultipartFile> pics,
                                                               @RequestPart BusinessGetOneReq p) {
-        BusinessPicPostReq res = businessService.insBusinessPic(pics, p.getBusinessId());
-        return ResultResponse.<BusinessPicPostReq>builder()
+        BusinessPicPostRes res = businessService.insBusinessPic(pics, p.getBusinessId());
+        return ResultResponse.<BusinessPicPostRes>builder()
                 .resultMessage("업체사진등록 완료")
                 .resultData(res)
                 .build();

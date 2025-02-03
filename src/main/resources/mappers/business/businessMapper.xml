@@ -47,8 +47,8 @@
         insert into business_pic
         (businessId, pic)
         values
-        <foreach collection="pics" item="pic" open="(" close=")" separator="),(">
-            #{businessId}, #{pic}
+        <foreach collection="pics" item="pic"  separator=",">
+            (#{businessId}, #{pic})
         </foreach>
     </insert>
     <select id="existBusinessPhone" parameterType="map" resultType="int">
