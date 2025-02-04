@@ -1,5 +1,8 @@
 package com.green.jobdone.service;
 
+import com.green.jobdone.common.exception.CustomException;
+import com.green.jobdone.common.exception.UserErrorCode;
+import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.service.model.*;
 import com.green.jobdone.service.model.Dto.ServiceEtcDto;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +22,36 @@ import java.util.List;
 @Slf4j
 public class ServiceService {
     private final ServiceMapper serviceMapper;
+    private final AuthenticationFacade authenticationFacade;
+
 
     @Transactional
     public int postService(ServicePostReq p){
-        int res1 = serviceMapper.insService(p);
+//        Long userId = authenticationFacade.getSignedUserId();
+//        if (userId == null) {
+//            throw new CustomException(UserErrorCode.TOKEN_REQUIRED);
+//        }
+//        p.setUserId(userId);
 
+        int res1 = serviceMapper.insService(p);
         int res2 = serviceMapper.insServiceDetail(p);
         int res = serviceMapper.insServiceOption(p);
         return res;
     }
 
     public List<ServiceGetRes> getService(ServiceGetReq p){
+//        if(p.getBusinessId()==null){
+//            Long userId = authenticationFacade.getSignedUserId();
+//            if (userId == null) {
+//                throw new CustomException(UserErrorCode.TOKEN_REQUIRED);
+//            }
+//            p.setUserId(userId);
+//        }
+
         if(p == null || p.getUserId()==null && p.getBusinessId()==null){
             return new ArrayList<>();
-        }
+        } // 위 주석을 풀면(JWT 인증처리하면) 주석처리하기
+
         List<ServiceGetRes> res = serviceMapper.GetServiceFlow(p);
         return res;
     }
