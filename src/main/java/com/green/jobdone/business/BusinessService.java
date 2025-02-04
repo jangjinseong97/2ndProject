@@ -229,9 +229,15 @@ public class BusinessService {
     //업체 조회하기
     // 1. 업체 리스트 조회
     public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
-        List<BusinessGetRes> res;
+        // 업체 리스트 조회
+        List<BusinessGetRes> res = businessMapper.selAllBusiness(p);
 
-            res = businessMapper.selAllBusiness(p);
+        // 각 비즈니스 객체마다 사진 경로 생성
+        for (BusinessGetRes business : res) {
+            // 비즈니스 객체의 pic 필드를 이용하여 사진 경로 생성
+            String picUrl = PicUrlMaker.makePicUrl(business.getBusinessId(), business.getPic());
+            business.setPic(picUrl);  // 사진 경로 업데이트
+        }
 
         return res;
     }

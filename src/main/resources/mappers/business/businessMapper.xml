@@ -90,66 +90,40 @@
         where businessId = #{businessId}
     </update>
 
-<!--    <select id="selAllBusiness">-->
-<!--        SELECT-->
-<!--        d.detailTypeName-->
-<!--        , c.pic-->
-<!--        , b.businessId-->
-<!--        , b.businessName-->
-<!--        , b.title-->
-<!--        , ROUND(AVG(r.score),2)AS scoreAvg-->
-<!--        , p.price AS price-->
-<!--        , IF(l.userId IS null,0,1)AS `like`-->
-<!--        , COUNT(r.reviewId) AS reviewCount-->
-<!--        FROM business b-->
-<!--        left join detail_type d-->
-<!--        on  d.detailTypeId = b.detailTypeId-->
-<!--        left join category k-->
-<!--        on k.categoryId = d.categoryId-->
-<!--        left JOIN business_pic c-->
-<!--        ON c.businessId = b.businessId-->
-<!--        JOIN product p-->
-<!--        ON b.businessId = p.businessId-->
-<!--        JOIN service s-->
-<!--        ON s.productId = p.productId-->
-<!--        JOIN review r-->
-<!--        ON r.serviceId =s.serviceId-->
-<!--        left JOIN `like` l-->
-<!--        ON l.businessId = b.businessId-->
-<!--        AND l.userId = #{signedUserId}-->
-<!--        WHERE-->
-<!--        (#{categoryId} IS null OR k.categoryId = #{categoryId})-->
-<!--        AND (#{detailTypeId} IS null OR d.detailTypeId = #{detailTypeId})-->
-<!--        GROUP BY-->
-<!--        b.businessId, b.businessName, d.detailTypeName-->
+    <select id="selAllBusiness">
 
-<!--    </select>-->
-    <select id="selAllBusiness" resultType="map">
-        SELECT
-        k.categoryId,
-        k.categoryName,
-        d.detailTypeId,
-        d.detailTypeName,
-        COALESCE(GROUP_CONCAT(DISTINCT IFNULL(c.pic, 'default.jpg') ORDER BY c.pic SEPARATOR ','), 'default.jpg') AS pic,
-        b.businessId,
-        b.businessName,
-        b.title,
-        ROUND(COALESCE(AVG(r.score), 0), 2) AS scoreAvg,
-        p.price AS price,
-        IFNULL(l.userId, 0) AS `like`,
-        COUNT(DISTINCT r.reviewId) AS reviewCount,
-        COUNT(s.serviceId) AS serviceCount,
-        g.regionId, g.name as region
-        FROM business b
-        LEFT JOIN detail_type d ON d.detailTypeId = b.detailTypeId
-        LEFT JOIN category k ON k.categoryId = d.categoryId
-        LEFT JOIN business_pic c ON c.businessId = b.businessId
-        LEFT JOIN product p ON b.businessId = p.businessId
-        LEFT JOIN service s ON s.productId = p.productId
-        LEFT JOIN review r ON r.serviceId = s.serviceId
-        LEFT JOIN `like` l ON l.businessId = b.businessId AND l.userId = #{signedUserId}
-        left join business_region br on b.businessId = br.businessId
-        left join region g on g.regionId = br.regionId
+    SELECT
+    b.businessId, b.businessName, b.title
+    , k.categoryId, k.categoryName
+    , d.detailTypeId, d.detailTypeName
+    , p.price
+    , COUNT(distinct s.serviceId) AS serviceCount
+    , COUNT(DISTINCT r.reviewId) AS reviewCount
+    , ROUND(COALESCE(AVG(r.score), 0), 2) AS scoreAvg
+    , IFNULL(l.userId, 0) AS `like`
+    , g.regionId, g.region
+    , c.pic
+
+    FROM business b
+    LEFT JOIN detail_type d
+    ON d.detailTypeId= b.detailTypeId
+    LEFT JOIN category k
+    ON k.categoryId = d.categoryId
+    left JOIN product p
+    ON b.businessId = p.businessId
+    left JOIN service s
+    ON s.productId = p.productId
+    left JOIN review r
+    ON s.serviceId = r.serviceId
+    LEFT JOIN `like` l
+    ON l.businessId = b.businessId AND l.userId = #{signedUserId}
+    LEFT JOIN business_region br
+    ON br.businessId = b.businessId
+    LEFT JOIN region g
+    ON g.regionId = br.regionId
+    LEFT JOIN business_pic c
+    ON c.businessId = b.businessId AND c.state = 2
+
         WHERE 1=1
         <if test="regionId != null">
             AND br.regionId = #{regionId}
@@ -185,6 +159,8 @@
 
 
 
+
+
     <select id="selOneBusiness">
         SELECT
         b.detailTypeId,
@@ -197,13 +173,13 @@
         ROUND(AVG(r.score), 2) AS scoreAvg,
         IF(l.userId IS NULL, 0, 1) AS `like`,
         b.address,
-        COUNT(s.productId) AS serviceCount,
+        COUNT(distinct s.serviceId) AS serviceCount,
         -- openingTime과 closingTime에서 초를 00으로 설정하여 시:분 형태로 출력
         DATE_FORMAT(b.openingTime, '%H:%i') AS openingTime,
         DATE_FORMAT(b.closingTime, '%H:%i') AS closingTime,
         b.busiCreatedAt,
         b.contents,
-        COUNT(r.reviewId) AS reviewCount,
+        COUNT(distinct r.reviewId) AS reviewCount,
         TIMESTAMPDIFF(YEAR,b.busiCreatedAt, NOW()) AS years,
         b.tel,
         b.tel2,
