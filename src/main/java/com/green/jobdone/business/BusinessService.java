@@ -193,7 +193,7 @@ public class BusinessService {
     @Transactional
     public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
 
-        String middlePath = String.format("business/%d", businessId);
+        String middlePath = String.format("business/%d/pics", businessId);
         myFileUtils.makeFolders(middlePath);
 
         List<String> businessPicList = new ArrayList<>(pics.size());
@@ -202,7 +202,7 @@ public class BusinessService {
             String savedPicName = myFileUtils.makeRandomFileName(pic);
 
             businessPicList.add(savedPicName);
-            String filePath = String.format("%s/pics/%s", middlePath, savedPicName);
+            String filePath = String.format("%s/%s", middlePath, savedPicName);
             try {
                 myFileUtils.transferTo(pic, filePath);
             } catch (IOException e) {
@@ -235,7 +235,7 @@ public class BusinessService {
         // 각 비즈니스 객체마다 사진 경로 생성
         for (BusinessGetRes business : res) {
             // 비즈니스 객체의 pic 필드를 이용하여 사진 경로 생성
-            String picUrl = PicUrlMaker.makePicUrl(business.getBusinessId(), business.getPic());
+            String picUrl = PicUrlMaker.makePicUrlBusiness(business.getBusinessId(), business.getPic());
             business.setPic(picUrl);  // 사진 경로 업데이트
         }
 
