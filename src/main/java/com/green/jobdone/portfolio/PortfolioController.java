@@ -34,7 +34,7 @@ public class PortfolioController {
     @PostMapping("portfolioPic")
     @Operation(summary = "포폴사진등록")
     public ResultResponse<PortfolioPicPostRes> postPortfolioPic(@RequestPart List<MultipartFile> pics,
-                                                                PortfolioGetOneReq p) {
+                                                                @RequestPart PortfolioGetOneReq p) {
         PortfolioPicPostRes res = portfolioService.insPortfolioPic(pics, p.getPortfolioId());
         return ResultResponse.<PortfolioPicPostRes>builder()
                 .resultMessage(res != null? "포트폴리오 사진 등록":"빠꾸먹음")

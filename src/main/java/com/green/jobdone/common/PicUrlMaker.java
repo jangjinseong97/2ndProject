@@ -16,8 +16,16 @@ public class PicUrlMaker {
     }
 
     public static String makePicUrlLogo(long businessId, String picName) {
-        return String.format("/business/%d/logo/%s", businessId, picName);
+        return String.format("/pic/business/%d/logo/%s", businessId, picName);
+    }
+    public static String makePicUrlPaper(long businessId, String picName) {
+        return String.format("/pic/business/%d/paper/%s", businessId, picName);
     }
 
+
+
+    public static String makePicUrlChat(long roomId, long chatId, String picName ) {
+        return String.format("/pic/room/%d/chat/%d/%s", roomId, chatId, picName);
+    }
 
 }

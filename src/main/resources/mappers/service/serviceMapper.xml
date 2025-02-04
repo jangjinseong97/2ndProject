@@ -44,8 +44,15 @@
         <result property="pyeong" column="pyeong"/>
         <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="createdAt" column="createdAt"/>
+        <result property="updatedAt" column="updatedAt"/>
         <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <collection property="options" resultMap="serviceOption"/>
+        <collection property="etc" resultMap="serviceEtc"/>
+    </resultMap>
+    <resultMap id="serviceEtc" type="com.green.jobdone.service.model.Dto.ServiceEtcDto">
+        <id property="etcId" column="etcId"/>
+        <result property="etcPrice" column="etcPrice"/>
+        <result property="etcComment" column="etcComment"/>
     </resultMap>
 
 
@@ -74,7 +81,7 @@
         e.detailTypeName as detailTypeName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as optionDetailName, i.contents, i.optionDetailId,
-        a.pyeong, d.address as businessAddress,
+        a.pyeong, d.address as businessAddress, a.updatedAt,
         IFNULL(o.optionDetailPrice, i.price) AS optionDetailPrice, o.serviceOptionId, o.comment AS optionComment
         FROM service a
         LEFT JOIN user b ON a.userId = b.userId
@@ -98,7 +105,11 @@
         ) o ON i.optionDetailId = o.optionDetailId
         WHERE a.serviceId = #{serviceId}
 
-
+    </select>
+    <select id="GetEtc">
+        SELECT price AS etcPrice, `comment` AS etcComment, etcId
+        FROM etc
+        WHERE serviceId = #{serviceId}
     </select>
 
     <select id="GetServiceFlow">
@@ -166,7 +177,7 @@
     </update>
 
     <update id="updServiceOption" parameterType="com.green.jobdone.service.model.ServicePutReq">
-        <foreach collection="options" item="option" separator=";">
+        <foreach collection="options" item="option">
             <if test="option.serviceOptionId != null">
                 update service_option
                 <set>
@@ -179,12 +190,35 @@
                 insert into service_option
                 <set>
                     serviceId = #{serviceId},
-                    optionDetailId = #{option.optionDetailId},
-                    <if test="option.price != null">price = #{option.detailPrice},</if>
-                    <if test="option.optionComment != null">`comment` = #{option.optionComment},</if>
+                    optionDetailId = #{option.optionDetailId}
+                    <if test="option.price != null">,price = #{option.detailPrice}</if>
+                    <if test="option.optionComment != null">,`comment` = #{option.optionComment}</if>
                 </set>
             </if>
         </foreach>
+    </update>
+
+    <update id="updServiceEtc" parameterType="com.green.jobdone.service.model.ServiceGetReq">
+        <foreach collection="etc" item="item">
+            <if test="item.etcId != null">
+                update etc
+                <set>
+                    <if test="item.etcPrice != null">price = #{item.etcPrice},</if>
+                    <if test="item.etcComment != null">`comment` = #{item.etcComment},</if>
+                </set>
+                where etcId = #{item.etcId}
+            </if>
+
+            <if test="item.etcId == null">
+                insert into etc
+                set
+                serviceId = #{serviceId}
+                <if test="item.etcPrice != null">, price = #{item.etcPrice}</if>
+                <if test="item.etcComment != null">, `comment` = #{item.etcComment}</if>
+
+            </if>
+        </foreach>
+
     </update>
 
     <select id="findUserId">
