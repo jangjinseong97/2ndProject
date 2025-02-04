@@ -138,7 +138,7 @@
         p.price AS price,
         IFNULL(l.userId, 0) AS `like`,
         COUNT(DISTINCT r.reviewId) AS reviewCount,
-        COUNT(s.serviceId) AS orderCount,
+        COUNT(s.serviceId) AS serviceCount,
         g.regionId, g.name as region
         FROM business b
         LEFT JOIN detail_type d ON d.detailTypeId = b.detailTypeId
@@ -170,7 +170,7 @@
                 ORDER BY scoreAvg DESC, reviewCount DESC
             </when>
             <when test="sortType == '주문량순'">
-                ORDER BY orderCount DESC
+                ORDER BY serviceCount DESC
             </when>
             <when test="sortType == '저가순'">
                 ORDER BY p.price
@@ -181,6 +181,8 @@
 
         </choose>
     </select>
+
+
 
 
     <select id="selOneBusiness">

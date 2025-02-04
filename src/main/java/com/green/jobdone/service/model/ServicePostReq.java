@@ -23,15 +23,15 @@ public class ServicePostReq {
     private String comment;
     @JsonIgnore
     private String phone;
-    @Schema(title = "년/월/일 작성", example = "2025/01/22")
+    @Schema(title = "년/월/일 작성", description = "2025/01/22", example = "2025/01/22")
     private String startDate;
-    @Schema(title = "시작 시간", example = "11:00:00")
+    @Schema(title = "시작 시간", description = "11:00:00", example = "11:00:00")
     private String mStartTime;
     @Schema(title = "이름", example = "필수작성")
     @JsonIgnore
     private String name;
-    @Schema(title = "평수")
-    private String pyeong;
+    @Schema(title = "평수", description = "0")
+    private Integer pyeong;
 
     private List<PostOptionDto> options;
     @JsonIgnore
