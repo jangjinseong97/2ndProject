@@ -22,6 +22,6 @@ public class ReviewCommentGetRes {
     private long writerUserId;
     @Schema(title = "리뷰 댓글 작성자 유저 이름")
     private String name;
-    @Schema(title = "리뷰 댓글 작성자 유저 프로필 사진 파일명")
-    private String writerPic;
+    @Schema(title = "리뷰 댓글 업체 로고")
+    private String logo;
 }
