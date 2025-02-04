@@ -180,9 +180,14 @@ public class UserService {
             return result;
         }
 
+
+
+
         String savedPicName = myFileUtils.makeRandomFileName(pic);
 
         p.setPic(savedPicName);
+
+
 
         int result = mapper.updateUserInfo(p);
 
@@ -191,6 +196,7 @@ public class UserService {
 
         myFileUtils.deleteFile(middlePath);
 
+        myFileUtils.makeFolders(middlePath);
 
         String filePath = String.format("%s/%s", middlePath, savedPicName);
 
@@ -199,6 +205,7 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
         return result;
