@@ -14,9 +14,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -36,10 +38,10 @@ public class UserService {
 
 
     public int postUserSignUp(UserSignUpReq p, MultipartFile pic) {
-        String existsEmail=mapper.checkEmailExists(p.getEmail());
+        String existsEmail = mapper.checkEmailExists(p.getEmail());
 
-        if(existsEmail!=null) {
-            throw new  IllegalArgumentException("이미 등록된 이메일입니다.");
+        if (existsEmail != null) {
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
 
         String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
@@ -96,7 +98,7 @@ public class UserService {
                     .build();
         }
 
-        if(res.getPic()!=null){
+        if (res.getPic() != null) {
             res.setPic(PicUrlMaker.makePicUserUrl(res.getUserId(), res.getPic()));
         }
 
@@ -144,10 +146,14 @@ public class UserService {
 
     public UserInfoGetRes getUserInfo(long userId) {
 
-        UserInfoGetRes res=mapper.getUserInfo(userId);
+//        if(userId!=authenticationFacade.getSignedUserId()){
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
+//        } 나중에 최종적으로 주석 풀기
+
+        UserInfoGetRes res = mapper.getUserInfo(userId);
 
 
-        res.setPic(PicUrlMaker.makePicUserUrl(userId,res.getPic()));
+        res.setPic(PicUrlMaker.makePicUserUrl(userId, res.getPic()));
 
         return res;
 
@@ -175,18 +181,19 @@ public class UserService {
 
     public int updateUserInfo(UserInfoPatchReq p, MultipartFile pic) {
 
+//        if(p.getUserId()!=authenticationFacade.getSignedUserId()){
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
+//        }   나중에 최종적으로 주석 풀기
+
         if (pic == null) {
             int result = mapper.updateUserInfo(p);
             return result;
         }
 
 
-
-
         String savedPicName = myFileUtils.makeRandomFileName(pic);
 
         p.setPic(savedPicName);
-
 
 
         int result = mapper.updateUserInfo(p);
@@ -207,12 +214,16 @@ public class UserService {
         }
 
 
-
         return result;
     }
 
 
     public int deleteUser(UserInfoDelReq p) {
+
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } 나중에 최종적으로 주석 풀기
+
 
         String pw = mapper.selectInfoPwUser(p.getUserId());
 
@@ -235,6 +246,7 @@ public class UserService {
 
         // 1. 사용자가 현재 비밀번호를 알고 있는 경우
         if (p.getCurrentPassword() != null) {
+
             String pw = mapper.selectInfoPwUser(p.getUserId());
 
             // 비밀번호 일치 여부 체크

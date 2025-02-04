@@ -14,13 +14,21 @@
         , A.`contents`
         , A. createdAt
         , A. updatedAt
-        , B.userId AS writerUserId
-        , B.name
-        , B.pic AS writerPic
+        , F.userId AS writerUserId
+        , F.name
+        , E.logo
         FROM comment A
-        JOIN user B
-        ON A.userId = B.userId
-        WHERE A.reviewId = #{reviewId}
+        JOIN review B
+        ON A.reviewId = B.reviewId
+        JOIN service C
+        ON C.serviceId = B.serviceId
+        JOIN product D
+        ON D.productId = C.productId
+        JOIN business E
+        ON E.businessId = D.businessId
+        JOIN user F
+        ON F.userId = E.userId
+        WHERE B.reviewId = #{reviewId}
     </select>
 
     <update id="updReviewComment">
@@ -28,5 +36,10 @@
            SET contents = #{contents}
          WHERE reviewId = #{reviewId} and userId = #{userId}
     </update>
+
+    <delete id="delReviewComment">
+        DELETE FROM comment
+         WHERE reviewId = #{reviewId} and userId = #{userId}
+    </delete>
 
 </mapper>
