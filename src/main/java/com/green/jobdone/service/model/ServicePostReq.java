@@ -23,8 +23,7 @@ public class ServicePostReq {
     private String comment;
     @JsonIgnore
     private String phone;
-    @Schema(title = "년/월/일 작성", example =
-            "2025/01/22")
+    @Schema(title = "년/월/일 작성", example = "2025/01/22")
     private String startDate;
     @Schema(title = "시작 시간", example = "11:00:00")
     private String mStartTime;

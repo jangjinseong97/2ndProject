@@ -23,7 +23,7 @@ public interface ServiceMapper {
     List<ServiceEtcDto> GetEtc(Long serviceId);
     int getCompleted(long serviceId);
     int patchCompleted(ServicePatchReq p);
-
+    int updServiceEtc(ServicePutReq p);
     KakaoPayDto serviceInfo(Long serviceId);
     int payCompleted(long serviceId);
 }
