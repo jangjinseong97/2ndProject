@@ -50,6 +50,7 @@
         <collection property="etc" resultMap="serviceEtc"/>
     </resultMap>
     <resultMap id="serviceEtc" type="com.green.jobdone.service.model.Dto.ServiceEtcDto">
+        <id property="etcId" column="etcId"/>
         <result property="etcPrice" column="etcPrice"/>
         <result property="etcComment" column="etcComment"/>
     </resultMap>
@@ -80,7 +81,7 @@
         e.detailTypeName as detailTypeName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as optionDetailName, i.contents, i.optionDetailId,
-        a.pyeong, d.address as businessAddress, a.updateAt
+        a.pyeong, d.address as businessAddress, a.updatedAt,
         IFNULL(o.optionDetailPrice, i.price) AS optionDetailPrice, o.serviceOptionId, o.comment AS optionComment
         FROM service a
         LEFT JOIN user b ON a.userId = b.userId
@@ -106,7 +107,7 @@
 
     </select>
     <select id="GetEtc">
-        SELECT price AS etcPrice, `comment` AS etcComment
+        SELECT price AS etcPrice, `comment` AS etcComment, etcId
         FROM etc
         WHERE serviceId = #{serviceId}
     </select>

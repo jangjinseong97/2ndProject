@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name = "서비스")
 public class ServiceController {
     private final ServiceService serviceService;
-    @Operation(summary = "예약하기")
+    @Operation(summary = "예약하기 세차같은경우 평수에 0기입")
     @PostMapping
     public ResultResponse<Integer> postService(@RequestBody ServicePostReq p ){
         int res = serviceService.postService(p);
@@ -47,7 +47,7 @@ public class ServiceController {
                 .resultMessage("조회 완료")
                 .build();
     }
-    @Operation(summary = "견적서 작성/수정")
+    @Operation(summary = "견적서 작성/수정, etcId가 있으면 기존 etc 수정 없으면 새 etc추가")
     @PutMapping
     public ResultResponse<Integer> putService(@RequestBody ServicePutReq p){
         int res = serviceService.updService(p);
