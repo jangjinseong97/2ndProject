@@ -27,6 +27,9 @@ public class ServiceService {
 
     @Transactional
     public int postService(ServicePostReq p){
+        String st = String.format(p.getMStartTime()+":00");
+        p.setMStartTime(st);
+
 //        Long userId = authenticationFacade.getSignedUserId();
 //        if (userId == null) {
 //            throw new CustomException(UserErrorCode.TOKEN_REQUIRED);
