@@ -78,6 +78,10 @@ public class ServiceService {
         if(!serviceProviderUserId.equals(p.getProviderUserId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
         }
+        String st = String.format(p.getMStartTime()+":00");
+        p.setMStartTime(st);
+        String et = String.format(p.getMEndTime()+":00");
+        p.setMEndTime(et);
 
         int res1 = serviceMapper.updService(p);
         int res2 = serviceMapper.updServiceDetail(p);
