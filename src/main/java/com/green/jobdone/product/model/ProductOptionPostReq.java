@@ -13,6 +13,7 @@ public class ProductOptionPostReq {
     @Schema(title = "상품 옵션명", example = "방갯수", requiredMode = Schema.RequiredMode.REQUIRED)
     private String optionName;
 
+
     @JsonIgnore
     private long productOptionId;
 }
