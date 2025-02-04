@@ -1,6 +1,7 @@
 package com.green.jobdone.review;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.review.comment.model.ReviewCommentDelReq;
 import com.green.jobdone.review.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,6 +58,16 @@ public class ReviewController {
     @Operation(summary = "리뷰 사진 상태값 업데이트")
     public void putReviewPicState(@RequestBody ReviewPicStatePutReq p) {
         reviewService.updReviewPicState(p);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "리뷰 삭제")
+    public ResultResponse<Integer> delFeed(@ParameterObject @ModelAttribute ReviewDelReq p) {
+        int result = reviewService.delReview(p);
+        return ResultResponse.<Integer>builder()
+                .resultMessage("리뷰 삭제 완료")
+                .resultData(result)
+                .build();
     }
 
 

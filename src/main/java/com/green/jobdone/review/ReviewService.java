@@ -1,6 +1,8 @@
 package com.green.jobdone.review;
 
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.exception.CustomException;
+import com.green.jobdone.common.exception.ReviewErrorCode;
 import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.review.comment.ReviewCommentMapper;
 import com.green.jobdone.review.comment.model.ReviewCommentDto;
@@ -70,6 +72,7 @@ public class ReviewService {
         if(p.getBusinessId() == null) {
             p.setUserId(authenticationFacade.getSignedUserId());
         }
+        log.info("state: {}", p.getState());
         List<ReviewAndPicDto> reviewAndPicDtoList = reviewMapper.selReviewWithPicList(p);
 
         ReviewGetRes beforeReviewGetRes = new ReviewGetRes();
@@ -86,6 +89,7 @@ public class ReviewService {
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
                 beforeReviewGetRes.setWriterPic(reviewAndPicDto.getWriterPic());
                 beforeReviewGetRes.setDetailTypeName(reviewAndPicDto.getDetailTypeName());
+                beforeReviewGetRes.setAverageScore(Math.round(reviewAndPicDto.getAverageScore()*100)/100.0);
             }
             beforeReviewGetRes.getPics().add(reviewAndPicDto.getPic());
             beforeReviewGetRes.getPics().add(reviewAndPicDto.getReviewPicId());
@@ -137,6 +141,19 @@ public class ReviewService {
 
     public void updReviewPicState(ReviewPicStatePutReq p) {
         reviewPicMapper.updReviewPicState(p);
+    }
+
+    public int delReview(ReviewDelReq p) {
+        if(reviewMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
+            throw new CustomException(ReviewErrorCode.FAIL_TO_DEL);
+        }
+        int affectedRows = reviewMapper.delReview(p);
+
+        //리뷰 사진 삭제
+        String deletePath = String.format("%s/review/%d", myFileUtils.getUploadPath(), p.getReviewId());
+        myFileUtils.deleteFolder(deletePath, true);
+
+        return affectedRows;
     }
 
 

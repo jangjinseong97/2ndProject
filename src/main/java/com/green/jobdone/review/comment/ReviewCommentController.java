@@ -1,10 +1,7 @@
 package com.green.jobdone.review.comment;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.review.comment.model.ReviewCommentGetReq;
-import com.green.jobdone.review.comment.model.ReviewCommentGetRes;
-import com.green.jobdone.review.comment.model.ReviewCommentPostReq;
-import com.green.jobdone.review.comment.model.ReviewCommentUpdReq;
+import com.green.jobdone.review.comment.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -49,6 +46,16 @@ public class ReviewCommentController {
         int result = reviewCommentService.updReviewComment(p);
         return ResultResponse.<Integer>builder()
                 .resultMessage("댓글 수정 완료")
+                .resultData(result)
+                .build();
+    }
+
+    @DeleteMapping
+    @Operation(summary = "리뷰 댓글 삭제")
+    public ResultResponse<Integer> delFeed(@ParameterObject @ModelAttribute ReviewCommentDelReq p) {
+        int result = reviewCommentService.delReviewComment(p);
+        return ResultResponse.<Integer>builder()
+                .resultMessage("리뷰 댓글 삭제 완료")
                 .resultData(result)
                 .build();
     }

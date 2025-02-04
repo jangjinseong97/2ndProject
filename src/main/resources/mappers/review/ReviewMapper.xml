@@ -11,7 +11,8 @@
     <select id="selReviewWithPicList">
         SELECT T1.*, T2.pic, T2.reviewPicId
         FROM (
-        SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt, E.userId, E.name, E.pic AS writerPic, D.detailTypeName
+        SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt, E.userId
+        , E.name, E.pic AS writerPic, D.detailTypeName, AVG(A.score) OVER(PARTITION BY F.businessId) AS averageScore
         FROM review A
         JOIN service B
         ON A.serviceId = B.serviceId
@@ -29,7 +30,15 @@
         <if test=" userId != null ">
             WHERE B.userId = #{userId}
         </if>
-        ORDER BY A.reviewId DESC
+        <if test=" state == 0 ">
+            ORDER BY A.reviewId DESC
+        </if>
+        <if test=" state == 1 ">
+            ORDER BY A.score DESC
+        </if>
+        <if test=" state == 2 ">
+            ORDER BY A.score
+        </if>
         LIMIT #{startIdx}, #{size}
         ) T1
         LEFT JOIN review_pic T2
@@ -48,6 +57,19 @@
         </set>
         WHERE reviewId = #{reviewId} and serviceId = #{serviceId}
     </update>
+
+    <select id="selUserIdByReviewId">
+        SELECT userId
+          FROM service A
+          JOIN review B
+            ON A.serviceId = B.serviceId
+         WHERE reviewId = #{reviewId}
+    </select>
+
+    <delete id="delReview">
+        DELETE FROM review
+         WHERE reviewId = #{reviewId}
+    </delete>
 
 
 

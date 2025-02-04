@@ -21,10 +21,15 @@ public class ReviewGetReq extends Paging {
     @Schema(title = "업체 PK", example = "2", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Long businessId;
 
+    @Schema(title = "리뷰 정렬 방식", example = "0", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String state;
+
+
     public ReviewGetReq(Integer page, Integer size
-            , @BindParam("businessId") Long businessId) {
+            , @BindParam("businessId") Long businessId, String state) {
         super(page, size);
         this.businessId = businessId;
+        this.state = state;
     }
 
     public void setUserId(Long userId) {
