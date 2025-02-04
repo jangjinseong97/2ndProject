@@ -21,12 +21,12 @@ public class BusinessGetRes {
     private int reviewCount;
     private long regionId;
     private String region;
-    private int orderCount;
+    private int serviceCount;
 
 
 
     public BusinessGetRes(long categoryId,String categoryName, long detailTypeId, String detailTypeName,String pic, long businessId, String businessName
-            , String title, int price, double scoreAvg, int like, int reviewCount, long regionId, String region, int orderCount) {
+            , String title, int price, double scoreAvg, int like, int reviewCount, long regionId, String region, int serviceCount) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.detailTypeId = detailTypeId;
@@ -41,6 +41,6 @@ public class BusinessGetRes {
         this.reviewCount = reviewCount;
         this.regionId = regionId;
         this.region = region;
-        this.orderCount = orderCount;
+        this.serviceCount = serviceCount;
     }
 }
