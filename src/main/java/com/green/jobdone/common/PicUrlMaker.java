@@ -22,6 +22,9 @@ public class PicUrlMaker {
         return String.format("/pic/business/%d/paper/%s", businessId, picName);
     }
 
+    public static String makePicUrlWithUrl(String url){
+        return String.format("/pic/%s", url);
+    }
 
 
     public static String makePicUrlChat(long roomId, long chatId, String picName ) {
