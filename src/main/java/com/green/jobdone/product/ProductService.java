@@ -1,9 +1,13 @@
 package com.green.jobdone.product;
 
+import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.product.model.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -12,15 +16,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductMapper mapper;
+    private final AuthenticationFacade authenticationFacade;
 
-    public int postProduct(ProductPostReq p){
+    public int postProduct(ProductPostReq p) {
 
-        Long businessId=mapper.checkBusinessProduct(p.getBusinessId());
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } //나중에 최종적으로 주석 풀기
 
-        if(businessId ==null || businessId==0L){
-            int result=mapper.postProduct(p);
+
+        Long businessId = mapper.checkBusinessProduct(p.getBusinessId());
+
+        if (businessId == null || businessId == 0L) {
+            int result = mapper.postProduct(p);
             return result;
-        }else {
+        } else {
 
             return 0;
 
@@ -29,8 +39,9 @@ public class ProductService {
     }
 
 
-
+    //관리자가함.
     public int postOption(ProductOptionPostReq p) {
+
 
         List<String> list = mapper.checkOption(p.getDetailTypeId());
 
@@ -52,14 +63,17 @@ public class ProductService {
 
     }
 
-    public List<ProductGetOption> getProductOption(){
+    public List<ProductGetOption> getProductOption() {
 
         return mapper.getProductOption();
     }
 
 
+    public int postProductOption(ProductOptionPostDto p) {
 
-    public int postProductOption(ProductOptionPostDto p){
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } //나중에 최종적으로 주석 풀기
 
         List<Long> list = mapper.checkProductOption(p.getProductId());
 
@@ -83,12 +97,11 @@ public class ProductService {
     }
 
 
-
-
-
-
-
     public int postOptionDetail(ProductOptionDetailPostReq p) {
+
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } //나중에 최종적으로 주석 풀기
 
         List<String> list = mapper.checkProductOptionDetail(p.getProductOptionId());
 
@@ -112,23 +125,32 @@ public class ProductService {
     }
 
 
-
     public List<ProductGetRes> getProductInfoByBusiness(long businessId) {
 
-        List<ProductGetRes> list=mapper.getProductInfoByBusiness(businessId);
+        List<ProductGetRes> list = mapper.getProductInfoByBusiness(businessId);
 
         return list;
 
 
     }
 
-    public int updOptionDetail(ProductOptionDetailPatchReq p){
+    public int updOptionDetail(ProductOptionDetailPatchReq p) {
+
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } //나중에 최종적으로 주석 풀기
+
         int result = mapper.updOptionDetail(p);
 
         return result;
     }
 
-    public int updProduct(ProductPatchReq p){
+    public int updProduct(ProductPatchReq p) {
+
+//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
+//        } //나중에 최종적으로 주석 풀기
+
         int result = mapper.updProduct(p);
 
         return result;

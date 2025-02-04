@@ -38,12 +38,40 @@ public class WebSecurityConfig {
                 .formLogin(form -> form.disable()) // SSR을 사용하지 않기 때문에 폼 로그인 비활성화
                 .csrf(csrf -> csrf.disable()) // SSR이 아니면 CSRF 보호 필요 없음
                 .authorizeHttpRequests(req -> req
-                                .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
-                                .requestMatchers(HttpMethod.PATCH,"/api/user").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
-                                .requestMatchers(HttpMethod.DELETE,"/api/user").authenticated()
-                                .requestMatchers(HttpMethod.GET,"/api/review/**").permitAll() // 댓글 get 은 인증된 사용자가 아니어도 볼 수 있음
-                                .requestMatchers("/api/review/**").authenticated()
-                                .requestMatchers("/api/service/**").authenticated()
+//                                //유저쪽
+//                                .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
+//                                .requestMatchers(HttpMethod.PATCH,"/api/user").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
+//                                .requestMatchers(HttpMethod.DELETE,"/api/user").authenticated()
+//                                //리뷰,리뷰댓글쪽
+//                                .requestMatchers(HttpMethod.GET,"/api/review/**").permitAll() // 댓글 get 은 인증된 사용자가 아니어도 볼 수 있음
+//                                .requestMatchers("/api/review/**").authenticated()
+//                                //서비스쪽
+//                                .requestMatchers("/api/service/**").authenticated()
+//                                //업체쪽
+//                                .requestMatchers(HttpMethod.GET,"/api/business/**").permitAll() // 댓글 get 은 인증된 사용자가 아니어도 볼 수 있음
+//                                .requestMatchers("/api/business/**").authenticated()
+//                                //상품쪽
+//                                .requestMatchers("/api/product/**").hasAnyRole(
+//                                        UserRole.EMPLOYEE.name(),
+//                                        UserRole.MANAGER.name(),
+//                                        UserRole.PRESIDENT.name(),
+//                                        UserRole.FREELANCER.name()
+//                                )
+//                                //문의관련쪽
+//                                .requestMatchers("/api/room").authenticated()
+//                                //문의채팅쪽
+//                                .requestMatchers("/api/chat").authenticated()
+//                                //찜쪽
+//                                .requestMatchers("/api/like").authenticated()
+//                                //카테고리쪽
+//                                .requestMatchers("/api/category").authenticated()
+//                                //포트폴리오쪽
+//                                .requestMatchers(HttpMethod.GET,"/api/portfolio/**").permitAll() // 댓글 get 은 인증된 사용자가 아니어도 볼 수 있음
+//                                .requestMatchers("/api/portfolio/**").authenticated()
+//                                //카카오페이쪽
+//                                .requestMatchers("/api/payment/**").authenticated()
+
+                                //스웨거쪽
                                 .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
 //                              .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
                         .anyRequest().permitAll() // 그 외의 모든 요청은 허용

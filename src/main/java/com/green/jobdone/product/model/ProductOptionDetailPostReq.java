@@ -16,6 +16,8 @@ public class ProductOptionDetailPostReq {
     private String contents;
     @Schema(title = "옵션별 상세 가격", example = "40000", requiredMode = Schema.RequiredMode.REQUIRED)
     private int optionDetailPrice;
+    @Schema(description = "해당 업체 유저 PK, 인증된 사용자인지 판단하기 위해 필요", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    private long userId;
 
     @JsonIgnore
     private long optionDetailId;
