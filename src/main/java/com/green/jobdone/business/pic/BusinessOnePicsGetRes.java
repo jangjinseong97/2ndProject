@@ -8,6 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class BusinessOnePicsGetRes {
-    private long businessId;
+    private long businessPicId;
     private String pic;
 }
