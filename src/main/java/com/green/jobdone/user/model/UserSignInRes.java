@@ -9,6 +9,7 @@ import lombok.Getter;
 @Builder
 @Schema(title="로그인 응답")
 public class UserSignInRes {
+    @JsonIgnore
     private long userId;
     private String name;
     private String email;
