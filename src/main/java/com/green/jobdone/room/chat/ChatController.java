@@ -23,7 +23,7 @@ public class ChatController {
 
     @Operation(summary = "채팅 보내기")
     @PostMapping
-    public ResultResponse<Integer> insChat(@RequestPart List<MultipartFile> pics, @RequestPart ChatPostReq p){
+    public ResultResponse<Integer> insChat(@RequestPart(required = false) List<MultipartFile> pics, @RequestPart ChatPostReq p){
         int res = chatService.insChat(pics, p);
 
         return ResultResponse.<Integer>builder()

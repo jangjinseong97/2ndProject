@@ -31,8 +31,8 @@ public class ServiceService {
         String st = String.format(p.getMStartTime()+":00");
         p.setMStartTime(st);
 
-//        Long userId = authenticationFacade.getSignedUserId();
-//        p.setUserId(userId);
+        Long userId = authenticationFacade.getSignedUserId();
+        p.setUserId(userId);
 
         int res1 = serviceMapper.insService(p);
         int res2 = serviceMapper.insServiceDetail(p);
@@ -41,17 +41,17 @@ public class ServiceService {
     }
 
     public List<ServiceGetRes> getService(ServiceGetReq p){
-//        if(p.getBusinessId()==null){
-//            Long userId = authenticationFacade.getSignedUserId();
-//            p.setUserId(userId);
-//        }
-//        if(!p.getUserId().equals(serviceMapper.findUserId(p.getBusinessId()))) {
-//            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
-//        }
 
-        if(p == null || p.getUserId()==null && p.getBusinessId()==null){
-            return new ArrayList<>();
-        } // 위 주석을 풀면(JWT 인증처리하면) 주석처리하기
+        Long userId = authenticationFacade.getSignedUserId();
+        p.setUserId(userId);
+
+        if(p.getBusinessId()!= null && !p.getUserId().equals(serviceMapper.findUserId(p.getBusinessId()))) {
+            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
+        }
+
+//        if(p == null || p.getUserId()==null && p.getBusinessId()==null){
+//            return new ArrayList<>();
+//        } // 위 주석을 풀면(JWT 인증처리하면) 주석처리하기
 
         List<ServiceGetRes> res = serviceMapper.GetServiceFlow(p);
         return res;
@@ -66,13 +66,13 @@ public class ServiceService {
         }
 
         ServiceGetOneRes res = serviceMapper.GetServiceOne(p);
-//        Long userId = authenticationFacade.getSignedUserId();
-//        if(p.getBusinessId()==null && res.getUserId()!=userId) {
-//            throw new CustomException(ServiceErrorCode.USER_MISMATCH);
-//        }
-//        if(!userId.equals(serviceMapper.findUserId(p.getBusinessId()))) {
-//            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
-//        }
+        Long userId = authenticationFacade.getSignedUserId();
+        if(p.getBusinessId()==null && res.getUserId()!=userId) {
+            throw new CustomException(ServiceErrorCode.USER_MISMATCH);
+        }
+        if(!userId.equals(serviceMapper.findUserId(p.getBusinessId()))) {
+            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
+        }
 
         List<ServiceEtcDto> dto = serviceMapper.GetEtc(p.getServiceId());
         res.setEtc(dto);
@@ -82,8 +82,8 @@ public class ServiceService {
     @Transactional
     public int updService(ServicePutReq p){
         Long serviceProviderUserId = serviceMapper.providerUserId(p.getServiceId());
-        if(!serviceProviderUserId.equals(p.getProviderUserId())){
-            // p.getProviderUserId 대신 authenticationFacade.getSignedUserId()
+        if(!serviceProviderUserId.equals(authenticationFacade.getSignedUserId())){
+//             p.getProviderUserId 대신 authenticationFacade.getSignedUserId()
             throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
         }
         String st = String.format(p.getMStartTime()+":00");
@@ -100,7 +100,7 @@ public class ServiceService {
 
     @Transactional
     public int completedService(ServicePatchReq p){
-//        p.setUserId(authenticationFacade.getSignedUserId());
+        p.setUserId(authenticationFacade.getSignedUserId());
         int com = serviceMapper.getCompleted(p.getServiceId());
         if(!transitionAllowed(com,p.getCompleted(),p.getBusinessId())) {
             throw new CustomException(ServiceErrorCode.INVALID_SERVICE_STATUS);

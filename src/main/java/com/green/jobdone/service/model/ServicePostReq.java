@@ -17,6 +17,7 @@ import java.util.List;
 //이거 어디감
 public class ServicePostReq {
     @Schema(title = "서비스 받을 유저 pk", example = "2")
+    @JsonIgnore
     private long userId;
     @Schema(title = "받고싶은 서비스 pk", example = "1")
     @NotNull(message = "필수로 입력해야 됩니다.")

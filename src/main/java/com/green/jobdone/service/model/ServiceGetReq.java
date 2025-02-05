@@ -1,4 +1,5 @@
 package com.green.jobdone.service.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.green.jobdone.common.model.Paging;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.BindParam;
 @ToString(callSuper = true)
 public class ServiceGetReq extends Paging {
     @Schema(name = "user_id")
+    @JsonIgnore
     private Long userId;
     @Schema(name = "business_id")
     private Long businessId;
