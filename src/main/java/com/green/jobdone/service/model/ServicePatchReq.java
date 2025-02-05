@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class ServicePatchReq {
     @NotNull(message = "서비스 pk값은 필수로 입력해야 됩니다.")
     @Min(value = 1, message = "pk값은 1이상 정수입니다")
     private long serviceId;
+    @JsonIgnore
     private long userId;
     private Long businessId;
 }

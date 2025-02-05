@@ -15,6 +15,7 @@ import java.util.List;
 public class ServicePutReq {
     @NotNull(message = "서비스 pk는 필수입니다.")
     private long serviceId;
+    @JsonIgnore
     private long providerUserId;
     private int totalPrice;
     private String addComment;
