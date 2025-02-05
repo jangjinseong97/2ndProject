@@ -196,7 +196,7 @@
     </select>
 
     <select id="getBusinessPicList">
-        select p.businessPicId, p.pic
+        select  p.businessId, p.businessPicId, p.pic
         from business_pic p
         where p.businessId = #{businessId}
     </select>

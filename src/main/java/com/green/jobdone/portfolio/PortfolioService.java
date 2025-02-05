@@ -1,6 +1,7 @@
 package com.green.jobdone.portfolio;
 
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
@@ -29,9 +30,9 @@ public class PortfolioService {
     }
 
     @Transactional
-    public PortfolioPicPostRes insPortfolioPic(List<MultipartFile> pics, long portfolioId) {
+    public PortfolioPicPostRes insPortfolioPic(List<MultipartFile> pics,long businessId, long portfolioId) {
 
-        String middlePath = String.format("%s/portfolio/%d/pics", portfolioId);
+        String middlePath = String.format("business/%d/portfolio/%d/pics", businessId, portfolioId);
         myFileUtils.makeFolders(middlePath);
 
         List<String> portfolioPicList = new ArrayList<>(pics.size());
@@ -40,9 +41,9 @@ public class PortfolioService {
             String savedPicName = myFileUtils.makeRandomFileName(pic);
 
             portfolioPicList.add(savedPicName);
-            String filePath = String.format("%s/pics/%s", middlePath, savedPicName);
+            String filePath = String.format("%s/%s", middlePath, savedPicName);
             try {
-                myFileUtils.transferTo(pic, filePath);
+                myFileUtils.transferTo(pic, filePath); // 포폴 사진값 설정해놓음
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -59,8 +60,16 @@ public class PortfolioService {
         return portfolioMapper.udtPortfolio(p);
     }
 
+    //포폴리스트 조회
     public List<PortfolioListGetRes> getPortfolioList(PortfolioListGetReq p){
-        return portfolioMapper.selAllPortfolioList(p);
+        List<PortfolioListGetRes> res = portfolioMapper.selAllPortfolioList(p);
+
+        for (PortfolioListGetRes r : res) {
+            String picUrl = PicUrlMaker.makePicUrlPortfolio(r.getBusinessId(),r.getPortfolioId(),r.getIsThumnail());
+            r.setIsThumnail(picUrl);
+        }
+
+        return res;
     }
 
     public PortfolioGetOneRes getOnePortfolio(PortfolioGetOneReq p) {
@@ -76,7 +85,12 @@ public class PortfolioService {
     }
 
     public List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p) {
-        return portfolioMapper.getPortfolioPicList(p);
+        List<PortfolioPicGetRes> res = portfolioMapper.getPortfolioPicList(p);
+        for (PortfolioPicGetRes pic : res) {
+            String picUrl = PicUrlMaker.makePicUrlPortfolio(pic.getBusinessId(),pic.getPortfolioId(),pic.getPic());
+            pic.setPic(picUrl);
+        }
+        return res;
     }
 
 

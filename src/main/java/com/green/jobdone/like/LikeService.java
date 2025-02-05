@@ -47,7 +47,8 @@ public class LikeService {
         List<LikeGetRes> res = mapper.getLikeInfo(userId);
 
         for (LikeGetRes r : res) {
-            r.setPic(PicUrlMaker.makePicUrl(r.getBusinessId(), r.getPic()));
+            r.setPic(PicUrlMaker.makePicUrlBusiness(r.getBusinessId(), r.getPic()));
+            // 업체사진 끌어올거면 이거 써야함.
         }
 
         return res;
