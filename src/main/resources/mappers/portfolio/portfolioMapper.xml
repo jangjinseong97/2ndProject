@@ -13,6 +13,8 @@
             contents = #{contents}
     </insert>
 
+
+
     <insert id="insPortfolioPic" useGeneratedKeys="true" keyProperty="portfolioPicId">
         insert into portfolio_pic
         (portfolioId, pic)

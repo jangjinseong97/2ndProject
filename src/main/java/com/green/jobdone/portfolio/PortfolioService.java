@@ -22,14 +22,16 @@ import java.util.List;
 public class PortfolioService {
     private final PortfolioMapper portfolioMapper;
     private final MyFileUtils myFileUtils;
+
     public int insPortfolio(PortfolioPostReq p){
+
         return portfolioMapper.insPortfolio(p);
     }
 
     @Transactional
     public PortfolioPicPostRes insPortfolioPic(List<MultipartFile> pics, long portfolioId) {
 
-        String middlePath = String.format("portfolio/%d", portfolioId);
+        String middlePath = String.format("%s/portfolio/%d/pics", portfolioId);
         myFileUtils.makeFolders(middlePath);
 
         List<String> portfolioPicList = new ArrayList<>(pics.size());

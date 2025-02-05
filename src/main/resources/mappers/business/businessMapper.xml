@@ -13,7 +13,7 @@
         address = #{address},
         detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
-        tel = #{tel},
+        tel  = #{tel},
         tel2 = #{tel2},
         tel3 = #{tel3}
     </insert>
