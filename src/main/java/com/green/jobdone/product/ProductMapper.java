@@ -24,6 +24,6 @@ public interface ProductMapper {
     int updOptionDetail(ProductOptionDetailPatchReq p);
 
 
-    List<ProductGetRes> getProductInfoByBusiness(long businessId);
+    ProductGetRes getProductInfoByBusiness(long businessId);
 
 }

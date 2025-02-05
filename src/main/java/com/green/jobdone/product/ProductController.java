@@ -100,14 +100,14 @@ public class ProductController {
 
     @GetMapping
     @Operation(summary = "업체의 상품,상품상세옵션 조회 ex) 업체가 등록한 product 의 옵션들과 상세 옵션들을 모두 받아볼 수 있다.")
-    public ResultResponse<List<ProductGetRes>> getProductInfoByBusiness(@RequestParam long businessId) {
+    public ResultResponse<ProductGetRes> getProductInfoByBusiness(@RequestParam long businessId) {
 
 
-        List<ProductGetRes> result = service.getProductInfoByBusiness(businessId);
+        ProductGetRes result = service.getProductInfoByBusiness(businessId);
 
 
-        return ResultResponse.<List<ProductGetRes>>builder()
-                .resultMessage(result!=null&&!result.isEmpty()?"업체의 상품,상품상세옵션 조회 완료":"등록된 상품,상품상세옵션이 없습니다")
+        return ResultResponse.<ProductGetRes>builder()
+                .resultMessage(result!=null?"업체의 상품,상품상세옵션 조회 완료":"등록된 상품,상품상세옵션이 없습니다")
                 .resultData(result)
                 .build();
 

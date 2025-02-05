@@ -125,11 +125,11 @@ public class ProductService {
     }
 
 
-    public List<ProductGetRes> getProductInfoByBusiness(long businessId) {
+    public ProductGetRes getProductInfoByBusiness(long businessId) {
 
-        List<ProductGetRes> list = mapper.getProductInfoByBusiness(businessId);
+        ProductGetRes result = mapper.getProductInfoByBusiness(businessId);
 
-        return list;
+        return result;
 
 
     }
