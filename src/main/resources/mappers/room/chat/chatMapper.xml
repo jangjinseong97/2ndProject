@@ -8,6 +8,13 @@
         (#{roomId}, #{contents}, #{flag})
     </insert>
 
+    <select id="pkRoom">
+        select a.userId, b.userId as buid
+        from room a
+        join business b on a.businessId = b.businessId
+        where a.roomId = #{roomId}
+    </select>
+
     <insert id="insChatPic" parameterType="com.green.jobdone.room.chat.model.ChatPicDto">
         insert into chat_pic
         (chatId, pic)

@@ -66,8 +66,8 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "회원정보 조회")
-    public ResultResponse<UserInfoGetRes> getUserInfo(@RequestParam long userId){
-        UserInfoGetRes res= service.getUserInfo(userId);
+    public ResultResponse<UserInfoGetRes> getUserInfo(){
+        UserInfoGetRes res= service.getUserInfo();
 
         return ResultResponse.<UserInfoGetRes>builder()
                 .resultMessage(res==null?"회원정보가 없습니다":"회원 정보 조회 완료")

@@ -20,9 +20,13 @@ public class ProductService {
 
     public int postProduct(ProductPostReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        Long checkUserId=mapper.checkUserBusiness(p.getBusinessId());
+
+        if(userId!=checkUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
 
 
         Long businessId = mapper.checkBusinessProduct(p.getBusinessId());
@@ -71,9 +75,15 @@ public class ProductService {
 
     public int postProductOption(ProductOptionPostDto p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        Long checkUserId=mapper.checkUserProductOption(p.getProductId());
+
+        if(userId!=checkUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
+
 
         List<Long> list = mapper.checkProductOption(p.getProductId());
 
@@ -99,9 +109,16 @@ public class ProductService {
 
     public int postOptionDetail(ProductOptionDetailPostReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        Long checkUserId=mapper.checkUserOptionDetail(p.getProductOptionId());
+
+        if(userId!=checkUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
+
+
 
         List<String> list = mapper.checkProductOptionDetail(p.getProductOptionId());
 
@@ -125,11 +142,11 @@ public class ProductService {
     }
 
 
-    public List<ProductGetRes> getProductInfoByBusiness(long businessId) {
+    public ProductGetRes getProductInfoByBusiness(long businessId) {
 
-        List<ProductGetRes> list = mapper.getProductInfoByBusiness(businessId);
+        ProductGetRes result = mapper.getProductInfoByBusiness(businessId);
 
-        return list;
+        return result;
 
 
     }

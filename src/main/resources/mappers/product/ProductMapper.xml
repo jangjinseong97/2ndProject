@@ -23,6 +23,11 @@
         </set>
         WHERE productId=#{productId}
     </update>
+    <select id="checkUserBusiness">
+        SELECT userId
+        FROM business
+        WHERE businessId=#{businessId}
+    </select>
 
 
 
@@ -71,6 +76,16 @@
         FROM product_option
         WHERE productId=#{productId}
     </select>
+    <select id="checkUserProductOption">
+        SELECT b.userId
+        FROM product a
+        LEFT JOIN business b
+        on a.businessId=b.businessId
+        WHERE a.productId=#{productId}
+    </select>
+
+
+
 
 
     <insert id="postOptionDetail">
@@ -100,6 +115,15 @@
         </set>
         WHERE optionDetailId=#{optionDetailId}
     </update>
+    <select id="checkUserOptionDetail">
+        SELECT c.userId
+        FROM product_option a
+        LEFT JOIN product b
+        on a. productId=b.productId
+        LEFT JOIN business c
+        on b.businessId=c.businessId
+        where a.productOptionId=#{productOptionId}
+    </select>
 
 
 
@@ -127,24 +151,24 @@
     </resultMap>
     <select id="getProductInfoByBusiness" resultMap="selProductOptionResultMap">
         SELECT
-        a.productId
-        ,a.price as productPrice
-        ,b.productOptionId
-        ,d.name as optionName
-        ,c.optionDetailId
-        ,c.name as optionDetailName
-        ,c.price as optionDetailPrice
-        ,c.contents
-        ,e.detailTypeName
+            a.productId
+            ,a.price as productPrice
+            ,b.productOptionId
+            ,d.name as optionName
+            ,c.optionDetailId
+            ,c.name as optionDetailName
+            ,c.price as optionDetailPrice
+            ,c.contents
+            ,e.detailTypeName
         FROM product a
         left JOIN product_option b
-        ON a.productId=b.productId
+            ON a.productId=b.productId
         left JOIN option_detail c
-        ON b.productOptionId=c.productOptionId
+            ON b.productOptionId=c.productOptionId
         left JOIN option d
-        on b.optionId=d.optionId
+            on b.optionId=d.optionId
         left JOIN detail_type e
-        on a.detailTypeId=e.detailTypeId
+            on a.detailTypeId=e.detailTypeId
         WHERE a.businessId=#{businessId}
     </select>
 

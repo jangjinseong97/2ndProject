@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ProductPostReq {
     @Schema(description = "업체 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
-    @Schema(description = "해당 업체 유저 PK, 인증된 사용자인지 판단하기 위해 필요", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonIgnore
     private long userId;
     @Schema(description = "디테일 타입 PK", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long detailTypeId;
