@@ -22,8 +22,18 @@ import java.util.List;
 public class ChatController {
     private final ChatService chatService;
 
-    @Operation(summary = "채팅 보내기")
+    @Operation
     @PostMapping
+    public ResultResponse<Integer> inChat2(@RequestPart(required = false) List<MultipartFile> pics, @RequestPart ChatPostReq p){
+        int res = chatService.insChat(pics, p);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage("송신 완료")
+                .resultData(res)
+                .build();
+    }
+    @Operation(summary = "채팅 보내기")
+    @PostMapping("form-data")
     public ResultResponse<Integer> insChat(@RequestBody ChatDto p){
         List<MultipartFile> pics = p.getPics();
         ChatPostReq req = new ChatPostReq();
@@ -34,6 +44,24 @@ public class ChatController {
                 .resultData(res)
                 .build();
     }
+    @Operation(summary = "채팅보내기")
+    @PostMapping("test")
+    public ResultResponse<Long> insertChat(@RequestBody ChatPostReq p){
+        long res = chatService.insertChat(p);
+        return ResultResponse.<Long>builder()
+                .resultMessage("")
+                .resultData(res)
+                .build();
+    }
+    @Operation(summary = "채팅 사진보내기")
+    @PostMapping("pic")
+    public ResultResponse<Integer> insChat(List<MultipartFile> pics, long roomId){
+        return ResultResponse.<Integer>builder()
+                .resultMessage("")
+                .resultData(2)
+                .build();
+    }
+
 
     @Operation(summary = "채팅 조회")
     @GetMapping

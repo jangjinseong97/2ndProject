@@ -23,6 +23,11 @@
         </set>
         WHERE productId=#{productId}
     </update>
+    <select id="checkUserBusiness">
+        SELECT userId
+        FROM business
+        WHERE businessId=#{businessId}
+    </select>
 
 
 
@@ -71,6 +76,16 @@
         FROM product_option
         WHERE productId=#{productId}
     </select>
+    <select id="checkUserProductOption">
+        SELECT b.userId
+        FROM product a
+        LEFT JOIN business b
+        on a.businessId=b.businessId
+        WHERE a.productId=#{productId}
+    </select>
+
+
+
 
 
     <insert id="postOptionDetail">
@@ -100,6 +115,15 @@
         </set>
         WHERE optionDetailId=#{optionDetailId}
     </update>
+    <select id="checkUserOptionDetail">
+        SELECT c.userId
+        FROM product_option a
+        LEFT JOIN product b
+        on a. productId=b.productId
+        LEFT JOIN business c
+        on b.businessId=c.businessId
+        where a.productOptionId=#{productOptionId}
+    </select>
 
 
 

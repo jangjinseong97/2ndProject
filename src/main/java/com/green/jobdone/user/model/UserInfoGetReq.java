@@ -14,7 +14,7 @@ import java.beans.ConstructorProperties;
 @ToString
 public class UserInfoGetReq {
 
-    @Schema(description= "유저 ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonIgnore
     private long userId;
 
 
