@@ -35,8 +35,8 @@ public class BusinessController {
         int result = businessService.insBusiness(paper, p);
 
         return ResultResponse.<Integer>builder()
-                .resultMessage("업체 등록 완료")
                 .resultData(result)
+                .resultMessage(result != 0?"업체 등록 완료":"업체등록 실패")
                 .build();
     }
 
