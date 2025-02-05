@@ -81,7 +81,7 @@
         e.detailTypeName as detailTypeName, a.price, a.completed, a.address, a.comment, a.addComment, a.createdAt, a.userId,
         k.startDate, k.endDate, k.mStartTime, k.mEndTime, d.businessNum, l.categoryName, d.tel as businessPhone,
         g.productOptionId, n.name as optionName, i.name as optionDetailName, i.contents, i.optionDetailId,
-        a.pyeong, d.address as businessAddress, a.updatedAt,
+        a.pyeong, d.address as businessAddress, a.updatedAt, a.userId
         IFNULL(o.optionDetailPrice, i.price) AS optionDetailPrice, o.serviceOptionId, o.comment AS optionComment
         FROM service a
         LEFT JOIN user b ON a.userId = b.userId
@@ -126,7 +126,7 @@
         <if test="userId != null and businessId==null">
             b.userId = #{userId}
         </if>
-        <if test="businessId != null and userId == null">
+        <if test="businessId != null">
             f.businessId = #{businessId}
         </if>
         <if test="status == 0">
