@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserInfoPatchReq {
-    @Schema(title = "유저 ID",example = "2",requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonIgnore
     private long userId;
     @Schema(description = "유저 휴대폰번호", example = "01012345678")
     private String phone;

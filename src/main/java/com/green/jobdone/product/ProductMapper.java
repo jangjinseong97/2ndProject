@@ -10,6 +10,7 @@ public interface ProductMapper {
     int postProduct(ProductPostReq p);
     Long checkBusinessProduct(long businessId);
     int updProduct(ProductPatchReq p);
+    Long checkUserBusiness(long businessId);
 
     int postOption(ProductOptionPostReq p);
     List<String> checkOption(long detailTypeId);
@@ -17,12 +18,15 @@ public interface ProductMapper {
 
     int postProductOption(ProductOptionPostDto p);
     List<Long> checkProductOption(Long productId);
+    Long checkUserProductOption(long productId);
+
+
 
 
     int postOptionDetail(ProductOptionDetailPostReq p);
     List<String> checkProductOptionDetail(long productOptionId);
     int updOptionDetail(ProductOptionDetailPatchReq p);
-
+    Long checkUserOptionDetail(long productOptionId);
 
     ProductGetRes getProductInfoByBusiness(long businessId);
 

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserPwPatchReq {
-    @Schema(description = "유저 ID", example = "1")
+    @JsonIgnore
     private long userId;
     @Schema(description = "기존 비밀번호", example = "1111")
     private String currentPassword;

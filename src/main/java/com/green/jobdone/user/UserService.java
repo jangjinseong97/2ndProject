@@ -144,11 +144,12 @@ public class UserService {
     }
 
 
-    public UserInfoGetRes getUserInfo(long userId) {
+    public UserInfoGetRes getUserInfo() {
 
-//        if(userId!=authenticationFacade.getSignedUserId()){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
-//        } 나중에 최종적으로 주석 풀기
+
+        long userId = authenticationFacade.getSignedUserId();
+
+        //나중에 최종적으로 주석 풀기
 
         UserInfoGetRes res = mapper.getUserInfo(userId);
 
@@ -181,9 +182,10 @@ public class UserService {
 
     public int updateUserInfo(UserInfoPatchReq p, MultipartFile pic) {
 
-//        if(p.getUserId()!=authenticationFacade.getSignedUserId()){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
-//        }   나중에 최종적으로 주석 풀기
+        long userId = authenticationFacade.getSignedUserId();
+
+        p.setUserId(userId);
+
 
         if (pic == null) {
             int result = mapper.updateUserInfo(p);
@@ -220,9 +222,8 @@ public class UserService {
 
     public int deleteUser(UserInfoDelReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } 나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+        p.setUserId(userId);
 
 
         String pw = mapper.selectInfoPwUser(p.getUserId());
@@ -246,6 +247,10 @@ public class UserService {
 
         // 1. 사용자가 현재 비밀번호를 알고 있는 경우
         if (p.getCurrentPassword() != null) {
+
+            long userId=authenticationFacade.getSignedUserId();
+
+            p.setUserId(userId);
 
             String pw = mapper.selectInfoPwUser(p.getUserId());
 
