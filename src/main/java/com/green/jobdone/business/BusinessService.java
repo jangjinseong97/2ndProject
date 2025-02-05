@@ -31,7 +31,7 @@ public class BusinessService {
     private final MyFileUtils myFileUtils;
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
-    public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p) {
+    public int insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
 
         // 사업자 등록번호 유효성 체크
         if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
@@ -43,22 +43,30 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
-        if (paper == null || paper.isEmpty()) {
-            return 0;
-        }
 
-        String folderPath = String.format("business/%d/paper",p.getBusinessId());
-        myFileUtils.makeFolders(folderPath);
+        String paperPath = String.format("business/%d/paper",p.getBusinessId());
+        myFileUtils.makeFolders(paperPath);
         String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
-        String filePath = String.format("%s/%s",folderPath,savedPicName);
+        String filePath = String.format("%s/%s",paperPath,savedPicName);
         try {
             myFileUtils.transferTo(paper,filePath);
         }catch (IOException e){
             log.error(e.getMessage());
             return 0;
         }
+        String logoPath = String.format("business/%d/logo",p.getBusinessId());
+        myFileUtils.makeFolders(logoPath);
+        String savedPicName2 = (logo != null ? myFileUtils.makeRandomFileName(logo) : null);
+        String filePath1 = String.format("%s/%s",logoPath,savedPicName2);
+        try {
+            myFileUtils.transferTo(logo,filePath1);
+        }catch (IOException e){
+            log.error(e.getMessage());
+            return 0;
+        }
 
         p.setPaper(savedPicName);
+        p.setLogo(savedPicName2);
         return businessMapper.insBusiness(p);
 
 
