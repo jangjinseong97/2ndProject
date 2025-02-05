@@ -45,6 +45,10 @@ public class BusinessService {
         }
 
 
+        if (paper==null) {
+            return businessMapper.insBusiness(p);
+        }
+
         String paperPath = String.format("business/%d/paper",p.getBusinessId());
         myFileUtils.makeFolders(paperPath);
         String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
@@ -53,15 +57,13 @@ public class BusinessService {
             myFileUtils.transferTo(paper,filePath);
         }catch (IOException e){
             log.error(e.getMessage());
-            return 0;
+
         }
 
 
         p.setPaper(savedPicName);
 
         return businessMapper.insBusiness(p);
-
-
 
     }
 
