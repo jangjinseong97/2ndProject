@@ -1,6 +1,7 @@
 package com.green.jobdone.room.chat;
 
 import com.green.jobdone.common.model.ResultResponse;
+import com.green.jobdone.room.chat.model.ChatDto;
 import com.green.jobdone.room.chat.model.ChatGetReq;
 import com.green.jobdone.room.chat.model.ChatGetRes;
 import com.green.jobdone.room.chat.model.ChatPostReq;
@@ -23,8 +24,10 @@ public class ChatController {
 
     @Operation(summary = "채팅 보내기")
     @PostMapping
-    public ResultResponse<Integer> insChat(@RequestPart(required = false) List<MultipartFile> pics, @RequestPart ChatPostReq p){
-        int res = chatService.insChat(pics, p);
+    public ResultResponse<Integer> insChat(@RequestBody ChatDto p){
+        List<MultipartFile> pics = p.getPics();
+        ChatPostReq req = new ChatPostReq();
+        int res = chatService.insChat(pics, req);
 
         return ResultResponse.<Integer>builder()
                 .resultMessage("송신 완료")
