@@ -31,7 +31,7 @@ public class BusinessService {
     private final MyFileUtils myFileUtils;
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
-    @Transactional
+
     public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p) {
 
         // 사업자 등록번호 유효성 체크
