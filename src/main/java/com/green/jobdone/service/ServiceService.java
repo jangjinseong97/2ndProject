@@ -1,6 +1,7 @@
 package com.green.jobdone.service;
 
 import com.green.jobdone.common.exception.CustomException;
+import com.green.jobdone.common.exception.ServiceErrorCode;
 import com.green.jobdone.common.exception.UserErrorCode;
 import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.service.model.*;
@@ -31,9 +32,6 @@ public class ServiceService {
         p.setMStartTime(st);
 
 //        Long userId = authenticationFacade.getSignedUserId();
-//        if (userId == null) {
-//            throw new CustomException(UserErrorCode.TOKEN_REQUIRED);
-//        }
 //        p.setUserId(userId);
 
         int res1 = serviceMapper.insService(p);
@@ -45,10 +43,10 @@ public class ServiceService {
     public List<ServiceGetRes> getService(ServiceGetReq p){
 //        if(p.getBusinessId()==null){
 //            Long userId = authenticationFacade.getSignedUserId();
-//            if (userId == null) {
-//                throw new CustomException(UserErrorCode.TOKEN_REQUIRED);
-//            }
 //            p.setUserId(userId);
+//        }
+//        if(!p.getUserId().equals(serviceMapper.findUserId(p.getBusinessId()))) {
+//            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
 //        }
 
         if(p == null || p.getUserId()==null && p.getBusinessId()==null){
@@ -59,6 +57,7 @@ public class ServiceService {
         return res;
     }
 
+    @Transactional
     public ServiceGetOneRes getOneService(ServiceGetOneReq p){
         log.info("p:{}",p);
 
@@ -67,6 +66,14 @@ public class ServiceService {
         }
 
         ServiceGetOneRes res = serviceMapper.GetServiceOne(p);
+//        Long userId = authenticationFacade.getSignedUserId();
+//        if(p.getBusinessId()==null && res.getUserId()!=userId) {
+//            throw new CustomException(ServiceErrorCode.USER_MISMATCH);
+//        }
+//        if(!userId.equals(serviceMapper.findUserId(p.getBusinessId()))) {
+//            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
+//        }
+
         List<ServiceEtcDto> dto = serviceMapper.GetEtc(p.getServiceId());
         res.setEtc(dto);
         return res;
@@ -76,7 +83,8 @@ public class ServiceService {
     public int updService(ServicePutReq p){
         Long serviceProviderUserId = serviceMapper.providerUserId(p.getServiceId());
         if(!serviceProviderUserId.equals(p.getProviderUserId())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"잘못된 요청 입니다.");
+            // p.getProviderUserId 대신 authenticationFacade.getSignedUserId()
+            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
         }
         String st = String.format(p.getMStartTime()+":00");
         p.setMStartTime(st);
@@ -90,24 +98,26 @@ public class ServiceService {
         return res4;
     }
 
+    @Transactional
     public int completedService(ServicePatchReq p){
+//        p.setUserId(authenticationFacade.getSignedUserId());
         int com = serviceMapper.getCompleted(p.getServiceId());
         if(!transitionAllowed(com,p.getCompleted(),p.getBusinessId())) {
-            throw new IllegalArgumentException("잘못된 상태 전환 요청입니다.");
+            throw new CustomException(ServiceErrorCode.INVALID_SERVICE_STATUS);
         }
         if(p.getBusinessId()==null){
             int res = serviceMapper.patchCompleted(p);
+            // xml에서 userId가 해당되는 경우에만 가능하도록 해놨음
             return res;
         }
 
         Long findUserId = serviceMapper.findUserId(p.getBusinessId());
 
-        if(findUserId==null){
-            throw new IllegalArgumentException("해당 서비스 제공 업체가 아닙니다.");
+
+        if(!findUserId.equals(p.getUserId())){
+            throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
         }
-        if(findUserId.equals(p.getUserId())){
-            p.setUserId(0);
-        }
+        p.setUserId(0);
 
 
             int res = serviceMapper.patchCompleted(p);

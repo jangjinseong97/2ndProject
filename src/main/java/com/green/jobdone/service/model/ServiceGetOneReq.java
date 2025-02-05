@@ -12,5 +12,6 @@ import org.springframework.web.bind.annotation.BindParam;
 public class ServiceGetOneReq {
 
     private long serviceId;
+    private Long businessId;
 
 }
