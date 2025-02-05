@@ -8,6 +8,7 @@ import lombok.Setter;
 public class RoomGetRes {
     private long roomId;
     private Long chatId;
+    private String businessName;
     private String recentlyChat;
     private String roomCreatedAt;
     private String title;

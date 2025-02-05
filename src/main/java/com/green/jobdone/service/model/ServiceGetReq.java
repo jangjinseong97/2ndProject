@@ -1,6 +1,7 @@
 package com.green.jobdone.service.model;
 import com.green.jobdone.common.model.Paging;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,7 @@ public class ServiceGetReq extends Paging {
     @Schema(name = "business_id")
     private Long businessId;
     @Schema(title = "예약0 결제1 견적2 마이페이지3")
+    @NotNull(message = "status 는 필수로 입력해야 됩니다.")
     private int status;
     public ServiceGetReq(Integer page, Integer size,
                          @BindParam("user_id")Long userId, @BindParam("business_id")Long businessId, int status)  {
