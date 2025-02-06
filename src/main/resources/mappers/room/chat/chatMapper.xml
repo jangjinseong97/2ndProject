@@ -19,7 +19,7 @@
         insert into chat_pic
         (chatId, pic)
         values
-        <foreach collection="pics" item="pic" separator=";">
+        <foreach collection="pics" item="pic" separator=",">
         (#{chatId}, #{pic})
         </foreach>
     </insert>
