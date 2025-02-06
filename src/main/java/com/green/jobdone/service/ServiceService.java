@@ -44,7 +44,9 @@ public class ServiceService {
 
         Long userId = authenticationFacade.getSignedUserId();
         p.setUserId(userId);
-
+        if(p.getStatus()>4 || p.getStatus()<0){
+            throw new CustomException(ServiceErrorCode.INVALID_SERVICE_STATUS);
+        }
         if(p.getBusinessId()!= null && !p.getUserId().equals(serviceMapper.findUserId(p.getBusinessId()))) {
             throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
         }
