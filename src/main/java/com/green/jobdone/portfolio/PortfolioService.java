@@ -11,9 +11,11 @@ import com.green.jobdone.portfolio.model.PortfolioPutReq;
 import com.green.jobdone.portfolio.model.get.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,13 +30,32 @@ public class PortfolioService {
     private final MyFileUtils myFileUtils;
     private final AuthenticationFacade authenticationFacade; //인증받은 유저가 이용 할 수 있게.
 
+
+    // 포폴 만들기
     public int insPortfolio(PortfolioPostReq p){
 
+        long signedUserId =authenticationFacade.getSignedUserId();
+
+        long userId = businessMapper.existBusinessId(p.getBusinessId());
+        if (userId != signedUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
         return portfolioMapper.insPortfolio(p);
+
     }
 
+    //포폴 사진 등록하기
     @Transactional
     public PortfolioPicPostRes insPortfolioPic(List<MultipartFile> pics,long businessId, long portfolioId) {
+
+        long signedUserId =authenticationFacade.getSignedUserId();
+
+        long userId = businessMapper.existBusinessId(businessId);
+        if (userId != signedUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
 
         String middlePath = String.format("business/%d/portfolio/%d/pics", businessId, portfolioId);
         myFileUtils.makeFolders(middlePath);
@@ -60,7 +81,15 @@ public class PortfolioService {
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
     }
 
+    //포폴 수정하기
     public int udtPortfolio(PortfolioPutReq p){
+
+        long signedUserId =authenticationFacade.getSignedUserId();
+
+        long userId = businessMapper.existBusinessId(p.getBusinessId());
+        if (userId != signedUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
         return portfolioMapper.udtPortfolio(p);
     }
 

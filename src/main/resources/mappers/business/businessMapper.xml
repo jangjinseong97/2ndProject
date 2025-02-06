@@ -7,7 +7,7 @@
         INSERT INTO business
         SET
         paper = #{paper},
-        userId = #{userId},
+        userId = #{signedUserId},
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
@@ -22,7 +22,7 @@
         WHERE businessNum = #{businessNum}
     </select>
 
-    <select id="existBusinessId" parameterType="long" resultType="int">
+    <select id="existBusinessId" parameterType="long" resultType="long">
         SELECT b.userId
         FROM business b
         WHERE b.businessId = #{businessId}

@@ -10,6 +10,9 @@ import lombok.ToString;
 @ToString
 public class PortfolioPutReq {
 
+    @Schema(title = "businessId")
+    private long businessId;
+
     @Schema(title = "portfolioId")
     private long portfolioId;
 

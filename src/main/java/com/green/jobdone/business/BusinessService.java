@@ -50,9 +50,11 @@ public class BusinessService {
             throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
         }
 
-        if (userId == 0){
-            throw new IllegalArgumentException("인증되지 않은 유저입니다.");
-        }
+//        if (userId == 0){
+//            throw new IllegalArgumentException("인증되지 않은 유저입니다.");
+//        }
+
+        p.setSignedUserId(userId);
 
         if (paper==null) {
             return businessMapper.insBusiness(p);

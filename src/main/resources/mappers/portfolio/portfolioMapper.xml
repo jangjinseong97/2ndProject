@@ -5,8 +5,6 @@
     <insert id="insPortfolio" useGeneratedKeys="true" keyProperty="portfolioId">
         insert into portfolio
         set businessId = #{businessId},
-            category = #{category},
-            detailType = #{detailType},
             price = #{price},
             takingTime = #{takingTime},
             title = #{title},
