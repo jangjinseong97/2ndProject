@@ -27,7 +27,7 @@ public class ChatService {
     @Transactional
     public int insChat(List<MultipartFile> pics, ChatPostReq p){
         int res = chatMapper.insChat(p);
-        if(pics == null){
+        if(pics.size()==0){
             return res;
         }
 
