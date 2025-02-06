@@ -24,4 +24,6 @@ public class ReviewCommentGetRes {
     private String name;
     @Schema(title = "리뷰 댓글 업체 로고")
     private String logo;
+    @Schema(title = "리뷰 댓글 업체 PK")
+    private long businessId;
 }

@@ -9,6 +9,24 @@
         , contents = #{contents}
     </insert>
 
+    <select id="selUserIdByReviewId">
+        SELECT D.userId
+        FROM review A
+        JOIN service B
+        ON A.serviceId = B.serviceId
+        JOIN product C
+        ON C.productId = B.productId
+        JOIN business D
+        ON D.businessId = C.businessId
+        WHERE A.reviewId = #{reviewId}
+    </select>
+
+    <select id="selCommentIdByUserId">
+        SELECT commentId
+        FROM comment
+        WHERE userId = #{userId}
+    </select>
+
     <select id="selReviewCommentByReviewId">
         SELECT A.commentId
         , A.`contents`
@@ -17,6 +35,7 @@
         , F.userId AS writerUserId
         , F.name
         , E.logo
+        , E.businessId
         FROM comment A
         JOIN review B
         ON A.reviewId = B.reviewId

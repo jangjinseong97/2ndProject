@@ -1,5 +1,7 @@
 package com.green.jobdone.review.comment;
 
+import com.green.jobdone.common.exception.CustomException;
+import com.green.jobdone.common.exception.ReviewErrorCode;
 import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.review.comment.model.*;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,9 @@ public class ReviewCommentService {
     private final AuthenticationFacade authenticationFacade;
 
     public long postReviewComment(ReviewCommentPostReq p) {
+        if(reviewCommentMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
+            throw new CustomException(ReviewErrorCode.FAIL_TO_REG_COMMENT);
+        }
         p.setUserId(authenticationFacade.getSignedUserId());
         reviewCommentMapper.insReviewComment(p);
         return p.getCommentId();
