@@ -93,8 +93,10 @@
 
     <!-- 사진 가져오기는 있다가 한번에 하자 -->
     <select id="getPortfolioPicList">
-        select p.businessId, p.portfolioPicId, p.pic
+        select f.businessId, p.portfolioId, p.portfolioPicId, p.pic
         from portfolio_pic p
+        join portfolio f
+        on p.portfolioId = f.portfolioId
         where p.portfolioId = #{portfolioId}
     </select>
 </mapper>
