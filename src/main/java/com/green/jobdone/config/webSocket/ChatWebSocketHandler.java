@@ -7,6 +7,7 @@ import com.green.jobdone.room.chat.model.ChatPicDto;
 import com.green.jobdone.room.chat.model.ChatPostReq;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -87,23 +89,39 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
         try {
-            byte[] payload = message.getPayload().array();
+            byte[] payload = message.getPayload().array();  // 바이너리 데이터 받기
 
-            // 텍스트와 파일 분리 처리
-            String jsonString = new String(payload, StandardCharsets.UTF_8);
-
+            // 텍스트와 파일 데이터 분리
+            String jsonString = new String(payload, StandardCharsets.UTF_8);  // 바이너리 데이터를 UTF-8로 문자열로 변환
             JSONObject jsonObject = new JSONObject(jsonString);
-            String textMessage = jsonObject.getString("message");  // 메시지 부분
-            byte[] fileData = Arrays.copyOfRange(payload, jsonObject.toString().length(), payload.length);  // 파일 부분
 
-            // 텍스트 메시지 처리
+            // 텍스트 메시지
+            String textMessage = jsonObject.getString("msg");
+
+            // 여러 개의 파일 처리 (base64로 인코딩된 부분 처리)
+            JSONArray filesArray = jsonObject.getJSONArray("files");  // 파일 배열 가져오기
+            List<byte[]> fileDataList = new ArrayList<>();
+            for (int i = 0; i < filesArray.length(); i++) {
+                String base64File = filesArray.getString(i);
+                byte[] fileData = Base64.getDecoder().decode(base64File);  // base64로 디코딩하여 파일 데이터로 변환
+                fileDataList.add(fileData);  // 파일 데이터 리스트에 추가
+            }
+
+            // 추가된 데이터: roomId, flag
+            long roomId = jsonObject.getLong("roomId");
+            int flag = jsonObject.getInt("flag");
+
+            // 채팅 메시지 처리
             ChatPostReq chatPostReq = new ChatPostReq();
-            chatPostReq.setRoomId(123L);  // 예시 값
-            chatPostReq.setContents(textMessage);
-            chatPostReq.setFlag(0);  // 예시 값
+            chatPostReq.setRoomId(roomId);  // roomId 설정
+            chatPostReq.setContents(textMessage);  // 텍스트 메시지 설정
+            chatPostReq.setFlag(flag);  // flag 설정
 
-            // 파일 처리
-            List<MultipartFile> pics = convertByteArrayToMultipartFile(fileData);
+            // 각 파일을 MultipartFile로 변환하여 서비스 계층으로 전달
+            List<MultipartFile> pics = new ArrayList<>();
+            for (byte[] fileData : fileDataList) {
+                pics.addAll(convertByteArrayToMultipartFile(fileData));  // 각 파일을 MultipartFile로 변환하여 리스트에 추가
+            }
 
             // 채팅 메시지와 파일을 서비스 계층에 전달
             int result = chatService.insChat(pics, chatPostReq);  // 서비스 계층에서 텍스트와 파일을 처리
