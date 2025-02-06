@@ -14,6 +14,8 @@ public class BusinessPaperPatchReq {
 
     @Schema(title = "회사pk",requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
+    @Schema(title = "회사pk",requiredMode = Schema.RequiredMode.REQUIRED)
+    private long signedUserId;
 
     @JsonIgnore
     private String paper;

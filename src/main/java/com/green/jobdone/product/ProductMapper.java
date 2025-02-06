@@ -11,6 +11,8 @@ public interface ProductMapper {
     Long checkBusinessProduct(long businessId);
     int updProduct(ProductPatchReq p);
     Long checkUserBusiness(long businessId);
+    Long checkUserUpdProduct(long productId);
+
 
     int postOption(ProductOptionPostReq p);
     List<String> checkOption(long detailTypeId);
@@ -27,6 +29,7 @@ public interface ProductMapper {
     List<String> checkProductOptionDetail(long productOptionId);
     int updOptionDetail(ProductOptionDetailPatchReq p);
     Long checkUserOptionDetail(long productOptionId);
+    Long checkUserUpdOptionDetail(long optionDetailId);
 
     ProductGetRes getProductInfoByBusiness(long businessId);
 

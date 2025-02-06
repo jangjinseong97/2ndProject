@@ -9,8 +9,8 @@ public class PicUrlMaker {
     public static String makePicUrl(long businessId, String picName) {
         return String.format("/pic/business/%d/%s", businessId, picName);
     }
-    public static String makePicUrlPortfolio(long businessId, String picName) {
-        return String.format("/pic/business/%d/%s", businessId, picName);
+    public static String makePicUrlPortfolio(long businessId, long portfolioId, String picName) {
+        return String.format("/pic/business/%d/portfolio/%d/pics/%s", businessId,portfolioId, picName);
     }
     public static String makePicUrlBusiness(long businessId, String picName) {
         return String.format("/pic/business/%d/pics/%s", businessId, picName);
@@ -35,6 +35,10 @@ public class PicUrlMaker {
 
     public static String makePicUrlChat(long roomId, long chatId, String picName ) {
         return String.format("/pic/room/%d/chat/%d/%s", roomId, chatId, picName);
+    }
+
+    public static String makePicUrlReview(long reviewId, String picName) {
+        return String.format("/pic/review/%d/%s", reviewId, picName);
     }
 
 }

@@ -13,8 +13,7 @@ public class BusinessDetailPutReq {
 
     @Schema(title = "업체 pk", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
-    @Schema(title = "유저 pk", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long userId;
+
     @Schema(title = "오픈 시간", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
     private String openTime;
     @Schema(title = "마감 시간", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)

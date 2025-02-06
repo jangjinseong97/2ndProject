@@ -21,9 +21,10 @@ public class LikeService {
 
     public int postLikeInfo(LikePostReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        }   //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        p.setUserId(userId);
+
 
         int result = mapper.deleteLikeInfo(p);
 
@@ -38,16 +39,15 @@ public class LikeService {
     }
 
 
-    public List<LikeGetRes> getLikeInfo(long userId) {
+    public List<LikeGetRes> getLikeInfo() {
 
-//        if (userId != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        }   //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
 
         List<LikeGetRes> res = mapper.getLikeInfo(userId);
 
         for (LikeGetRes r : res) {
-            r.setPic(PicUrlMaker.makePicUrl(r.getBusinessId(), r.getPic()));
+            r.setPic(PicUrlMaker.makePicUrlBusiness(r.getBusinessId(), r.getPic()));
+            // 업체사진 끌어올거면 이거 써야함.
         }
 
         return res;
