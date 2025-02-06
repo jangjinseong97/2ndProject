@@ -87,7 +87,10 @@ public class WebSecurityConfig {
 
         http.cors(c -> c.configurationSource(request -> {
             CorsConfiguration config = new CorsConfiguration();
-            config.addAllowedOrigin("*"); // 허용할 도메인
+            config.addAllowedOrigin("http://112.222.157.156:5224"); // 허용할 도메인
+            config.addAllowedOrigin("http://192.168.0.195:5173");
+            config.addAllowedOrigin("http://192.168.0.77:5173");
+            config.addAllowedOrigin("http://192.168.0.134:5173");
             config.addAllowedMethod("GET");
             config.addAllowedMethod("POST");
             config.addAllowedMethod("PUT");
