@@ -40,6 +40,8 @@ public class BusinessService {
     public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p) {
 
         long userId = authenticationFacade.getSignedUserId();
+        p.setSignedUserId(userId);
+
         // 사업자 등록번호 유효성 체크
         if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
             throw new IllegalArgumentException("사업자 등록번호가 유효하지 않습니다.");
@@ -54,7 +56,6 @@ public class BusinessService {
 //            throw new IllegalArgumentException("인증되지 않은 유저입니다.");
 //        }
 
-        p.setSignedUserId(userId);
 
         if (paper==null) {
             return businessMapper.insBusiness(p);
