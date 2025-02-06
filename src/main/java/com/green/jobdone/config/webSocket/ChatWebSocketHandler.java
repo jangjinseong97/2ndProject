@@ -30,8 +30,6 @@ import java.util.Base64;
 import java.util.List;
 
 @Component
-
-
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Autowired
     private ChatService chatService;
@@ -71,6 +69,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+        logger.info("handleBinaryMessage called!");
+        logger.info("Received binary message, size: " + message.getPayload().array().length);
         try {
             byte[] payload = message.getPayload().array();
             String jsonString = new String(payload, StandardCharsets.UTF_8);
@@ -91,11 +91,19 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             JSONArray filesArray = jsonObject.optJSONArray("files");
             List<MultipartFile> pics = new ArrayList<>();
 
-            if (filesArray != null) {
+            // 파일이 존재할 경우에만 처리
+            if (filesArray != null && filesArray.length() > 0) {
                 for (int i = 0; i < filesArray.length(); i++) {
                     String base64File = filesArray.getString(i);
-                    byte[] fileData = Base64.getDecoder().decode(base64File);
-                    pics.add(convertByteArrayToMultipartFile(fileData, "uploaded_file_" + i));
+                    logger.debug("Base64 File Data: " + base64File);  // 디버깅용 로그
+
+                    // Base64 디코딩 전에 파일이 비어있지 않은지 체크
+                    if (base64File != null && !base64File.trim().isEmpty()) {
+                        byte[] fileData = Base64.getDecoder().decode(base64File);
+                        pics.add(convertByteArrayToMultipartFile(fileData, "uploaded_file_" + i));
+                    } else {
+                        logger.warn("Empty or invalid Base64 file data at index: " + i); // 경고 로그
+                    }
                 }
             }
 
@@ -109,6 +117,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             chatPostReq.setRoomId(roomId);
             chatPostReq.setContents(textMessage.isEmpty() ? null : textMessage);
             chatPostReq.setFlag(flag);
+            logger.info("ChatPostReq: " + chatPostReq);
+
 
             // ✅ 채팅 저장
             chatService.insChat(pics, chatPostReq);
