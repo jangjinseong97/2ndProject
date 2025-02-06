@@ -64,6 +64,14 @@ public class ChatService {
         }
     }
     public int insChatPic(List<MultipartFile> pics) {
+
+        // chatId 가 있어야 pic 주입 가능 > chatId 는 roomId가 필요(거기서 최신 chat)
+        // > 이부분도 외부에서 조회라서 안전하지 않음(flag 채크하면 되긴할듯)
+
+        // 가져올 수 있는 정보는 jwt토큰뿐 > room 조회(여러개가 만들어져 버림_
+        // 6번 userId라고 가정 그사람이 가장 최근에 친 채팅+사진> if로 UserIdRoom 의
+        // userId나 buid중 같은게 있는 것 중 최신 room선택 > 그 room에서
+
         return 0;
     }
 

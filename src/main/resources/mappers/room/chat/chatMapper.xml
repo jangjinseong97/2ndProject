@@ -7,14 +7,6 @@
         values
         (#{roomId}, #{contents}, #{flag})
     </insert>
-
-    <select id="pkRoom">
-        select a.userId, b.userId as buid
-        from room a
-        join business b on a.businessId = b.businessId
-        where a.roomId = #{roomId}
-    </select>
-
     <insert id="insChatPic" parameterType="com.green.jobdone.room.chat.model.ChatPicDto">
         insert into chat_pic
         (chatId, pic)
@@ -22,6 +14,18 @@
         <foreach collection="pics" item="pic" separator=",">
         (#{chatId}, #{pic})
         </foreach>
+    </insert>
+
+    <select id="checkUserId">
+        select a.userId, b.userId as buid
+        from room a
+        join business b on a.businessId = b.businessId
+        where a.roomId = #{roomId}
+    </select>
+    <insert id="">
+        insert into chat_pic
+        from room a
+        join
     </insert>
     <resultMap id="selChat" type="com.green.jobdone.room.chat.model.ChatGetRes">
         <id property="chatId" column="chatId"/>

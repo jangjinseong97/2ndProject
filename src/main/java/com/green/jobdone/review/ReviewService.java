@@ -1,6 +1,7 @@
 package com.green.jobdone.review;
 
 import com.green.jobdone.common.MyFileUtils;
+import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.common.exception.CustomException;
 import com.green.jobdone.common.exception.ReviewErrorCode;
 import com.green.jobdone.config.security.AuthenticationFacade;
@@ -32,6 +33,9 @@ public class ReviewService {
 
     @Transactional
     public ReviewPostRes postReview (List<MultipartFile> pics, ReviewPostReq p) {
+        if(reviewMapper.selUserIdByServiceId(p.getServiceId()) != authenticationFacade.getSignedUserId()) {
+            throw new CustomException(ReviewErrorCode.FAIL_TO_REG);
+        }
         int result = reviewMapper.insReview(p);
 
         long reviewId = p.getReviewId();
@@ -87,17 +91,19 @@ public class ReviewService {
                 beforeReviewGetRes.setCreatedAt(reviewAndPicDto.getCreatedAt());
                 beforeReviewGetRes.setUserId(reviewAndPicDto.getUserId());
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
-                beforeReviewGetRes.setWriterPic(reviewAndPicDto.getWriterPic());
+                beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
                 beforeReviewGetRes.setDetailTypeName(reviewAndPicDto.getDetailTypeName());
                 beforeReviewGetRes.setAverageScore(Math.round(reviewAndPicDto.getAverageScore()*100)/100.0);
             }
-            beforeReviewGetRes.getPics().add(reviewAndPicDto.getPic());
+            String picUrl = PicUrlMaker.makePicUrlReview(reviewAndPicDto.getReviewId(),reviewAndPicDto.getPic());
+            beforeReviewGetRes.getPics().add(picUrl);
             beforeReviewGetRes.getPics().add(reviewAndPicDto.getReviewPicId());
         }
         //SELECT (2): review_comment
         List<Long> reviewIds = new ArrayList<>(list.size());
         for(ReviewGetRes item : list) {
             ReviewCommentGetRes comment = reviewCommentMapper.selReviewCommentByReviewId(item.getReviewId());
+            comment.setLogo(PicUrlMaker.makePicUrlLogo(comment.getBusinessId(),comment.getLogo()));
             item.setComment(comment);
         }
 
@@ -105,6 +111,9 @@ public class ReviewService {
     }
 
     public ReviewPutRes updReview(List<MultipartFile> pics, ReviewPutReq p) {
+        if(reviewMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
+            throw new CustomException(ReviewErrorCode.FAIL_TO_UPD);
+        }
         int result = reviewMapper.updReview(p);
 
         long reviewId = p.getReviewId();

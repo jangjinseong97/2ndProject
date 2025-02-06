@@ -7,21 +7,25 @@
         INSERT INTO business
         SET
         paper = #{paper},
-        userId = #{userId},
+        userId = #{signedUserId},
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
         detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
-        tel  = #{tel},
-        tel2 = #{tel2},
-        tel3 = #{tel3}
+        tel  = #{tel}
     </insert>
 
     <select id="existBusinessNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM business
         WHERE businessNum = #{businessNum}
+    </select>
+
+    <select id="existBusinessId" parameterType="long" resultType="long">
+        SELECT b.userId
+        FROM business b
+        WHERE b.businessId = #{businessId}
     </select>
 
     <update id="udtBusiness">

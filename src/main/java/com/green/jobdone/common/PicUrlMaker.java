@@ -37,4 +37,8 @@ public class PicUrlMaker {
         return String.format("/pic/room/%d/chat/%d/%s", roomId, chatId, picName);
     }
 
+    public static String makePicUrlReview(long reviewId, String picName) {
+        return String.format("/pic/review/%d/%s", reviewId, picName);
+    }
+
 }

@@ -5,20 +5,11 @@
     <insert id="insPortfolio" useGeneratedKeys="true" keyProperty="portfolioId">
         insert into portfolio
         set businessId = #{businessId},
-            category = #{category},
-            detailType = #{detailType},
             price = #{price},
             takingTime = #{takingTime},
             title = #{title},
             contents = #{contents}
     </insert>
-
-    <select id="existBusinessId" parameterType="long" resultType="int">
-        SELECT COUNT(*)
-        FROM business b
-        WHERE b.businessId = #{businessId} AND b.userId = #{signedUserId}
-    </select>
-
 
 
     <insert id="insPortfolioPic" useGeneratedKeys="true" keyProperty="portfolioPicId">

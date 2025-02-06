@@ -12,5 +12,6 @@ public interface ReviewMapper {
     int updReview(ReviewPutReq p);
     Long selUserIdByReviewId(long reviewId);
     int delReview(ReviewDelReq p);
+    Long selUserIdByServiceId(long serviceId);
 
 }
