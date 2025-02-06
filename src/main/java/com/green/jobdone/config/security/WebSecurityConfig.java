@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration //메소드 빈등록이 있어야 의미가 있다. 메소드 빈등록이 싱글톤이 됨.
 @RequiredArgsConstructor
@@ -32,13 +33,13 @@ public class WebSecurityConfig {
 
     @Bean //스프링이 메소드 호출을 하고 리턴한 객체의 주소값을 관리한다. (빈 등록)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
+        http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 안함
                 .httpBasic(h -> h.disable()) // SSR을 사용하지 않기 때문에 HTTP Basic 인증 비활성화
                 .formLogin(form -> form.disable()) // SSR을 사용하지 않기 때문에 폼 로그인 비활성화
                 .csrf(csrf -> csrf.disable()) // SSR이 아니면 CSRF 보호 필요 없음
                 .authorizeHttpRequests(req -> req
-//                                //유저쪽
+                                //유저쪽
 //                                .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
 //                                .requestMatchers(HttpMethod.PATCH,"/api/user").authenticated()   //   나중에 대충 다 만들면 api 인증받을거 처리하기
 //                                .requestMatchers(HttpMethod.DELETE,"/api/user").authenticated()
@@ -72,15 +73,30 @@ public class WebSecurityConfig {
 //                                .requestMatchers("/api/payment/**").authenticated()
 
                                 //스웨거쪽
+//
+
                                 .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
+
 //                              .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
-                        .anyRequest().permitAll() // 그 외의 모든 요청은 허용
+                                .anyRequest().permitAll() // 그 외의 모든 요청은 허용
                 )
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)// 인증 실패 시 jwtAuthenticationEntryPoint 처리, 401 Unauthorized 처리(토큰이 필요하다는 에러)
                         .accessDeniedHandler(new CustomAccessDeniedHandler()))  // 403 Forbidden 처리(접근 가능한 role 이 아니다 라는 에러)
-                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 인증 필터 추가
-                .build();
+                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);// JWT 인증 필터 추가
+
+        http.cors(c -> c.configurationSource(request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.addAllowedOrigin("*"); // 허용할 도메인
+            config.addAllowedMethod("GET");
+            config.addAllowedMethod("POST");
+            config.addAllowedMethod("PUT");
+            config.addAllowedMethod("DELETE");
+            config.setAllowCredentials(true);
+            return config;
+        }));
+
+        return http.build();
     }
 
 
