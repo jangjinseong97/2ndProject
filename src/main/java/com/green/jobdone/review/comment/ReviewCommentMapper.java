@@ -14,4 +14,5 @@ public interface ReviewCommentMapper {
     ReviewCommentGetRes selReviewCommentByReviewId(long reviewId);
     int updReviewComment(ReviewCommentUpdReq p);
     int delReviewComment(ReviewCommentDelReq p);
+    Long selUserIdByReviewId(long reviewId);
 }

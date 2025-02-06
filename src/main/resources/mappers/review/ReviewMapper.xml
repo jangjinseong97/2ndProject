@@ -58,6 +58,12 @@
         WHERE reviewId = #{reviewId} and serviceId = #{serviceId}
     </update>
 
+    <select id="selUserIdByServiceId">
+        SELECT userId
+        FROM service
+        WHERE serviceId = #{serviceId}
+    </select>
+
     <select id="selUserIdByReviewId">
         SELECT userId
           FROM service A
