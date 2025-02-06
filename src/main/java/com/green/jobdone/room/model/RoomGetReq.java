@@ -11,6 +11,7 @@ import java.beans.ConstructorProperties;
 @Setter
 public class RoomGetReq {
     @Schema(name = "user_id")
+    @JsonIgnore
     private Long userId;
     @Schema(name = "business_id")
     private Long businessId;
