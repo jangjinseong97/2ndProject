@@ -72,6 +72,7 @@ public class WebSecurityConfig {
 //                                .requestMatchers("/api/payment/**").authenticated()
 
                                 //스웨거쪽
+                                .requestMatchers("/chat/**").permitAll()
                                 .requestMatchers("/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
 //                              .requestMatchers("/api/like").hasRole(UserRole.USER.name()) // /api/like는 USER 역할을 가진 사용자만 접근 가능
                                 .anyRequest().permitAll() // 그 외의 모든 요청은 허용
