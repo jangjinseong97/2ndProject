@@ -11,6 +11,7 @@ public class RoomPostReq {
     @Schema(title = "서비스 pk")
     private Long serviceId;
     @Schema(title = "user pk")
+    @JsonIgnore
     private long userId;
     @Schema(title = "업체 pk")
     private long businessId;

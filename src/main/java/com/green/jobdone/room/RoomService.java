@@ -19,15 +19,15 @@ public class RoomService {
     private final RoomMapper roomMapper;
     private final AuthenticationFacade authenticationFacade;
     public List<RoomGetRes> selRoom(RoomGetReq p) {
-//        if(p.getBusinessId()==null){
-//            p.setUserId(authenticationFacade.getSignedUserId());
-//        }
+        if(p.getBusinessId()==null){
+            p.setUserId(authenticationFacade.getSignedUserId());
+        }
         List<RoomGetRes> res = roomMapper.selRoom(p);
         return res;
     }
 
     public int insRoom(RoomPostReq p) {
-//        p.setUserId(authenticationFacade.getSignedUserId());
+        p.setUserId(authenticationFacade.getSignedUserId());
         int res = roomMapper.insRoom(p);
 
         return res;
