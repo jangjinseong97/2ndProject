@@ -16,6 +16,7 @@ public class ReviewAndPicDto {
     private String name;
     private String writerPic;
     private String detailTypeName;
+    private double averageScore;
     private String pic;
     private String reviewPicId;
 }

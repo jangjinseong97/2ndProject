@@ -1,5 +1,6 @@
 package com.green.jobdone.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.green.jobdone.service.model.Dto.ServiceEtcDto;
 import com.green.jobdone.service.model.Dto.ServiceOptionDto;
 import com.green.jobdone.service.model.Dto.ServicePhone;
@@ -12,6 +13,8 @@ import java.util.List;
 @Setter
 public class ServiceGetOneRes {
     private long serviceId;
+    @JsonIgnore
+    private long userId;
     private String userName;
     private String userPhone;
     private String businessName;

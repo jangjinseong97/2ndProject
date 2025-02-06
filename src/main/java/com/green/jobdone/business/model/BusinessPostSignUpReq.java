@@ -15,11 +15,10 @@ public class BusinessPostSignUpReq {
     private long businessId;
     @JsonIgnore
     private String paper;
+    @JsonIgnore
+    private long signedUserId;
 
-
-    @Schema(title = "유저 아이디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private long userId;
-    @Schema(title = "사업자번호", example = "12245678910", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(title = "사업자번호", example = "0000000", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessNum;
     @Schema(title = "업체 이름", example = "싹 박멸해", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessName;
@@ -31,10 +30,5 @@ public class BusinessPostSignUpReq {
     private String busiCreatedAt;
     @Schema(title = "회사전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
     private String tel;
-    @Schema(title = "예비전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String tel2;
-    @Schema(title = "예비전번", example = "0533836669", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String tel3;
-
 
 }

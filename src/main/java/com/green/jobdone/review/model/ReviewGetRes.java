@@ -29,6 +29,8 @@ public class ReviewGetRes {
     private String writerPic;
     @Schema(title = "소분류 이름 ex)사무실 청소")
     private String detailTypeName;
+    @Schema(title = "리뷰 평균")
+    private double averageScore;
 
     @Schema(title = "리뷰 사진 리스트")
     private List<String> pics;

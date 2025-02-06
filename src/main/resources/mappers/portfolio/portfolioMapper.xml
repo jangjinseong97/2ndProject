@@ -5,13 +5,12 @@
     <insert id="insPortfolio" useGeneratedKeys="true" keyProperty="portfolioId">
         insert into portfolio
         set businessId = #{businessId},
-            category = #{category},
-            detailType = #{detailType},
             price = #{price},
             takingTime = #{takingTime},
             title = #{title},
             contents = #{contents}
     </insert>
+
 
     <insert id="insPortfolioPic" useGeneratedKeys="true" keyProperty="portfolioPicId">
         insert into portfolio_pic
@@ -49,7 +48,7 @@
 
     <select id="selAllPortfolioList">
 
-        SELECT f.portfolioId, f.title, t.pic AS isThumbnail
+        SELECT f.businessId, f.portfolioId, f.title, t.pic AS isThumbnail
         FROM portfolio f
         LEFT JOIN (
         SELECT c.portfolioId, c.pic
@@ -70,7 +69,7 @@
 
     </select>
     <select id="selOnePortfolio">
-        SELECT p.portfolioId, p.title, p.price, p.takingTime, p.contents
+        SELECT p.businessId, p.portfolioId, p.title, p.price, p.takingTime, p.contents
         ,d.detailTypeName as detailType, c.categoryName as category
         FROM portfolio p
         JOIN business b
@@ -85,8 +84,10 @@
 
     <!-- 사진 가져오기는 있다가 한번에 하자 -->
     <select id="getPortfolioPicList">
-        select p.portfolioPicId, p.pic
+        select f.businessId, p.portfolioId, p.portfolioPicId, p.pic
         from portfolio_pic p
+        join portfolio f
+        on p.portfolioId = f.portfolioId
         where p.portfolioId = #{portfolioId}
     </select>
 </mapper>

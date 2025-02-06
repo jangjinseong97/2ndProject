@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PortfolioGetOneRes {
+    private long businessId;
     private long portfolioId;
     private String title;
     private int price;

@@ -12,17 +12,19 @@
     </insert>
 
     <select id="selRoom">
-        SELECT a.roomId, a.createdAt as roomCreatedAt, b.title, b.businessName, e.contents as chatContents,
-        e.chatId, c.serviceId
+        SELECT a.roomId, a.createdAt AS roomCreatedAt,
+        b.title, b.businessName, c.chatId, a.serviceId,
+        IF(d.pic IS NOT NULL, '사진', c.contents) AS recentlyChat
         FROM room a
-        LEFT JOIN business b ON a.businessId = b.businessid
-        LEFT JOIN service c ON a.serviceId = c.serviceId
-        LEFT JOIN (
-        SELECT chatId, roomId, contents
+        LEFT JOIN business b ON a.businessId = b.businessId
+        LEFT JOIN service s ON a.serviceId = s.serviceId
+        LEFT JOIN chat c ON a.roomId = c.roomId
+        AND c.chatId = (
+        SELECT MAX(chatId)
         FROM chat
-        ORDER BY chatId DESC
-        LIMIT 1
-        ) e ON a.roomId = e.roomId
+        WHERE roomId = a.roomId
+        )
+        LEFT JOIN chat_pic d ON c.chatId = d.chatId
         WHERE
         <if test="userId != null">
             a.userId = #{userId}
@@ -30,6 +32,7 @@
         <if test="businessId != null">
             a.businessId = #{businessId}
         </if>
+        order by c.chatId desc;
     </select>
 
 </mapper>

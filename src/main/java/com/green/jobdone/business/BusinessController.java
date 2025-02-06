@@ -31,12 +31,12 @@ public class BusinessController {
     @PostMapping("sign-up")
     @Operation(summary = "업체 등록")
     public ResultResponse<Integer> postBusiness(@RequestPart(required = false) MultipartFile paper,
-                                                @Valid @RequestPart BusinessPostSignUpReq p) {
-        int result = businessService.insBusiness(paper, p);
+                                                 @Valid @RequestPart BusinessPostSignUpReq p) {
+        int result = businessService.insBusiness(paper,p);
 
         return ResultResponse.<Integer>builder()
-                .resultMessage("업체 등록 완료")
                 .resultData(result)
+                .resultMessage(result != 0? "업체 등록 완료" : "업체등록 실패")
                 .build();
     }
 
@@ -77,20 +77,12 @@ public class BusinessController {
     }
 
 
-    @PostMapping("phone")
-    @Operation(summary = "업체 전화번호 기입")
-    public ResultResponse<Integer> postBusinessPhone(BusinessPhonePostReq p) {
-        int result = businessService.insBusinessPhone(p);
-        return ResultResponse.<Integer>builder()
-                .resultMessage("전화번호 추가 완료")
-                .resultData(result)
-                .build();
-    }
 
     @PostMapping("businessPic")
     @Operation(summary = "업체 사진 등록")
     public ResultResponse<BusinessPicPostRes> postBusinessPic(@RequestPart List<MultipartFile> pics,
                                                               @RequestPart BusinessGetOneReq p) {
+
         BusinessPicPostRes res = businessService.insBusinessPic(pics, p.getBusinessId());
         return ResultResponse.<BusinessPicPostRes>builder()
                 .resultMessage("업체사진등록 완료")
@@ -151,6 +143,35 @@ public class BusinessController {
                 .build();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @PostMapping("phone")
+    @Operation(summary = "업체 전화번호 기입")
+    public ResultResponse<Integer> postBusinessPhone(BusinessPhonePostReq p) {
+        int result = businessService.insBusinessPhone(p);
+        return ResultResponse.<Integer>builder()
+                .resultMessage("전화번호 추가 완료")
+                .resultData(result)
+                .build();
+    }
 }
 
 

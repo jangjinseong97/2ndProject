@@ -9,18 +9,45 @@
         , contents = #{contents}
     </insert>
 
+    <select id="selUserIdByReviewId">
+        SELECT D.userId
+        FROM review A
+        JOIN service B
+        ON A.serviceId = B.serviceId
+        JOIN product C
+        ON C.productId = B.productId
+        JOIN business D
+        ON D.businessId = C.businessId
+        WHERE A.reviewId = #{reviewId}
+    </select>
+
+    <select id="selCommentIdByUserId">
+        SELECT commentId
+        FROM comment
+        WHERE userId = #{userId}
+    </select>
+
     <select id="selReviewCommentByReviewId">
         SELECT A.commentId
         , A.`contents`
         , A. createdAt
         , A. updatedAt
-        , B.userId AS writerUserId
-        , B.name
-        , B.pic AS writerPic
+        , F.userId AS writerUserId
+        , F.name
+        , E.logo
+        , E.businessId
         FROM comment A
-        JOIN user B
-        ON A.userId = B.userId
-        WHERE A.reviewId = #{reviewId}
+        JOIN review B
+        ON A.reviewId = B.reviewId
+        JOIN service C
+        ON C.serviceId = B.serviceId
+        JOIN product D
+        ON D.productId = C.productId
+        JOIN business E
+        ON E.businessId = D.businessId
+        JOIN user F
+        ON F.userId = E.userId
+        WHERE B.reviewId = #{reviewId}
     </select>
 
     <update id="updReviewComment">
@@ -28,5 +55,10 @@
            SET contents = #{contents}
          WHERE reviewId = #{reviewId} and userId = #{userId}
     </update>
+
+    <delete id="delReviewComment">
+        DELETE FROM comment
+         WHERE reviewId = #{reviewId} and userId = #{userId}
+    </delete>
 
 </mapper>
