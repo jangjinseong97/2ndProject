@@ -47,7 +47,9 @@ public class LikeService {
 
         for (LikeGetRes r : res) {
             r.setPic(PicUrlMaker.makePicUrlBusiness(r.getBusinessId(), r.getPic()));
+
             // 업체사진 끌어올거면 이거 써야함.
+
         }
 
         return res;

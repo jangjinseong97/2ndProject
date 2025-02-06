@@ -51,6 +51,7 @@ public class WebSecurityConfig {
 //                                .requestMatchers(HttpMethod.GET,"/api/business/**").permitAll() // 댓글 get 은 인증된 사용자가 아니어도 볼 수 있음
 //                                .requestMatchers("/api/business/**").authenticated()
 //                                //상품쪽
+//                                .requestMatchers(HttpMethod.GET,"/api/product/**").permitAll()
 //                                .requestMatchers("/api/product/**").hasAnyRole(
 //                                        UserRole.EMPLOYEE.name(),
 //                                        UserRole.MANAGER.name(),
