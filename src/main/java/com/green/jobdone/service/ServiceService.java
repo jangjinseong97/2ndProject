@@ -92,6 +92,14 @@ public class ServiceService {
         p.setMStartTime(st);
         String et = String.format(p.getMEndTime()+":00");
         p.setMEndTime(et);
+        List<ServiceEtcDto> etcDto = p.getEtc();
+        int sum = 0;
+        for(ServiceEtcDto dto : etcDto){
+            sum += dto.getEtcPrice();
+        }
+        int realPrice = p.getTotalPrice();
+        realPrice += sum;
+        p.setTotalPrice(realPrice);
 
         int res1 = serviceMapper.updService(p);
         int res2 = serviceMapper.updServiceDetail(p);
