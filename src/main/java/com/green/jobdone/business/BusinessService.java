@@ -36,8 +36,8 @@ public class BusinessService {
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
 
-
-    public int insBusiness(MultipartFile paper, BusinessPostSignUpReq p) {
+@Transactional
+    public int insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
 
         long userId = authenticationFacade.getSignedUserId();
         p.setSignedUserId(userId);
@@ -62,18 +62,25 @@ public class BusinessService {
         }
 
         String paperPath = String.format("business/%d/paper",p.getBusinessId());
+        String logoPath = String.format("business/%d/logo",p.getBusinessId());
         myFileUtils.makeFolders(paperPath);
+        myFileUtils.makeFolders(logoPath);
         String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
+        String savedPicName2 = (paper != null ? myFileUtils.makeRandomFileName(logo) : null);
         String filePath = String.format("%s/%s",paperPath,savedPicName);
+        String filePath2 = String.format("%s/%s",logoPath,savedPicName2);
         try {
+            myFileUtils.transferTo(paper,filePath2);
             myFileUtils.transferTo(paper,filePath);
         }catch (IOException e){
             log.error(e.getMessage());
+
 
         }
 
 
         p.setPaper(savedPicName);
+        p.setLogo(logoPath);
 
         return businessMapper.insBusiness(p);
 
