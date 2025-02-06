@@ -39,9 +39,9 @@ public class LikeController {
 
     @GetMapping
     @Operation(summary = "찜 등록 업체 확인")
-    public ResultResponse<List<LikeGetRes>> getLikeInfo(@RequestParam long userId){
+    public ResultResponse<List<LikeGetRes>> getLikeInfo(){
 
-        List<LikeGetRes> result=service.getLikeInfo(userId);
+        List<LikeGetRes> result=service.getLikeInfo();
 
 
 
