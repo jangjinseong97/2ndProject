@@ -1,7 +1,9 @@
 package com.green.jobdone.portfolio;
 
+import com.green.jobdone.business.BusinessMapper;
 import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.common.PicUrlMaker;
+import com.green.jobdone.config.security.AuthenticationFacade;
 import com.green.jobdone.portfolio.model.PortfolioPicDto;
 import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
 import com.green.jobdone.portfolio.model.PortfolioPostReq;
@@ -22,7 +24,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PortfolioService {
     private final PortfolioMapper portfolioMapper;
+    private final BusinessMapper businessMapper;
     private final MyFileUtils myFileUtils;
+    private final AuthenticationFacade authenticationFacade; //인증받은 유저가 이용 할 수 있게.
 
     public int insPortfolio(PortfolioPostReq p){
 

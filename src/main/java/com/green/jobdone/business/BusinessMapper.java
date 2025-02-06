@@ -15,13 +15,14 @@ import java.util.List;
 @Mapper
 public interface BusinessMapper {
     int insBusiness(BusinessPostSignUpReq p); //
-    int existBusinessNum(String businessNum);
     int udtBusiness(BusinessDetailPutReq p);
     int udtBusinessLogo(BusinessLogoPatchReq p);
     int udtBusinessPaper(BusinessPaperPatchReq p);
-    //businessPhone
-    int insBusinessPhone(BusinessPhonePostReq p);
-    int existBusinessPhone(long businessId, String phone);
+
+    //유효성검사
+    int existBusinessNum(String businessNum);
+    long existBusinessId(long businessId); // 로그인한 유저가 해당업체 관리자인지?
+
     //pic
     int insBusinessPic(BusinessPicDto p);
     int putBusinessPic(long businessPicId);
@@ -38,8 +39,18 @@ public interface BusinessMapper {
 
 
 
-    //portfolio
 
 
+
+
+
+
+
+
+
+
+    //businessPhone
+    int insBusinessPhone(BusinessPhonePostReq p);
+    int existBusinessPhone(long businessId, String phone);
 
 }
