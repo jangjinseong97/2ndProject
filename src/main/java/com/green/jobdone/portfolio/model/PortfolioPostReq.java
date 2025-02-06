@@ -16,12 +16,6 @@ public class PortfolioPostReq {
     @Schema(title = "업체pk", requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
 
-    @Schema(title = "대분류", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String category;
-
-    @Schema(title = "소분류", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String detailType;
-
     @Schema(title = "가격", requiredMode = Schema.RequiredMode.REQUIRED)
     private int price;
 
