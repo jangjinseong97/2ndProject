@@ -13,6 +13,12 @@
             contents = #{contents}
     </insert>
 
+    <select id="existBusinessId" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM business b
+        WHERE b.businessId = #{businessId} AND b.userId = #{signedUserId}
+    </select>
+
 
 
     <insert id="insPortfolioPic" useGeneratedKeys="true" keyProperty="portfolioPicId">
@@ -51,7 +57,7 @@
 
     <select id="selAllPortfolioList">
 
-        SELECT f.portfolioId, f.title, t.pic AS isThumbnail
+        SELECT f.businessId, f.portfolioId, f.title, t.pic AS isThumbnail
         FROM portfolio f
         LEFT JOIN (
         SELECT c.portfolioId, c.pic
@@ -72,7 +78,7 @@
 
     </select>
     <select id="selOnePortfolio">
-        SELECT p.portfolioId, p.title, p.price, p.takingTime, p.contents
+        SELECT p.businessId, p.portfolioId, p.title, p.price, p.takingTime, p.contents
         ,d.detailTypeName as detailType, c.categoryName as category
         FROM portfolio p
         JOIN business b
@@ -87,8 +93,10 @@
 
     <!-- 사진 가져오기는 있다가 한번에 하자 -->
     <select id="getPortfolioPicList">
-        select p.portfolioPicId, p.pic
+        select f.businessId, p.portfolioId, p.portfolioPicId, p.pic
         from portfolio_pic p
+        join portfolio f
+        on p.portfolioId = f.portfolioId
         where p.portfolioId = #{portfolioId}
     </select>
 </mapper>

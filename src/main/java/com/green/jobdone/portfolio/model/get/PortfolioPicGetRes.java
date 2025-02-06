@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PortfolioPicGetRes {
+    private long businessId;
+    private long portfolioId;
     private long portfolioPicId;
     private String pic;
 }

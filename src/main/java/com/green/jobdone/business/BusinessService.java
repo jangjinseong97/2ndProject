@@ -265,7 +265,14 @@ public class BusinessService {
 
     //업체 하나에 있는 사진들
     public List<BusinessOnePicsGetRes> getBusinessOnePics(BusinessOnePicsGetReq p) {
-        return businessMapper.getBusinessPicList(p);
+
+        List<BusinessOnePicsGetRes> res= businessMapper.getBusinessPicList(p);
+        for (BusinessOnePicsGetRes pic : res) {
+            // 비즈니스 객체의 pic 필드를 이용하여 사진 경로 생성
+            String picUrl = PicUrlMaker.makePicUrlBusiness(pic.getBusinessId(), pic.getPic());
+            pic.setPic(picUrl);  // 사진 경로 업데이트
+        }
+        return res;
     }
 
 
