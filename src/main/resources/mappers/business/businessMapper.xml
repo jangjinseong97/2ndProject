@@ -7,13 +7,14 @@
         INSERT INTO business
         SET
         paper = #{paper},
+        logo = #{logo},
         userId = #{signedUserId},
         businessNum = #{businessNum},
         businessName = #{businessName},
         address = #{address},
         detailTypeId = #{detailTypeId},
         busiCreatedAt = #{busiCreatedAt},
-        tel  = #{tel}
+        tel = #{tel}
     </insert>
 
     <select id="existBusinessNum" parameterType="String" resultType="int">
