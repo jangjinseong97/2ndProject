@@ -28,6 +28,13 @@
         FROM business
         WHERE businessId=#{businessId}
     </select>
+    <select id="checkUserUpdProduct">
+        SELECT b.userId
+        FROM product a
+        LEFT JOIN business b
+            on a.businessId=b.businessId
+        WHERE a.productId=#{productId}
+    </select>
 
 
 
@@ -123,6 +130,17 @@
         LEFT JOIN business c
         on b.businessId=c.businessId
         where a.productOptionId=#{productOptionId}
+    </select>
+    <select id="checkUserUpdOptionDetail">
+        SELECT d.userId
+        FROM option_detail a
+        LEFT JOIN product_option b
+            on a.productOptionId=b.productOptionId
+        LEFT JOIN product c
+            on  b.productId=c.productId
+        LEFT JOIN business d
+            on c.businessId=d.businessId
+        WHERE a.optionDetailId=#{optionDetailId}
     </select>
 
 

@@ -153,9 +153,14 @@ public class ProductService {
 
     public int updOptionDetail(ProductOptionDetailPatchReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        Long checkUserId=mapper.checkUserUpdOptionDetail(p.getOptionDetailId());
+
+        if(userId!=checkUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
 
         int result = mapper.updOptionDetail(p);
 
@@ -164,9 +169,15 @@ public class ProductService {
 
     public int updProduct(ProductPatchReq p) {
 
-//        if (p.getUserId() != authenticationFacade.getSignedUserId()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청 입니다.");
-//        } //나중에 최종적으로 주석 풀기
+        long userId=authenticationFacade.getSignedUserId();
+
+        Long checkUserId=mapper.checkUserUpdProduct(p.getProductId());
+
+
+        if(userId!=checkUserId){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+        }
+
 
         int result = mapper.updProduct(p);
 
