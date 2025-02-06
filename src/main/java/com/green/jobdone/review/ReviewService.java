@@ -103,8 +103,10 @@ public class ReviewService {
         List<Long> reviewIds = new ArrayList<>(list.size());
         for(ReviewGetRes item : list) {
             ReviewCommentGetRes comment = reviewCommentMapper.selReviewCommentByReviewId(item.getReviewId());
-            comment.setLogo(PicUrlMaker.makePicUrlLogo(comment.getBusinessId(),comment.getLogo()));
-            item.setComment(comment);
+            if(comment != null) {
+                comment.setLogo(PicUrlMaker.makePicUrlLogo(comment.getBusinessId(),comment.getLogo()));
+                item.setComment(comment);
+            }
         }
 
         return list;
