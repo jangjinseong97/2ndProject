@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -92,8 +93,8 @@ public class BusinessController {
 
     @DeleteMapping("businessPic")
     @Operation(summary = "업체 사진 삭제")
-    public ResultResponse<Integer> delBusinessPic(@RequestBody long businessId ) {
-        int result = businessService.delBusinessPic(businessId);
+    public ResultResponse<Integer> delBusinessPic(@Valid @ParameterObject @ModelAttribute long businessPicId ) {
+        int result = businessService.delBusinessPic(businessPicId);
         return ResultResponse.<Integer>builder().resultData(result).resultMessage("해당 업체 사진 삭제").build();
     }
 

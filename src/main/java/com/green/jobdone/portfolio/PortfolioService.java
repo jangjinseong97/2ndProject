@@ -81,8 +81,8 @@ public class PortfolioService {
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
     }
 
-    public int delPortfolioPic(long portfolioId) {
-        return portfolioMapper.delPortfolioPic(portfolioId);
+    public int delPortfolioPic(long portfolioPicId) {
+        return portfolioMapper.delPortfolioPic(portfolioPicId);
     }
 
     public int delPortfolio(long portfolioId) {

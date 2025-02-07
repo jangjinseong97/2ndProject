@@ -21,6 +21,6 @@ public interface PortfolioMapper {
     //pic
     int insPortfolioPic(PortfolioPicDto p);
     List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p);
-    int delPortfolioPic(long portfolioId);
+    int delPortfolioPic(long portfolioPicId);
 }
 
