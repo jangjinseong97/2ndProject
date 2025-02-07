@@ -61,11 +61,11 @@ public class PayController {
 
     @GetMapping("/success")
     @Operation(summary = "결제 성공 후 완료 메세지 보내기")
-    public ResponseEntity<KakaoPayRes> paySuccess(@RequestParam("pg_token") String pgToken, @RequestParam("service_id") Long serviceId) {
+    public ResponseEntity<String> paySuccess(@RequestParam("pg_token") String pgToken, @RequestParam("service_id") Long serviceId) {
         log.info("pgToken: {} ",pgToken);
 
 
-        KakaoPayRes kakaoPayRes = payService.payRes(pgToken, serviceId);
+        String kakaoPayRes = payService.payRes(pgToken, serviceId);
 
 
         return new ResponseEntity<>(kakaoPayRes, HttpStatus.OK);

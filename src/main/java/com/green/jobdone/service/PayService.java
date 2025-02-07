@@ -92,10 +92,8 @@ public class PayService {
     }
 
     @Transactional
-    public KakaoPayRes payRes(String pgToken, Long serviceId){
-
-
-
+    public String payRes(String pgToken, Long serviceId){
+        log.info("serviceId: {}",serviceId);
 
         // 요청 전송
 //        String tid = (String)SessionUtil.getAttribute("tid");
@@ -106,6 +104,7 @@ public class PayService {
 //        String tid = "1";
 //        Long serviceId = null;
         KakaoPayDto kakaoPayDto = serviceMapper.serviceInfo(serviceId);
+        log.info("kakaoPayDto: {}", kakaoPayDto);
 
         Map<String,String> params = new HashMap<>();
         params.put("cid",kaKaoPay.getCid());
@@ -129,6 +128,6 @@ public class PayService {
         if(res==0){
             throw new RuntimeException();
         }
-        return kakaoPayRes;
+        return "http://localhost:8080/swagger";
     }
 }
