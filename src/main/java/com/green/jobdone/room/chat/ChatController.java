@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +23,7 @@ import java.util.List;
 public class ChatController {
     private final ChatService chatService;
 
-    @Operation
+    @Operation(summary = " 소켓사용시 미사용")
     @PostMapping
     public ResultResponse<Integer> inChat2(@RequestPart(required = false) List<MultipartFile> pics, @RequestPart ChatPostReq p){
         int res = chatService.insChat(pics, p);
@@ -32,7 +33,7 @@ public class ChatController {
                 .resultData(res)
                 .build();
     }
-    @Operation(summary = "채팅 보내기")
+    @Operation(summary = "채팅 보내기  소켓사용시 미사용")
     @PostMapping("form-data")
     public ResultResponse<Integer> insChat(@RequestBody ChatDto p){
         List<MultipartFile> pics = p.getPics();
@@ -44,7 +45,7 @@ public class ChatController {
                 .resultData(res)
                 .build();
     }
-    @Operation(summary = "채팅보내기")
+    @Operation(summary = "채팅보내기  소켓사용시 미사용")
     @PostMapping("test")
     public ResultResponse<Long> insertChat(@RequestBody ChatPostReq p){
         long res = chatService.insertChat(p);
@@ -53,7 +54,7 @@ public class ChatController {
                 .resultData(res)
                 .build();
     }
-    @Operation(summary = "채팅 사진보내기")
+    @Operation(summary = "채팅 사진보내기 소켓사용시 미사용")
     @PostMapping("pic")
     public ResultResponse<Integer> insChat(List<MultipartFile> pics, long roomId){
         return ResultResponse.<Integer>builder()
@@ -65,7 +66,7 @@ public class ChatController {
 
     @Operation(summary = "채팅 조회")
     @GetMapping
-    public ResultResponse<List<ChatGetRes>> getRoomChat(@ModelAttribute ChatGetReq p){
+    public ResultResponse<List<ChatGetRes>> getRoomChat(@ParameterObject @ModelAttribute ChatGetReq p){
         List<ChatGetRes> res = chatService.selRoomChat(p);
 
         return ResultResponse.<List<ChatGetRes>>builder()
