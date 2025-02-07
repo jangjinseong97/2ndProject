@@ -11,7 +11,7 @@
     <select id="selReviewWithPicList">
         SELECT T1.*, T2.pic, T2.reviewPicId
         FROM (
-        SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt, E.userId
+        SELECT F.businessId, A.reviewId, A.`contents`, A.score, A.createdAt,B.serviceId, E.userId
         , E.name, E.pic AS writerPic, D.detailTypeName, AVG(A.score) OVER(PARTITION BY F.businessId) AS averageScore
         FROM review A
         JOIN service B

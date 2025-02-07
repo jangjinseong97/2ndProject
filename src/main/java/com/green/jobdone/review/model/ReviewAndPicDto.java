@@ -12,6 +12,7 @@ public class ReviewAndPicDto {
     private String contents;
     private double score;
     private String createdAt;
+    private long serviceId;
     private long userId;
     private String name;
     private String writerPic;
