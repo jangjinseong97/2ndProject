@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.jobdone.common.KaKaoPay;
 import com.green.jobdone.service.model.Dto.KakaoPayDto;
+import com.green.jobdone.service.model.Dto.SessionUtil;
 import com.green.jobdone.service.model.KakaoPayRedayRes;
 import com.green.jobdone.service.model.KakaoPayRes;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -54,9 +57,9 @@ public class PayService {
         params.put("total_amount", kakaoPayDto.getPrice()); // 총 금액
         params.put("vat_amount", kakaoPayDto.getPrice()/10); // 부가세
         params.put("tax_free_amount", 0); // 비과세 금액
-        params.put("approval_url", "https://developers.kakao.com/success"); // 결제 성공 시 이동할 URL
-        params.put("cancel_url", "https://developers.kakao.com/cancel"); // 결제 취소 시 이동할 URL
-        params.put("fail_url", "https://developers.kakao.com/fail"); // 결제 실패 시 이동할 URL
+        params.put("approval_url", "http://192.168.0.190:8080/api/payment/success"); // 결제 성공 시 이동할 URL
+        params.put("cancel_url", "http://localhost:8080/api/payment/cancel"); // 결제 취소 시 이동할 URL
+        params.put("fail_url", "http://localhost:8080/api/payment/fail"); // 결제 실패 시 이동할 URL
 
         log.info("params : {}", params);
 
@@ -84,9 +87,18 @@ public class PayService {
     }
 
     @Transactional
-    public KakaoPayRes payRes(String pgToken, long serviceId, String tid){
+    public KakaoPayRes payRes(String pgToken, HttpSession session){
         // 요청 전송
+//        String tid = (String)SessionUtil.getAttribute("tid");
+//        Long serviceId = (Long)SessionUtil.getAttribute("serviceId");
 
+        String tid = (String)session.getAttribute("tid");
+        Long serviceId = (Long) session.getAttribute("serviceId");
+//        String tid = "1";
+//        Long serviceId = null;
+        if(tid==null || serviceId==null){
+            throw new RuntimeException("잘못된 형식입니다.");
+        }
         KakaoPayDto kakaoPayDto = serviceMapper.serviceInfo(serviceId);
 
         Map<String,String> params = new HashMap<>();
