@@ -14,7 +14,7 @@ public class ServiceGetReq extends Paging {
     @Schema(name = "user_id", description = "사용자 이용한 서비스")
     @JsonIgnore
     private Long userId;
-    @Schema(name = "business_id", description = "업체 제공한 서비스")
+    @Schema(name = "business_id", description = "업체 제공한 서비스 미기입시 사용자가 이용한 서비스 조회")
     private Long businessId;
     @Schema(description = "예약0 결제1 견적2 마이페이지3")
     @NotNull(message = "status 는 필수로 입력해야 됩니다.")
