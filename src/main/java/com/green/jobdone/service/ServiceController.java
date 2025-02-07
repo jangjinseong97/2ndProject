@@ -22,10 +22,11 @@ public class ServiceController {
     private final ServiceService serviceService;
     @Operation(summary = "예약하기 세차같은경우 평수에 0기입")
     @PostMapping
-    public ResultResponse<Long> postService(@Valid @RequestBody ServicePostReq p ){
+    public ResultResponse<ServicePostRes> postService(@Valid @RequestBody ServicePostReq p ){
         int res = serviceService.postService(p);
-        Long res1 = p.getServiceId();
-        return ResultResponse.<Long>builder()
+        ServicePostRes res1 = new ServicePostRes();
+        res1.setServiceId(p.getServiceId());
+        return ResultResponse.<ServicePostRes>builder()
                 .resultData(res1)
                 .resultMessage(res1 == null ? "예약 실패" : "예약 성공")
                 .build();
