@@ -37,7 +37,7 @@ public class BusinessService {
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
 
 @Transactional
-    public int insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
+    public long insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
 
         long userId = authenticationFacade.getSignedUserId();
         p.setSignedUserId(userId);
@@ -57,9 +57,10 @@ public class BusinessService {
 //        }
 
 
-        if (paper==null) {
+        if (paper==null || logo==null) {
             return businessMapper.insBusiness(p);
         }
+
 
         String paperPath = String.format("business/%d/paper",p.getBusinessId());
         String logoPath = String.format("business/%d/logo",p.getBusinessId());
