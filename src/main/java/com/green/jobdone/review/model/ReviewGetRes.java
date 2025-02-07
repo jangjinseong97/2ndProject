@@ -21,6 +21,8 @@ public class ReviewGetRes {
     private double score;
     @Schema(title = "리뷰 생성일시")
     private String createdAt;
+    @Schema(title = "서비스 PK")
+    private long serviceId;
     @Schema(title = "작성자 유저 PK")
     private long userId;
     @Schema(title = "작성자 유저 이름")
