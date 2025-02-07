@@ -49,12 +49,12 @@ public class PortfolioService {
     @Transactional
     public PortfolioPicPostRes insPortfolioPic(List<MultipartFile> pics,long businessId, long portfolioId) {
 
-        long signedUserId =authenticationFacade.getSignedUserId();
-
-        long userId = businessMapper.existBusinessId(businessId);
-        if (userId != signedUserId){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
-        }
+//        long signedUserId =authenticationFacade.getSignedUserId();
+//
+//        long userId = businessMapper.existBusinessId(businessId);
+//        if (userId != signedUserId){
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+//        }
 
 
         String middlePath = String.format("business/%d/portfolio/%d/pics", businessId, portfolioId);

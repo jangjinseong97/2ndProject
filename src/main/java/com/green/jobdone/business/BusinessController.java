@@ -37,7 +37,7 @@ public class BusinessController {
 
         return ResultResponse.<Long>builder()
                 .resultData(p.getBusinessId())
-                .resultMessage(result != 0? "업체 등록 완료" : "싯빠이")
+                .resultMessage(result != 0? "업체 등록 완료" : "죽어라 그냥")
                 .build();
     }
 
