@@ -44,12 +44,12 @@ public class BusinessService {
 
         // 사업자 등록번호 유효성 체크
         if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
-            throw new IllegalArgumentException("사업자 등록번호가 유효하지 않습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"유효하지 않은 사업자 번호입니다");
         }
         //사업자 등록번호 중복체크
         int exists = businessMapper.existBusinessNum(p.getBusinessNum());
         if (exists > 0) {
-            throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"이미 등록된 사업자 번호입니다");
         }
 
 //        if (userId == 0){
