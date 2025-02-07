@@ -19,6 +19,10 @@ public class ReviewCommentService {
         if(reviewCommentMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
             throw new CustomException(ReviewErrorCode.FAIL_TO_REG_COMMENT);
         }
+        ReviewCommentGetRes res = reviewCommentMapper.selReviewCommentByReviewId(p.getReviewId());
+        if(res != null) {
+            throw new CustomException(ReviewErrorCode.FAIL_TO_REG_COMMENT_EXIST);
+        }
         p.setUserId(authenticationFacade.getSignedUserId());
         reviewCommentMapper.insReviewComment(p);
         return p.getCommentId();
