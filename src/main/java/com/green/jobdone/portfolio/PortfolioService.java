@@ -98,8 +98,8 @@ public class PortfolioService {
         List<PortfolioListGetRes> res = portfolioMapper.selAllPortfolioList(p);
 
         for (PortfolioListGetRes r : res) {
-            String picUrl = PicUrlMaker.makePicUrlPortfolio(r.getBusinessId(),r.getPortfolioId(),r.getIsThumnail());
-            r.setIsThumnail(picUrl);
+            String picUrl = PicUrlMaker.makePicUrlPortfolio(r.getBusinessId(),r.getPortfolioId(),r.getIsThumbnail());
+            r.setIsThumbnail(picUrl);
         }
 
         return res;
