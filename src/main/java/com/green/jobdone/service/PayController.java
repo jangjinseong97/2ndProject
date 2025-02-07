@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RequiredArgsConstructor
 @RestController
@@ -61,14 +62,10 @@ public class PayController {
 
     @GetMapping("/success")
     @Operation(summary = "결제 성공 후 완료 메세지 보내기")
-    public ResponseEntity<String> paySuccess(@RequestParam("pg_token") String pgToken, @RequestParam("service_id") Long serviceId) {
+    public RedirectView paySuccess(@RequestParam("pg_token") String pgToken, @RequestParam("service_id") Long serviceId) {
         log.info("pgToken: {} ",pgToken);
 
-
-        String kakaoPayRes = payService.payRes(pgToken, serviceId);
-
-
-        return new ResponseEntity<>(kakaoPayRes, HttpStatus.OK);
+        return payService.payRes(pgToken, serviceId);
     }
 
     @GetMapping("/cancel")
