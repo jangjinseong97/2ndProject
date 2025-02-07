@@ -152,6 +152,12 @@
         where a.serviceId = #{serviceId}
     </select>
 
+    <update id="saveTid">
+        update service
+        set tid = #{tid}
+        where serviceId = #{serviceId}
+    </update>
+
     <update id="updService">
         update service
         <set>
@@ -241,7 +247,7 @@
 
 
     <select id="serviceInfo">
-        select a.userId, a.price, c.detailTypeName as productName
+        select a.userId, a.price, c.detailTypeName as productName, ifnull(a.tid,0) as tid
         from service a
         join product b on a.productId = b.productId
         join detail_type c on b.detailTypeId = c.detailTypeId

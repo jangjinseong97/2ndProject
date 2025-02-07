@@ -1,6 +1,7 @@
 package com.green.jobdone.service.model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 @Data
 public class KakaoPayRedayRes {

@@ -237,8 +237,8 @@ public class BusinessService {
     }
 
 
-    public int delBusinessPic(long businessId) {
-    return businessMapper.delBusinessPic(businessId);
+    public int delBusinessPic(long businessPicId) {
+    return businessMapper.delBusinessPic(businessPicId);
     }
 
     //업체 조회하기
