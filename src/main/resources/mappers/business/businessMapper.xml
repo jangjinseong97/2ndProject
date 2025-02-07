@@ -38,14 +38,14 @@
             <if test=" title != null and title != ''">
                 ,contents = #{contents}
             </if>
-            <if test="closeTime != null and closeTime != ''">
-                ,closeTime = #{closeTime}
+            <if test="closingTime != null and closingTime != ''">
+                ,closingTime = #{closingTime}
             </if>
-            <if test="openTime != null and openTime != ''">
-                ,openTime = #{openTime}
+            <if test="openingTime != null and openingTime != ''">
+                ,openingTime = #{openingTime}
             </if>
         </set>
-        WHERE businessId = #{businessId} and userId = #{userId}
+        WHERE businessId = #{businessId} and userId = #{signedUserId}
     </update>
 
     <insert id="insBusinessPic" useGeneratedKeys="true" keyProperty="businessPicId">
