@@ -34,12 +34,12 @@ public class PortfolioService {
     // 포폴 만들기
     public int insPortfolio(PortfolioPostReq p){
 
-        long signedUserId =authenticationFacade.getSignedUserId();
-
-        long userId = businessMapper.existBusinessId(p.getBusinessId());
-        if (userId != signedUserId){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
-        }
+//        long signedUserId =authenticationFacade.getSignedUserId();
+//
+//        long userId = businessMapper.existBusinessId(p.getBusinessId());
+//        if (userId != signedUserId){
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+//        }
 
         return portfolioMapper.insPortfolio(p);
 
@@ -92,12 +92,12 @@ public class PortfolioService {
     //포폴 수정하기
     public int udtPortfolio(PortfolioPutReq p){
 
-        long signedUserId =authenticationFacade.getSignedUserId();
-
-        long userId = businessMapper.existBusinessId(p.getBusinessId());
-        if (userId != signedUserId){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
-        }
+//        long signedUserId =authenticationFacade.getSignedUserId();
+//
+//        long userId = businessMapper.existBusinessId(p.getBusinessId());
+//        if (userId != signedUserId){
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
+//        }
         return portfolioMapper.udtPortfolio(p);
     }
 
