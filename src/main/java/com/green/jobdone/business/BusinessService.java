@@ -37,19 +37,19 @@ public class BusinessService {
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
 
 @Transactional
-    public int insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
+    public long insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
 
         long userId = authenticationFacade.getSignedUserId();
         p.setSignedUserId(userId);
 
         // 사업자 등록번호 유효성 체크
         if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
-            throw new IllegalArgumentException("사업자 등록번호가 유효하지 않습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"유효하지 않은 사업자 번호입니다");
         }
         //사업자 등록번호 중복체크
         int exists = businessMapper.existBusinessNum(p.getBusinessNum());
         if (exists > 0) {
-            throw new IllegalArgumentException("이미 등록된 사업자 번호입니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"이미 등록된 사업자 번호입니다");
         }
 
 //        if (userId == 0){
@@ -57,9 +57,10 @@ public class BusinessService {
 //        }
 
 
-        if (paper==null) {
+        if (paper==null || logo==null) {
             return businessMapper.insBusiness(p);
         }
+
 
         String paperPath = String.format("business/%d/paper",p.getBusinessId());
         String logoPath = String.format("business/%d/logo",p.getBusinessId());

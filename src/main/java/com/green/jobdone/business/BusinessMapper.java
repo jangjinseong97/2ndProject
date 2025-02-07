@@ -14,7 +14,7 @@ import java.util.List;
 
 @Mapper
 public interface BusinessMapper {
-    int insBusiness(BusinessPostSignUpReq p); //
+    long insBusiness(BusinessPostSignUpReq p); //
     int udtBusiness(BusinessDetailPutReq p);
     int udtBusinessLogo(BusinessLogoPatchReq p);
     int udtBusinessPaper(BusinessPaperPatchReq p);
