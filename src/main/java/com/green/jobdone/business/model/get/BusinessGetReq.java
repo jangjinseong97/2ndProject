@@ -21,4 +21,7 @@ public class BusinessGetReq {
 
     @Schema(title = "정렬 기준", description = "latest(최신순), rating(별점순), order(주문순), price(가격순)")
     private String sortType;
+
+    @Schema(title = "검색어", description = "청소")
+    private String searchTerm;
 }

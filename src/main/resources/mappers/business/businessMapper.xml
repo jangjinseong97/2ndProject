@@ -139,6 +139,9 @@
         <if test="detailTypeId != null">
             AND d.detailTypeId = #{detailTypeId}
         </if>
+        <if test="searchTerm != null">
+            AND b.title like '%${searchTerm}%'
+        </if>
         GROUP BY b.businessId
 
         <choose>
