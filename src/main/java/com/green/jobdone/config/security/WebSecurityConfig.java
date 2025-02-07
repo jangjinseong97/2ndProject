@@ -71,7 +71,9 @@ public class WebSecurityConfig {
                                 //찜쪽
                                 .requestMatchers("/api/like").authenticated()
                                 //카테고리쪽
+                                .requestMatchers(HttpMethod.GET,"/api/category/**").permitAll()
                                 .requestMatchers("/api/category").authenticated()
+
                                 //포트폴리오쪽
                                 .requestMatchers(HttpMethod.GET,"/api/portfolio/**").permitAll()
                                 .requestMatchers("/api/portfolio/**").hasAnyRole(
