@@ -11,5 +11,6 @@ public class KakaoPayDto {
     private long userId;
     private String productName;
     private int price;
+    private String tid;
 
 }
