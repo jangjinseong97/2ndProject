@@ -23,7 +23,7 @@
 
     <delete id="delPortfolioPic">
         delete from portfolio_pic
-        where portfolioId = #{portfolioId}
+        where portfolioPicId = #{portfolioPicId}
     </delete>
 
     <delete id="delPortfolio">

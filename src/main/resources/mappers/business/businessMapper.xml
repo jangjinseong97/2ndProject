@@ -208,7 +208,7 @@
 
     <delete id="delBusinessPic">
         delete from business_pic
-        where businessId = #{businessId}
+        where businessPicId = #{businessPicId}
     </delete>
 
 

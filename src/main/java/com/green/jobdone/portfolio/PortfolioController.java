@@ -8,8 +8,10 @@ import com.green.jobdone.portfolio.model.PortfolioPutReq;
 import com.green.jobdone.portfolio.model.get.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,14 +47,14 @@ public class PortfolioController {
 
     @DeleteMapping("portfolioPic")
     @Operation(summary = "포폴 사진 삭제")
-    public ResultResponse<Integer> delPortfolioPic(@RequestBody long portfolioId) {
-        int res = portfolioService.delPortfolioPic(portfolioId);
+    public ResultResponse<Integer> delPortfolioPic(@Valid @ParameterObject @ModelAttribute long portfolioPicId) {
+        int res = portfolioService.delPortfolioPic(portfolioPicId);
         return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 사진 삭제 완료").build();
     }
 
     @DeleteMapping("{portfolioId}")
     @Operation(summary = "포폴 삭제")
-    public ResultResponse<Integer> delPortfolio(@RequestBody long portfolioId) {
+    public ResultResponse<Integer> delPortfolio(@Valid @ParameterObject @ModelAttribute long portfolioId) {
         int res = portfolioService.delPortfolio(portfolioId);
         return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 삭제 완").build();
     }
