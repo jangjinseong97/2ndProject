@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class PayService {
     }
 
     @Transactional
-    public String payRes(String pgToken, Long serviceId){
+    public RedirectView payRes(String pgToken, Long serviceId){
         log.info("serviceId: {}",serviceId);
 
         // 요청 전송
@@ -128,6 +129,8 @@ public class PayService {
         if(res==0){
             throw new RuntimeException();
         }
-        return "http://localhost:8080/swagger";
+        String redirectUrl = "http://localhost:8080/swagger";
+        return new RedirectView(redirectUrl);
+        // 여기 만나서 바로 이동하는식
     }
 }
