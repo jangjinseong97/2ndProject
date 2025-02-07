@@ -206,5 +206,10 @@
         where p.businessId = #{businessId}
     </select>
 
+    <delete id="delBusinessPic">
+        delete from business_pic
+        where businessId = #{businessId}
+    </delete>
+
 
 </mapper>
