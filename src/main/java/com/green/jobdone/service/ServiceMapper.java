@@ -26,4 +26,5 @@ public interface ServiceMapper {
     int updServiceEtc(ServicePutReq p);
     KakaoPayDto serviceInfo(Long serviceId);
     int payCompleted(long serviceId);
+    void saveTid(Long serviceId, String tid);
 }
