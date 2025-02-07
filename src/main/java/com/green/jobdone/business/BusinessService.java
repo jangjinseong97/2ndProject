@@ -237,6 +237,10 @@ public class BusinessService {
     }
 
 
+    public int delBusinessPic(long businessId) {
+    return businessMapper.delBusinessPic(businessId);
+    }
+
     //업체 조회하기
     // 1. 업체 리스트 조회
     public List<BusinessGetRes> getBusinessList(BusinessGetReq p) {
