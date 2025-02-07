@@ -62,17 +62,22 @@ public class ServiceService {
     @Transactional
     public ServiceGetOneRes getOneService(ServiceGetOneReq p){
         log.info("p:{}",p);
+        Long businessId = p.getBusinessId();
+        // 13으로 찍힘
 
         if(p.getServiceId()==0){
             return null;
         }
-
         ServiceGetOneRes res = serviceMapper.GetServiceOne(p);
         Long userId = authenticationFacade.getSignedUserId();
-        if(p.getBusinessId()==null && res.getUserId()!=userId) {
+        // 토큰의 userId
+
+        if(businessId==null && res.getUserId()!=userId) {
             throw new CustomException(ServiceErrorCode.USER_MISMATCH);
         }
-        if(!userId.equals(serviceMapper.findUserId(p.getBusinessId()))) {
+        log.info("businessId:{}",businessId);
+        if(businessId != null && !userId.equals(serviceMapper.findUserId(businessId))) {
+            // 토큰의 userId랑 businessId를 이용한 조회(userId) 다르면 리턴
             throw new CustomException(ServiceErrorCode.BUSINESS_OWNER_MISMATCH);
         }
 

@@ -27,6 +27,7 @@
     <resultMap id="serviceFlow" type="com.green.jobdone.service.model.ServiceGetOneRes">
         <id property="serviceId" column="serviceId"/>
         <result property="userName" column="userName"/>
+        <result property="userId" column="userId"/>
         <result property="userPhone" column="userPhone" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
         <result property="businessName" column="businessName"/>
         <result property="detailTypeName" column="detailTypeName"/>
