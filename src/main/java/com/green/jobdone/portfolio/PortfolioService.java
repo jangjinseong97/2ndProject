@@ -4,10 +4,7 @@ import com.green.jobdone.business.BusinessMapper;
 import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.config.security.AuthenticationFacade;
-import com.green.jobdone.portfolio.model.PortfolioPicDto;
-import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
-import com.green.jobdone.portfolio.model.PortfolioPostReq;
-import com.green.jobdone.portfolio.model.PortfolioPutReq;
+import com.green.jobdone.portfolio.model.*;
 import com.green.jobdone.portfolio.model.get.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -80,13 +77,19 @@ public class PortfolioService {
 
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
     }
+    //포폴사진삭제
+    public int delPortfolioPic(PortfolioPicDelReq p) {
+        String portfolioPicName = portfolioMapper.getPortfolioPicName(p.getPortfolioId());
+        String filePath = String.format("business/%d/portfolio/%d/pics/%s", p.getBusinessId(), p.getPortfolioId(), portfolioPicName);
 
-    public int delPortfolioPic(long portfolioPicId) {
-        return portfolioMapper.delPortfolioPic(portfolioPicId);
+        myFileUtils.deleteFile(filePath);
+        return portfolioMapper.delPortfolioPic(p);
     }
+    // 포폴 삭제 -> 사진폴더 통으로 날려버리기
+    public int delPortfolio(PortfolioDelReq p) {
 
-    public int delPortfolio(long portfolioId) {
-        return portfolioMapper.delPortfolio(portfolioId);
+        myFileUtils.deleteFolder(String.format("business/%d/portfolio/%d", p.getBusinessId(), p.getPortfolioId()),true);
+        return portfolioMapper.delPortfolio(p);
     }
 
     //포폴 수정하기

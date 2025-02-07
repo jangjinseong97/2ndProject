@@ -1,13 +1,13 @@
-package com.green.jobdone.business.model;
+package com.green.jobdone.portfolio.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @ToString
-public class BusinessPicDelReq {
+public class PortfolioDelReq {
     private long businessId;
-    private long businessPicId;
+    private long portfolioId;
 }
