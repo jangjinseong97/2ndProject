@@ -90,9 +90,11 @@ public class BusinessService {
 
 
     public int udtBusiness(BusinessDetailPutReq p) {
-        long signedUserId =authenticationFacade.getSignedUserId();
 
         long userId = businessMapper.existBusinessId(p.getBusinessId());
+
+        long signedUserId =authenticationFacade.getSignedUserId();
+        p.setSignedUserId(signedUserId);
         if (userId != signedUserId){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
         }

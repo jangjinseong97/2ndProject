@@ -10,14 +10,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BusinessDetailPutReq {
+    @JsonIgnore
+    private long signedUserId;
 
     @Schema(title = "업체 pk", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
     private long businessId;
-
     @Schema(title = "오픈 시간", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String openTime;
+    private String openingTime;
     @Schema(title = "마감 시간", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String closeTime;
+    private String closingTime;
 
 
     @Schema(title = "업체 간단 설명", example = "벌레 잡아드립니다", requiredMode = Schema.RequiredMode.REQUIRED)
