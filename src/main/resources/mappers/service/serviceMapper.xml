@@ -155,7 +155,7 @@
     <update id="saveTid">
         update service
         set tid = #{tid}
-        where serviceId = #[serviceId}
+        where serviceId = #{serviceId}
     </update>
 
     <update id="updService">
