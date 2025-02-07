@@ -88,7 +88,8 @@ public class ReviewService {
                 beforeReviewGetRes.setReviewId(reviewAndPicDto.getReviewId());
                 beforeReviewGetRes.setContents(reviewAndPicDto.getContents());
                 beforeReviewGetRes.setScore(reviewAndPicDto.getScore());
-                beforeReviewGetRes.setCreatedAt(reviewAndPicDto.getCreatedAt());
+                String createdAt = reviewAndPicDto.getCreatedAt().substring(0,10);
+                beforeReviewGetRes.setCreatedAt(createdAt);
                 beforeReviewGetRes.setUserId(reviewAndPicDto.getUserId());
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
                 beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
