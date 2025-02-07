@@ -28,10 +28,10 @@
         <id property="serviceId" column="serviceId"/>
         <result property="userName" column="userName"/>
         <result property="userId" column="userId"/>
-        <result property="userPhone" column="userPhone" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="userPhone" column="userPhone"/>
         <result property="businessName" column="businessName"/>
         <result property="detailTypeName" column="detailTypeName"/>
-        <result property="address" column="address" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="address" column="address"/>
         <result property="businessAddress" column="businessAddress"/>
         <result property="businessPhone" column="businessPhone"/>
         <result property="price" column="price"/>
@@ -43,10 +43,10 @@
         <result property="mStartTime" column="mStartTime"/>
         <result property="mEndTime" column="mEndTime"/>
         <result property="pyeong" column="pyeong"/>
-        <result property="businessNum" column="businessNum" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="businessNum" column="businessNum"/>
         <result property="createdAt" column="createdAt"/>
         <result property="updatedAt" column="updatedAt"/>
-        <result property="categoryName" column="categoryName" javaType="java.lang.String"  typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
+        <result property="categoryName" column="categoryName"/>
         <collection property="options" resultMap="serviceOption"/>
         <collection property="etc" resultMap="serviceEtc"/>
     </resultMap>
@@ -141,6 +141,9 @@
         </if>
         <if test="status == 4">
             and completed in(6, 7, 8, 9)
+        </if>
+        <if test="searchName!=null">
+            and b.name like '%${searchName}%'
         </if>
     </select>
 

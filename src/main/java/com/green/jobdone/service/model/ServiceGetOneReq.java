@@ -14,6 +14,7 @@ public class ServiceGetOneReq {
 
     @NotNull(message = "서비스 pk값은 필수 입니다.")
     private long serviceId;
+    @Schema(description = "업체가 서비스를 조회할 때 기입")
     private Long businessId;
 
 }
