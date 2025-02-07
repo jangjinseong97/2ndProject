@@ -27,6 +27,7 @@ public interface BusinessMapper {
     int insBusinessPic(BusinessPicDto p);
     int putBusinessPic(long businessPicId);
     List<BusinessOnePicsGetRes> getBusinessPicList(BusinessOnePicsGetReq p);
+    int delBusinessPic(long businessPicId);
 
     //state
     int putBusinessState(BusinessStatePutReq p);

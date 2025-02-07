@@ -21,6 +21,16 @@
         </foreach>
     </insert>
 
+    <delete id="delPortfolioPic">
+        delete from portfolio_pic
+        where portfolioId = #{portfolioId}
+    </delete>
+
+    <delete id="delPortfolio">
+        delete from portfolio
+        where portfolioId = #{portfolioId}
+    </delete>
+
     <update id="udtPortfolio">
         update portfolio
         <set>

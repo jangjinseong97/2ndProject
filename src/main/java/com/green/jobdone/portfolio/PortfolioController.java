@@ -43,6 +43,20 @@ public class PortfolioController {
                 .build();
     }
 
+    @DeleteMapping("portfolioPic")
+    @Operation(summary = "포폴 사진 삭제")
+    public ResultResponse<Integer> delPortfolioPic(@RequestBody long portfolioId) {
+        int res = portfolioService.delPortfolioPic(portfolioId);
+        return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 사진 삭제 완료").build();
+    }
+
+    @DeleteMapping("{portfolioId}")
+    @Operation(summary = "포폴 삭제")
+    public ResultResponse<Integer> delPortfolio(@RequestBody long portfolioId) {
+        int res = portfolioService.delPortfolio(portfolioId);
+        return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 삭제 완").build();
+    }
+
     @PutMapping
     @Operation(summary = "포폴 수정")
     public ResultResponse<Integer> udtPortfolioPut(PortfolioPutReq p) {

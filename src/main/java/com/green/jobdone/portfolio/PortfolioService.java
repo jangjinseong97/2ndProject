@@ -81,6 +81,14 @@ public class PortfolioService {
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
     }
 
+    public int delPortfolioPic(long portfolioId) {
+        return portfolioMapper.delPortfolioPic(portfolioId);
+    }
+
+    public int delPortfolio(long portfolioId) {
+        return portfolioMapper.delPortfolio(portfolioId);
+    }
+
     //포폴 수정하기
     public int udtPortfolio(PortfolioPutReq p){
 

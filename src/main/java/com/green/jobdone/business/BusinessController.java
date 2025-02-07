@@ -90,6 +90,13 @@ public class BusinessController {
                 .build();
     }
 
+    @DeleteMapping("businessPic")
+    @Operation(summary = "업체 사진 삭제")
+    public ResultResponse<Integer> delBusinessPic(@RequestBody long businessId ) {
+        int result = businessService.delBusinessPic(businessId);
+        return ResultResponse.<Integer>builder().resultData(result).resultMessage("해당 업체 사진 삭제").build();
+    }
+
     @PutMapping("pic")
     @Operation(summary = "사진 유형 수정")
     public ResultResponse<Integer> putBusinessPic(BusinessGetOneReq p) {
