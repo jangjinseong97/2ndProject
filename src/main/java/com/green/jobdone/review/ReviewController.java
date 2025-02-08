@@ -22,6 +22,11 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
 
+    @PostMapping("/Img")
+    public void postImg(@RequestPart MultipartFile pic) {
+        reviewService.postImg(pic);
+    }
+
     @PostMapping
     @Operation(summary = "리뷰 등록", description = "필수: 사진리스트 || 옵션: 별점, 내용")
     public ResultResponse<ReviewPostRes> postReview(@RequestPart List<MultipartFile> pics

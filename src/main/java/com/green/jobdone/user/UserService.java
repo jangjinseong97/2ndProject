@@ -44,7 +44,7 @@ public class UserService {
             throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
 
-        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
+        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : "img.jpg");
 
 
         String hashedPassword = passwordEncoder.encode(p.getUpw());
@@ -153,8 +153,11 @@ public class UserService {
 
         UserInfoGetRes res = mapper.getUserInfo(userId);
 
-
-        res.setPic(PicUrlMaker.makePicUserUrl(userId, res.getPic()));
+        if(res.getPic().equals("img.jpg")) {
+            res.setPic("/pic/user/defaultImg/img.jpg");
+        } else {
+            res.setPic(PicUrlMaker.makePicUserUrl(userId, res.getPic()));
+        }
 
         return res;
 
