@@ -1,6 +1,7 @@
 package com.green.jobdone.portfolio;
 
 import com.green.jobdone.business.BusinessMapper;
+import com.green.jobdone.business.model.BusinessStatePutReq;
 import com.green.jobdone.common.MyFileUtils;
 import com.green.jobdone.common.PicUrlMaker;
 import com.green.jobdone.config.security.AuthenticationFacade;
@@ -77,6 +78,16 @@ public class PortfolioService {
 
         return PortfolioPicPostRes.builder().portfolioPicId(portfolioId).pics(portfolioPicList).build();
     }
+
+    public int udtPortfolioPics(PortfolioGetOneReq p) {
+
+        return portfolioMapper.putPortfolioPic(p);
+    }
+    public int udtPortfolioThumbnail(PortfolioPicReq p){
+        return portfolioMapper.udtPortfolioThumbnail(p);
+    }
+
+
     //포폴사진삭제
     public int delPortfolioPic(PortfolioPicDelReq p) {
         String portfolioPicName = portfolioMapper.getPortfolioPicName(p.getPortfolioId());

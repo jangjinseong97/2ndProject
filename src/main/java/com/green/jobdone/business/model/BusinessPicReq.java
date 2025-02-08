@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BusinessPicDelReq {
+public class BusinessPicReq {
     private long businessId;
     private long businessPicId;
 }

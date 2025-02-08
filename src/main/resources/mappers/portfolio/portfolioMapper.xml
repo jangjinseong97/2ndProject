@@ -21,6 +21,18 @@
         </foreach>
     </insert>
 
+    <update id="udtPortfolioThumbnail">
+        <![CDATA[
+        UPDATE portfolio_pic
+        SET state = CASE
+                       WHEN state = 2 THEN 1
+                       WHEN portfolioPicId = #{portfolioPicId} AND portfolioId = #{portfolioId} THEN 2
+                       ELSE state
+                    END
+        WHERE portfolioId = #{portfolioId};
+    ]]>
+    </update>
+
     <delete id="delPortfolioPic">
         delete from portfolio_pic
         where portfolioPicId = #{portfolioPicId}

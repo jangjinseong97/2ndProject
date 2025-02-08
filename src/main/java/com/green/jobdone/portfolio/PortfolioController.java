@@ -1,5 +1,7 @@
 package com.green.jobdone.portfolio;
 
+import com.green.jobdone.business.model.BusinessPicReq;
+import com.green.jobdone.business.model.get.BusinessGetOneReq;
 import com.green.jobdone.common.model.ResultResponse;
 import com.green.jobdone.portfolio.model.*;
 import com.green.jobdone.portfolio.model.get.*;
@@ -40,6 +42,24 @@ public class PortfolioController {
                 .resultMessage(res != null? "포트폴리오 사진 등록":"빠꾸먹음")
                 .resultData(res)
                 .build();
+    }
+
+    @PutMapping("pic")
+    @Operation(summary = "포폴 사진 유형 수정")
+    public ResultResponse<Integer> putPortfolioPic(PortfolioGetOneReq p) {
+        int res =portfolioService.udtPortfolioPics(p);
+
+        return ResultResponse.<Integer>builder()
+                .resultMessage(res == 0? "포폴 사진 수정 실패":"포폴 사진 수정 완료")
+                .resultData(res)
+                .build();
+    }
+
+    @PutMapping("pic/thumbnail")
+    @Operation(summary = "포폴 썸네일 설정")
+    public ResultResponse<Integer> setPortfolioThumbnail(PortfolioPicReq p){
+        int result = portfolioService.udtPortfolioThumbnail(p);
+        return ResultResponse.<Integer>builder().resultData(result).resultMessage("댐").build();
     }
 
     @DeleteMapping("portfolioPic")

@@ -80,6 +80,18 @@
         where businessId = #{businessId}
     </update>
 
+    <update id="udtBusinessThumbnail">
+        <![CDATA[
+        UPDATE business_pic
+        SET state = CASE
+                       WHEN state = 2 THEN 1
+                       WHEN businessPicId = #{businessPicId} AND businessId = #{businessId} THEN 2
+                       ELSE state
+                    END
+        WHERE businessId = #{businessId};
+    ]]>
+    </update>
+
     <update id="udtBusinessLogo">
         update business
 

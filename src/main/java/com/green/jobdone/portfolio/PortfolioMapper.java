@@ -24,5 +24,7 @@ public interface PortfolioMapper {
     List<PortfolioPicGetRes> getPortfolioPicList(PortfolioPicGetReq p);
     int delPortfolioPic(PortfolioPicDelReq p);
     String getPortfolioPicName(long portfolioPicId);
+    int udtPortfolioThumbnail(PortfolioPicReq p);
+    int putPortfolioPic(PortfolioGetOneReq p);
 }
 
