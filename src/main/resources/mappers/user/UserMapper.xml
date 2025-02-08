@@ -50,20 +50,11 @@
 
 
     <select id="postUserSignIn" resultMap="selUserWithRolesResultMap">
-<!--        SELECT a.userId,a.name,a.email,a.type,a.pic,a.upw,a.phone,b.businessId-->
-<!--        FROM user a-->
-<!--        LEFT JOIN business b-->
-<!--        on a.userId=b.userId-->
-<!--        WHERE email=#{email}-->
-<!--        LIMIT 1 &lt;!&ndash; user 가 businessId 여러개면 limit 안넣어주면 에러가 생김, 나중에 3차에서 업체 여러개 등록 되어있으면 list 로 반환해주는거 고려하기 &ndash;&gt;-->
-        SELECT a.userId, a.name, a.email, a.type, a.pic, a.upw, a.phone,
-            (SELECT b.businessId
-            FROM business b
-            WHERE b.userId = a.userId
-            ORDER BY RAND()
-            LIMIT 1) AS businessId
+        SELECT a.userId,a.name,a.email,a.type,a.pic,a.upw,a.phone,b.businessId
         FROM user a
-        WHERE a.email = #{email}
+        LEFT JOIN business b
+        on a.userId=b.userId
+        WHERE email=#{email}
     </select>
 
 
