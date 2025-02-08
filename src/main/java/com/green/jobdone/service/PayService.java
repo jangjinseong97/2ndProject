@@ -118,6 +118,11 @@ public class PayService {
         HttpEntity<Map<String ,String>> requestEntity = new HttpEntity<>(params, getHeaders());
         log.info("requestEntity: {}", requestEntity);
 
+        int res = serviceMapper.payCompleted(serviceId);
+        if(res==0){
+            throw new RuntimeException();
+        }
+
         //외부용 url
         RestTemplate restTemplate = new RestTemplate();
         KakaoPayRes kakaoPayRes = restTemplate.postForObject(
@@ -125,11 +130,7 @@ public class PayService {
                 requestEntity,KakaoPayRes.class);
         log.info("kakaoPayRedayRes: {}", kakaoPayRes);
 
-        int res = serviceMapper.payCompleted(serviceId);
-        if(res==0){
-            throw new RuntimeException();
-        }
-        String redirectUrl = "http://localhost:8080/swagger";
+        String redirectUrl = "http://localhost:8080/paySuccess";
         return new RedirectView(redirectUrl);
         // 여기 만나서 바로 이동하는식
     }
