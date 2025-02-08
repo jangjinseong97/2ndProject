@@ -92,20 +92,19 @@ public class MyFileUtils {
 
     }
 
-    public boolean deleteFile(String path) {   //지정한 경로 폴더 안의 파일만 삭제하는 메소드 추가 24.01.22
-        File dir = new File(uploadPath, path);
-        if (dir.exists() && dir.isDirectory()) {
-            File[] includedFiles = dir.listFiles();
-            if (includedFiles != null) {
-                for (File file : includedFiles) {
-                    if (file.isFile() && !file.delete()) {
-                        return false;
-                    }
-                }
+    public boolean deleteFile(String path) {
+        File file = new File(uploadPath, path);  // 경로와 파일명으로 File 객체 생성
+        if (file.exists() && file.isFile()) {  // 파일이 존재하고 파일인지 확인
+            boolean isDeleted = file.delete();  // 파일 삭제
+            if (isDeleted) {
+                log.info("File successfully deleted: {}", file.getAbsolutePath());
+            } else {
+                log.error("Failed to delete file: {}", file.getAbsolutePath());
             }
-            return true;
+            return isDeleted;  // 삭제 성공 여부 반환
+        } else {
+            log.error("File does not exist or is not a file: {}", file.getAbsolutePath());
+            return false;  // 파일이 존재하지 않거나 파일이 아니면 false 반환
         }
-        return false;
     }
-
 }

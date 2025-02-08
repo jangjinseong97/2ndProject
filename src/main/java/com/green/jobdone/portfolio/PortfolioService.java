@@ -82,7 +82,14 @@ public class PortfolioService {
         String portfolioPicName = portfolioMapper.getPortfolioPicName(p.getPortfolioId());
         String filePath = String.format("business/%d/portfolio/%d/pics/%s", p.getBusinessId(), p.getPortfolioId(), portfolioPicName);
 
-        myFileUtils.deleteFile(filePath);
+        log.info("Generated file path: {}", filePath);  // 경로 출력
+
+        // 파일 삭제 시도
+        if (myFileUtils.deleteFile(filePath)) {  // 단일 파일 삭제 시도
+            log.info("File successfully deleted: {}", filePath);  // 삭제 성공 로그
+        } else {
+            log.error("Failed to delete file: {}", filePath);  // 삭제 실패 로그
+        }
         return portfolioMapper.delPortfolioPic(p);
     }
     // 포폴 삭제 -> 사진폴더 통으로 날려버리기

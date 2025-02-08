@@ -55,6 +55,7 @@
         LEFT JOIN business b
         on a.userId=b.userId
         WHERE email=#{email}
+        limit 1
     </select>
 
 
