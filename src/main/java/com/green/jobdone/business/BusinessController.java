@@ -37,7 +37,7 @@ public class BusinessController {
 
         return ResultResponse.<Long>builder()
                 .resultData(p.getBusinessId())
-                .resultMessage(result != 0? "업체 등록 완료" : "싯빠이")
+                .resultMessage(result != 0? "업체 등록 완료" : "죽어라 그냥")
                 .build();
     }
 
@@ -93,8 +93,8 @@ public class BusinessController {
 
     @DeleteMapping("businessPic")
     @Operation(summary = "업체 사진 삭제")
-    public ResultResponse<Integer> delBusinessPic(@Valid @ParameterObject @ModelAttribute long businessPicId ) {
-        int result = businessService.delBusinessPic(businessPicId);
+    public ResultResponse<Integer> delBusinessPic(@Valid @ParameterObject @ModelAttribute BusinessPicDelReq p ) {
+        int result = businessService.delBusinessPic(p);
         return ResultResponse.<Integer>builder().resultData(result).resultMessage("해당 업체 사진 삭제").build();
     }
 

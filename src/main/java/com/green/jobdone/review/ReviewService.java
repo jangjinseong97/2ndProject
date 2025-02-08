@@ -31,6 +31,16 @@ public class ReviewService {
     private final AuthenticationFacade authenticationFacade;
     private final MyFileUtils myFileUtils;
 
+    public void postImg (MultipartFile pic) {
+        myFileUtils.makeFolders("user/defaultImg");
+        String filePath = "user/defaultImg/img.jpg";
+        try {
+            myFileUtils.transferTo(pic, filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Transactional
     public ReviewPostRes postReview (List<MultipartFile> pics, ReviewPostReq p) {
         if(reviewMapper.selUserIdByServiceId(p.getServiceId()) != authenticationFacade.getSignedUserId()) {

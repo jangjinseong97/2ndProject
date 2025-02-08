@@ -214,5 +214,11 @@
         where businessPicId = #{businessPicId}
     </delete>
 
+    <select id="getBusinessPicName">
+        select b.pic
+        from business_pic b
+        where businessPicId = #{businessPicId}
+    </select>
+
 
 </mapper>

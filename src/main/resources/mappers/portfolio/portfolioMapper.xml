@@ -31,6 +31,12 @@
         where portfolioId = #{portfolioId}
     </delete>
 
+    <select id="getPortfolioPicName">
+        select p.pic
+        from portfolio_pic p
+        where portfolioPicId = #{portfolioPicId}
+    </select>
+
     <update id="udtPortfolio">
         update portfolio
         <set>
