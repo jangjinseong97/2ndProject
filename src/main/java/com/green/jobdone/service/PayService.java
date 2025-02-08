@@ -123,14 +123,14 @@ public class PayService {
             throw new RuntimeException();
         }
 
-        //외부용 url
+        // 카톡 메세지 보냄
         RestTemplate restTemplate = new RestTemplate();
         KakaoPayRes kakaoPayRes = restTemplate.postForObject(
                 "https://open-api.kakaopay.com/online/v1/payment/approve",
                 requestEntity,KakaoPayRes.class);
         log.info("kakaoPayRedayRes: {}", kakaoPayRes);
 
-        String redirectUrl = "http://localhost:8080/paySuccess";
+        String redirectUrl = String.format("http://localhost:8080/payResult", serviceId);
         return new RedirectView(redirectUrl);
         // 여기 만나서 바로 이동하는식
     }
