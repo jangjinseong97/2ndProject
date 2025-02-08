@@ -1,10 +1,7 @@
 package com.green.jobdone.portfolio;
 
 import com.green.jobdone.common.model.ResultResponse;
-import com.green.jobdone.portfolio.model.PortfolioPicPostReq;
-import com.green.jobdone.portfolio.model.PortfolioPicPostRes;
-import com.green.jobdone.portfolio.model.PortfolioPostReq;
-import com.green.jobdone.portfolio.model.PortfolioPutReq;
+import com.green.jobdone.portfolio.model.*;
 import com.green.jobdone.portfolio.model.get.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,15 +44,15 @@ public class PortfolioController {
 
     @DeleteMapping("portfolioPic")
     @Operation(summary = "포폴 사진 삭제")
-    public ResultResponse<Integer> delPortfolioPic(@Valid @ParameterObject @ModelAttribute long portfolioPicId) {
-        int res = portfolioService.delPortfolioPic(portfolioPicId);
+    public ResultResponse<Integer> delPortfolioPic(@Valid @ParameterObject @ModelAttribute PortfolioPicDelReq p) {
+        int res = portfolioService.delPortfolioPic(p);
         return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 사진 삭제 완료").build();
     }
 
     @DeleteMapping("{portfolioId}")
     @Operation(summary = "포폴 삭제")
-    public ResultResponse<Integer> delPortfolio(@Valid @ParameterObject @ModelAttribute long portfolioId) {
-        int res = portfolioService.delPortfolio(portfolioId);
+    public ResultResponse<Integer> delPortfolio(@Valid @ParameterObject @ModelAttribute PortfolioDelReq p) {
+        int res = portfolioService.delPortfolio(p);
         return ResultResponse.<Integer>builder().resultData(res).resultMessage("포폴 삭제 완").build();
     }
 

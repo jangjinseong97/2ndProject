@@ -36,20 +36,20 @@ public class BusinessService {
 
     //일단 사업등록하기 한번기입하면 수정불가하는 절대적정보
 
-@Transactional
-    public long insBusiness(MultipartFile paper,MultipartFile logo, BusinessPostSignUpReq p) {
+    @Transactional
+    public long insBusiness(MultipartFile paper, MultipartFile logo, BusinessPostSignUpReq p) {
 
         long userId = authenticationFacade.getSignedUserId();
         p.setSignedUserId(userId);
 
         // 사업자 등록번호 유효성 체크
         if (p.getBusinessNum() == null || p.getBusinessNum().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"유효하지 않은 사업자 번호입니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "유효하지 않은 사업자 번호입니다");
         }
         //사업자 등록번호 중복체크
         int exists = businessMapper.existBusinessNum(p.getBusinessNum());
         if (exists > 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"이미 등록된 사업자 번호입니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 등록된 사업자 번호입니다");
         }
 
 //        if (userId == 0){
@@ -57,23 +57,23 @@ public class BusinessService {
 //        }
 
 
-        if (paper==null || logo==null) {
+        if (paper == null || logo == null) {
             return businessMapper.insBusiness(p);
         }
 
 
-        String paperPath = String.format("business/%d/paper",p.getBusinessId());
-        String logoPath = String.format("business/%d/logo",p.getBusinessId());
+        String paperPath = String.format("business/%d/paper", p.getBusinessId());
+        String logoPath = String.format("business/%d/logo", p.getBusinessId());
         myFileUtils.makeFolders(paperPath);
         myFileUtils.makeFolders(logoPath);
         String savedPicName = (paper != null ? myFileUtils.makeRandomFileName(paper) : null);
         String savedPicName2 = (paper != null ? myFileUtils.makeRandomFileName(logo) : null);
-        String filePath = String.format("%s/%s",paperPath,savedPicName);
-        String filePath2 = String.format("%s/%s",logoPath,savedPicName2);
+        String filePath = String.format("%s/%s", paperPath, savedPicName);
+        String filePath2 = String.format("%s/%s", logoPath, savedPicName2);
         try {
-            myFileUtils.transferTo(paper,filePath2);
-            myFileUtils.transferTo(paper,filePath);
-        }catch (IOException e){
+            myFileUtils.transferTo(paper, filePath2);
+            myFileUtils.transferTo(paper, filePath);
+        } catch (IOException e) {
             log.error(e.getMessage());
 
 
@@ -94,23 +94,22 @@ public class BusinessService {
 
         long userId = businessMapper.existBusinessId(p.getBusinessId());
 
-        long signedUserId =authenticationFacade.getSignedUserId();
+        long signedUserId = authenticationFacade.getSignedUserId();
         p.setSignedUserId(signedUserId);
-        if (userId != signedUserId){
+        if (userId != signedUserId) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
         }
         return businessMapper.udtBusiness(p);
     }
 
 
-
     // 로고 수정
     public int patchBusinessLogo(BusinessLogoPatchReq p, MultipartFile logo) {
 
-        long signedUserId =authenticationFacade.getSignedUserId();
+        long signedUserId = authenticationFacade.getSignedUserId();
 
         long userId = businessMapper.existBusinessId(p.getBusinessId());
-        if (userId != signedUserId){
+        if (userId != signedUserId) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
         }
 
@@ -151,10 +150,10 @@ public class BusinessService {
     // 사업자등록증 수정
     public int patchBusinessPaper(BusinessPaperPatchReq p, MultipartFile paper) {
 
-        long signedUserId =authenticationFacade.getSignedUserId();
+        long signedUserId = authenticationFacade.getSignedUserId();
 
         long userId = businessMapper.existBusinessId(p.getBusinessId());
-        if (userId != signedUserId){
+        if (userId != signedUserId) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
         }
 
@@ -192,15 +191,13 @@ public class BusinessService {
     }
 
 
-
-
     @Transactional
     public BusinessPicPostRes insBusinessPic(List<MultipartFile> pics, long businessId) {
 
-        long signedUserId =authenticationFacade.getSignedUserId();
+        long signedUserId = authenticationFacade.getSignedUserId();
 
         long userId = businessMapper.existBusinessId(businessId);
-        if (userId != signedUserId){
+        if (userId != signedUserId) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 업체에 대한 권한이 없습니다");
         }
 
@@ -237,9 +234,13 @@ public class BusinessService {
         return businessMapper.putBusinessState(p);
     }
 
+    @Transactional
+    public int delBusinessPic(BusinessPicDelReq p) {
+        String businessPicName = businessMapper.getBusinessPicName(p.getBusinessPicId());
+        String filePath = String.format("business/%d/pics/%s",p.getBusinessId(), businessPicName);
 
-    public int delBusinessPic(long businessPicId) {
-    return businessMapper.delBusinessPic(businessPicId);
+        myFileUtils.deleteFile(filePath);
+        return businessMapper.delBusinessPic(p);
     }
 
     //업체 조회하기
@@ -270,7 +271,7 @@ public class BusinessService {
         }
 
         if (res != null && res.getLogo() != null) {
-            res.setLogo(PicUrlMaker.makePicUrlLogo(p.getBusinessId(),res.getLogo()));
+            res.setLogo(PicUrlMaker.makePicUrlLogo(p.getBusinessId(), res.getLogo()));
         }
         return res;
     }
@@ -278,7 +279,7 @@ public class BusinessService {
     //업체 하나에 있는 사진들
     public List<BusinessOnePicsGetRes> getBusinessOnePics(BusinessOnePicsGetReq p) {
 
-        List<BusinessOnePicsGetRes> res= businessMapper.getBusinessPicList(p);
+        List<BusinessOnePicsGetRes> res = businessMapper.getBusinessPicList(p);
         for (BusinessOnePicsGetRes pic : res) {
             // 비즈니스 객체의 pic 필드를 이용하여 사진 경로 생성
             String picUrl = PicUrlMaker.makePicUrlBusiness(pic.getBusinessId(), pic.getPic());
@@ -286,11 +287,6 @@ public class BusinessService {
         }
         return res;
     }
-
-
-
-
-
 
 
     public int insBusinessPhone(BusinessPhonePostReq p) {
