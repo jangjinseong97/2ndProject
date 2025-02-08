@@ -234,12 +234,22 @@ public class BusinessService {
         return businessMapper.putBusinessState(p);
     }
 
-    @Transactional
-    public int delBusinessPic(BusinessPicDelReq p) {
-        String businessPicName = businessMapper.getBusinessPicName(p.getBusinessPicId());
-        String filePath = String.format("business/%d/pics/%s",p.getBusinessId(), businessPicName);
 
-        myFileUtils.deleteFile(filePath);
+    public int delBusinessPic(BusinessPicDelReq p) {
+        //String uploadPath = myFileUtils.getUploadPath();
+        String businessPicName = businessMapper.getBusinessPicName(p.getBusinessPicId());
+        String filePath = String.format("business/%d/pics/%s",  p.getBusinessId(), businessPicName);
+
+        log.info("Generated file path: {}", filePath);  // 경로 출력
+
+        // 파일 삭제 시도
+        if (myFileUtils.deleteFile(filePath)) {  // 단일 파일 삭제 시도
+            log.info("File successfully deleted: {}", filePath);  // 삭제 성공 로그
+        } else {
+            log.error("Failed to delete file: {}", filePath);  // 삭제 실패 로그
+        }
+
+        // DB에서 해당 사진 정보 삭제
         return businessMapper.delBusinessPic(p);
     }
 

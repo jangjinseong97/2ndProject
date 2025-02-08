@@ -23,8 +23,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping("/Img")
-    public void postImg(@RequestPart MultipartFile pic) {
-        reviewService.postImg(pic);
+    public void postImg(@RequestPart MultipartFile pic, @RequestPart int num) {
+        reviewService.postImg(pic, num);
     }
 
     @PostMapping

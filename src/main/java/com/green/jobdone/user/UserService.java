@@ -43,8 +43,8 @@ public class UserService {
         if (existsEmail != null) {
             throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
-
-        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : "img.jpg");
+        String img = String.format("img%d.jpg", (int)(Math.random()*4)+1);
+        String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : img);
 
 
         String hashedPassword = passwordEncoder.encode(p.getUpw());
@@ -153,8 +153,11 @@ public class UserService {
 
         UserInfoGetRes res = mapper.getUserInfo(userId);
 
-        if(res.getPic().equals("img.jpg")) {
-            res.setPic("/pic/user/defaultImg/img.jpg");
+        String profile = res.getPic().substring(0,3);
+        String profile2 = "img";
+
+        if(profile.equals(profile2)) {
+            res.setPic(String.format("/pic/user/defaultImg/%s", res.getPic()));
         } else {
             res.setPic(PicUrlMaker.makePicUserUrl(userId, res.getPic()));
         }
