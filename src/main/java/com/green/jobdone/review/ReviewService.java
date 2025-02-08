@@ -31,9 +31,9 @@ public class ReviewService {
     private final AuthenticationFacade authenticationFacade;
     private final MyFileUtils myFileUtils;
 
-    public void postImg (MultipartFile pic) {
+    public void postImg (MultipartFile pic, int num) {
         myFileUtils.makeFolders("user/defaultImg");
-        String filePath = "user/defaultImg/img.jpg";
+        String filePath = String.format("user/defaultImg/img%d.jpg", num);
         try {
             myFileUtils.transferTo(pic, filePath);
         } catch (IOException e) {
