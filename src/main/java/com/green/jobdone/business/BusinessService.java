@@ -231,11 +231,16 @@ public class BusinessService {
     }
 
     public int udtBusinessState(BusinessStatePutReq p) {
+
         return businessMapper.putBusinessState(p);
     }
 
+    public int setBusinessThumbnail(BusinessPicReq p) {
+        return businessMapper.udtBusinessThumbnail(p);
+    }
 
-    public int delBusinessPic(BusinessPicDelReq p) {
+
+    public int delBusinessPic(BusinessPicReq p) {
         //String uploadPath = myFileUtils.getUploadPath();
         String businessPicName = businessMapper.getBusinessPicName(p.getBusinessPicId());
         String filePath = String.format("business/%d/pics/%s",  p.getBusinessId(), businessPicName);

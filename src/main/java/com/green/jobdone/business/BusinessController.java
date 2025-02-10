@@ -93,7 +93,7 @@ public class BusinessController {
 
     @DeleteMapping("businessPic")
     @Operation(summary = "업체 사진 삭제")
-    public ResultResponse<Integer> delBusinessPic(@Valid @ParameterObject @ModelAttribute BusinessPicDelReq p ) {
+    public ResultResponse<Integer> delBusinessPic(@Valid @ParameterObject @ModelAttribute BusinessPicReq p ) {
         int result = businessService.delBusinessPic(p);
         return ResultResponse.<Integer>builder().resultData(result).resultMessage("해당 업체 사진 삭제").build();
     }
@@ -107,6 +107,13 @@ public class BusinessController {
                 .resultMessage(res == 0? "업체사진 수정 실패":"업체 사진 수정 완료")
                 .resultData(res)
                 .build();
+    }
+
+    @PutMapping("pic/thumbnail")
+    @Operation(summary = "업체 사진 썸네일 설정")
+    public ResultResponse<Integer> setBusinessThumbnail(BusinessPicReq p){
+        int result = businessService.setBusinessThumbnail(p);
+        return ResultResponse.<Integer>builder().resultData(result).resultMessage("댐").build();
     }
 
     @PutMapping("state")
