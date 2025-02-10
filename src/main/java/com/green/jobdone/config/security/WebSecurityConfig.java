@@ -84,7 +84,7 @@ public class WebSecurityConfig {
                                         UserRole.FREELANCER.name()
                                 )
                                 //카카오페이쪽
-                                .requestMatchers("/api/payment/**").authenticated()
+                                .requestMatchers("/api/payment/**").permitAll()
 
                                 //스웨거쪽
                                 .requestMatchers("/chat/**").permitAll()
