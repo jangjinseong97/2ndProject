@@ -134,13 +134,21 @@ public class ReviewService {
             throw new CustomException(ReviewErrorCode.FAIL_TO_UPD);
         }
         int result = reviewMapper.updReview(p);
+        List<String> picNameList = new ArrayList<>(pics.size());
+        String check = pics.get(0).getOriginalFilename();
+        int delPic = reviewPicMapper.delReviewPic(p.getReviewId());
+        if(check.equals("")){
+            return ReviewPutRes.builder()
+                    .reviewId(p.getReviewId())
+                    .pics(picNameList)
+                    .build();
+        }
 
         long reviewId = p.getReviewId();
 
         String middlePath = String.format("review/%d", reviewId);
         myFileUtils.deleteFolder(middlePath, true);
         myFileUtils.makeFolders(middlePath);
-        List<String> picNameList = new ArrayList<>(pics.size());
         for(MultipartFile pic : pics) {
             //각 파일 랜덤파일명 만들기
             String savedPicName = myFileUtils.makeRandomFileName(pic);
@@ -159,8 +167,6 @@ public class ReviewService {
         reviewPicDto.setReviewId(reviewId);
         reviewPicDto.setPics(picNameList);
         int resultPics = reviewPicMapper.insReviewPic(reviewPicDto);
-
-        int delPic = reviewPicMapper.delReviewPic(p.getReviewId());
 
         return ReviewPutRes.builder()
                 .reviewId(reviewId)
