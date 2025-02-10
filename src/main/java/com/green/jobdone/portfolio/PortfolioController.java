@@ -25,10 +25,10 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
 
     @PostMapping("post")
-    public ResultResponse<Integer> insPortfolio(PortfolioPostReq p) {
-        int res = portfolioService.insPortfolio(p);
-        return ResultResponse.<Integer>builder()
-                .resultData(res)
+    public ResultResponse<Long> insPortfolio(PortfolioPostReq p) {
+        long res = portfolioService.insPortfolio(p);
+        return ResultResponse.<Long>builder()
+                .resultData(p.getPortfolioId())
                 .resultMessage("포트폴리오 등록 완료")
                 .build();
     }

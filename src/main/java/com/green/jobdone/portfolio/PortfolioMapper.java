@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface PortfolioMapper {
-    int insPortfolio(PortfolioPostReq p);
+    long insPortfolio(PortfolioPostReq p);
     int delPortfolio(long portfolioId);
 
     int udtPortfolio(PortfolioPutReq p);

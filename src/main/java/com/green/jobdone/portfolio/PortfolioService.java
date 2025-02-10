@@ -30,7 +30,7 @@ public class PortfolioService {
 
 
     // 포폴 만들기
-    public int insPortfolio(PortfolioPostReq p){
+    public long insPortfolio(PortfolioPostReq p){
 
 //        long signedUserId =authenticationFacade.getSignedUserId();
 //
