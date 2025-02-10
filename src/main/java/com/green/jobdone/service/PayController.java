@@ -28,7 +28,7 @@ public class PayController {
 
     @PostMapping("/ready")
     @Operation(summary = "결제 요청 보내기")
-    public KakaoPayRedayRes startKakaoPay(@RequestParam Long serviceId, HttpSession session, HttpServletResponse response) {
+    public KakaoPayRedayRes startKakaoPay(@RequestParam Long serviceId) {
         log.info("serviceId : {}", serviceId);
         KakaoPayRedayRes a = payService.useKakaoPay(serviceId);
         String tid = a.getTid();
