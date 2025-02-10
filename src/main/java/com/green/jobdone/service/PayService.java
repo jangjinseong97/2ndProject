@@ -58,10 +58,10 @@ public class PayService {
         params.put("total_amount", kakaoPayDto.getPrice()); // 총 금액
         params.put("vat_amount", kakaoPayDto.getPrice()/10); // 부가세
         params.put("tax_free_amount", 0); // 비과세 금액
-        String approval_url = String.format("http://192.168.0.190:8080/api/payment/success?service_id=%d", serviceId);
+        String approval_url = String.format("http://112.222.157.156:5224/api/payment/success?service_id=%d", serviceId);
         params.put("approval_url", approval_url); // 결제 성공 시 이동할 URL
-        params.put("cancel_url", "http://localhost:8080/api/payment/cancel"); // 결제 취소 시 이동할 URL
-        params.put("fail_url", "http://localhost:8080/api/payment/fail"); // 결제 실패 시 이동할 URL
+        params.put("cancel_url", "http://112.222.157.156:5224/api/payment/cancel"); // 결제 취소 시 이동할 URL
+        params.put("fail_url", "http://112.222.157.156:5224/api/payment/fail"); // 결제 실패 시 이동할 URL
 
         log.info("params : {}", params);
 
@@ -130,7 +130,7 @@ public class PayService {
                 requestEntity,KakaoPayRes.class);
         log.info("kakaoPayRedayRes: {}", kakaoPayRes);
 
-        String redirectUrl = String.format("http://localhost:8080/payResult", serviceId);
+        String redirectUrl = String.format("http://112.222.157.156:5224/paySuccess", serviceId);
         return new RedirectView(redirectUrl);
         // 여기 만나서 바로 이동하는식
     }

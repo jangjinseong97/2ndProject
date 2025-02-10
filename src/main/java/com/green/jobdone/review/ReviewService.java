@@ -101,9 +101,14 @@ public class ReviewService {
                 String createdAt = reviewAndPicDto.getCreatedAt().substring(0,10);
                 beforeReviewGetRes.setCreatedAt(createdAt);
                 beforeReviewGetRes.setServiceId(reviewAndPicDto.getServiceId());
-                beforeReviewGetRes.setUserId(reviewAndPicDto.getUserId());
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
-                beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
+                String profile = reviewAndPicDto.getWriterPic().substring(0,3);
+                String profile2 = "img";
+                if(profile.equals(profile2)){
+                    beforeReviewGetRes.setWriterPic(String.format("/pic/user/defaultImg/%s", reviewAndPicDto.getPic()));
+                } else {
+                    beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
+                }
                 beforeReviewGetRes.setDetailTypeName(reviewAndPicDto.getDetailTypeName());
                 beforeReviewGetRes.setAverageScore(Math.round(reviewAndPicDto.getAverageScore()*100)/100.0);
             }
@@ -132,9 +137,18 @@ public class ReviewService {
 
         long reviewId = p.getReviewId();
 
+        MultipartFile check = pics.get(0);
+        String check2 = check.getOriginalFilename();
+        List<String> picNameList = new ArrayList<>(pics.size());
+        if(check2.equals("")) {
+            return ReviewPutRes.builder()
+                    .reviewId(reviewId)
+                    .pics(picNameList)
+                    .build();
+        }
+
         String middlePath = String.format("review/%d", reviewId);
         myFileUtils.makeFolders(middlePath);
-        List<String> picNameList = new ArrayList<>(pics.size());
         for(MultipartFile pic : pics) {
             //각 파일 랜덤파일명 만들기
             String savedPicName = myFileUtils.makeRandomFileName(pic);
