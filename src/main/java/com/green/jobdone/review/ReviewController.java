@@ -51,7 +51,7 @@ public class ReviewController {
 
     @PutMapping
     @Operation(summary = "리뷰 수정")
-    public ResultResponse<ReviewPutRes> updReview(@RequestPart List<MultipartFile> pics, @Valid @RequestPart ReviewPutReq p) {
+    public ResultResponse<ReviewPutRes> updReview(@RequestPart(required = false) List<MultipartFile> pics, @Valid @RequestPart ReviewPutReq p) {
         ReviewPutRes res = reviewService.updReview(pics, p);
         return ResultResponse.<ReviewPutRes>builder()
                 .resultMessage("리뷰 수정 완료")
