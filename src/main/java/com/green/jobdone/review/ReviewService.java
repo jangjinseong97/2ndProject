@@ -134,9 +134,19 @@ public class ReviewService {
         if(reviewMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
             throw new CustomException(ReviewErrorCode.FAIL_TO_UPD);
         }
-        int result = reviewMapper.updReview(p);
 
         long reviewId = p.getReviewId();
+        String deletePath = String.format("/review/%d", p.getReviewId());
+        myFileUtils.deleteFolder(deletePath, true);
+
+        List<Long> reviewPicId = reviewPicMapper.selReviewPicId(p.getReviewId());
+        for(Long id : reviewPicId) {
+            ReviewPicStatePutReq req = new ReviewPicStatePutReq();
+            req.setReviewPicId(id);
+            updReviewPicState(req);
+        }
+
+        int result = reviewMapper.updReview(p);
 
         String middlePath = String.format("review/%d", reviewId);
         myFileUtils.makeFolders(middlePath);

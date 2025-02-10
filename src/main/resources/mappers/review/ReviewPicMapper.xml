@@ -26,6 +26,12 @@
         </foreach>
     </select>
 
+    <select id="selReviewPicId">
+        SELECT reviewPicId
+        FROM review_pic
+        WHERE reviewId = #{reviewId};
+    </select>
+
     <update id="updReviewPicState">
         UPDATE review_pic
         <set>
