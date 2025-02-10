@@ -101,12 +101,11 @@ public class ReviewService {
                 String createdAt = reviewAndPicDto.getCreatedAt().substring(0,10);
                 beforeReviewGetRes.setCreatedAt(createdAt);
                 beforeReviewGetRes.setServiceId(reviewAndPicDto.getServiceId());
-                beforeReviewGetRes.setUserId(reviewAndPicDto.getUserId());
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
                 String profile = reviewAndPicDto.getWriterPic().substring(0,3);
                 String profile2 = "img";
                 if(profile.equals(profile2)){
-                    beforeReviewGetRes.setWriterPic(String.format("/pic/user/defaultImg/%s", reviewAndPicDto.getWriterPic()));
+                    beforeReviewGetRes.setWriterPic(String.format("/pic/user/defaultImg/%s", reviewAndPicDto.getPic()));
                 } else {
                     beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
                 }
@@ -134,19 +133,9 @@ public class ReviewService {
         if(reviewMapper.selUserIdByReviewId(p.getReviewId()) != authenticationFacade.getSignedUserId()) {
             throw new CustomException(ReviewErrorCode.FAIL_TO_UPD);
         }
+        int result = reviewMapper.updReview(p);
 
         long reviewId = p.getReviewId();
-        String deletePath = String.format("/review/%d", p.getReviewId());
-        myFileUtils.deleteFolder(deletePath, true);
-
-        List<Long> reviewPicId = reviewPicMapper.selReviewPicId(p.getReviewId());
-        for(Long id : reviewPicId) {
-            ReviewPicStatePutReq req = new ReviewPicStatePutReq();
-            req.setReviewPicId(id);
-            updReviewPicState(req);
-        }
-
-        int result = reviewMapper.updReview(p);
 
         String middlePath = String.format("review/%d", reviewId);
         myFileUtils.makeFolders(middlePath);
