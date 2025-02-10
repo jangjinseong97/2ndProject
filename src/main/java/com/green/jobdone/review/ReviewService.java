@@ -101,12 +101,11 @@ public class ReviewService {
                 String createdAt = reviewAndPicDto.getCreatedAt().substring(0,10);
                 beforeReviewGetRes.setCreatedAt(createdAt);
                 beforeReviewGetRes.setServiceId(reviewAndPicDto.getServiceId());
-                beforeReviewGetRes.setUserId(reviewAndPicDto.getUserId());
                 beforeReviewGetRes.setName(reviewAndPicDto.getName());
                 String profile = reviewAndPicDto.getWriterPic().substring(0,3);
                 String profile2 = "img";
                 if(profile.equals(profile2)){
-                    beforeReviewGetRes.setWriterPic(String.format("/pic/user/defaultImg/%s", reviewAndPicDto.getWriterPic()));
+                    beforeReviewGetRes.setWriterPic(String.format("/pic/user/defaultImg/%s", reviewAndPicDto.getPic()));
                 } else {
                     beforeReviewGetRes.setWriterPic(PicUrlMaker.makePicUserUrl(reviewAndPicDto.getUserId(),reviewAndPicDto.getWriterPic()));
                 }
