@@ -23,8 +23,6 @@ public class ReviewGetRes {
     private String createdAt;
     @Schema(title = "서비스 PK")
     private long serviceId;
-    @Schema(title = "작성자 유저 PK")
-    private long userId;
     @Schema(title = "작성자 유저 이름")
     private String name;
     @Schema(title = "작성자 유저 프로필 사진파일명")
@@ -44,7 +42,6 @@ public class ReviewGetRes {
         this.contents = dto.getContents();
         this.score = dto.getScore();
         this.createdAt = dto.getCreatedAt();
-        this.userId = dto.getUserId();
         this.name = dto.getName();
         this.writerPic = dto.getWriterPic();
         this.pics = dto.getPics();

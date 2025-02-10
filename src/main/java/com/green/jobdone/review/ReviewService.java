@@ -137,9 +137,18 @@ public class ReviewService {
 
         long reviewId = p.getReviewId();
 
+        MultipartFile check = pics.get(0);
+        String check2 = check.getOriginalFilename();
+        List<String> picNameList = new ArrayList<>(pics.size());
+        if(check2.equals("")) {
+            return ReviewPutRes.builder()
+                    .reviewId(reviewId)
+                    .pics(picNameList)
+                    .build();
+        }
+
         String middlePath = String.format("review/%d", reviewId);
         myFileUtils.makeFolders(middlePath);
-        List<String> picNameList = new ArrayList<>(pics.size());
         for(MultipartFile pic : pics) {
             //각 파일 랜덤파일명 만들기
             String savedPicName = myFileUtils.makeRandomFileName(pic);
