@@ -30,6 +30,8 @@ jwt-const:
 
 
 spring:
+
+
   application:
     name: Jobone
   datasource:

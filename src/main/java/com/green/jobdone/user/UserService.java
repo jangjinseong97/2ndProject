@@ -170,6 +170,9 @@ public class UserService {
     public String postUserAccessToken(HttpServletRequest req) {
 
         Cookie cookie = cookieUtils.getCookie(req, "refreshToken");
+        String checkDomain = cookie.getDomain();
+//        if(checkDomain.contains("112.222."))
+
 
         if (cookie != null) {
             String refreshToken = cookie.getValue();
